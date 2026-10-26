@@ -380,6 +380,43 @@ h2.sec small{font-family:var(--font-body);font-size:13px;color:var(--muted);font
 @keyframes spinq{50%{transform:rotate(180deg) scale(1.2)}100%{transform:rotate(360deg)}}
 .prop{transform-box:fill-box;transform-origin:center;animation:prop .45s linear infinite}
 @keyframes prop{0%{transform:scaleX(1)}50%{transform:scaleX(-1)}100%{transform:scaleX(1)}}
+/* Live-Duell */
+.livebadge{flex:none;font-size:12px;font-weight:900;letter-spacing:.08em;color:#fff;background:var(--red);padding:6px 10px;border-radius:99px;animation:livepulse 1.4s infinite}
+@keyframes livepulse{50%{box-shadow:0 0 0 6px rgba(255,77,109,0)}0%{box-shadow:0 0 0 0 rgba(255,77,109,.55)}}
+.oppstat{font-size:11.5px;font-weight:900;color:var(--muted);min-height:16px;text-align:center}
+.oppstat.done{color:var(--mint)}
+.waitav{display:grid;place-items:center;font-size:30px;background:var(--surface-2)}
+.ans.picked{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 22%,var(--surface-2));box-shadow:0 5px 0 var(--gold-deep)}
+.ans .opp.me{border-color:var(--gold)}
+.livewait{margin-top:12px;text-align:center;font-weight:900;color:var(--muted);animation:fade .3s}
+.revline{display:flex;justify-content:space-between;gap:10px;margin-top:12px;font-weight:900;font-size:14px;background:var(--surface);border-radius:14px;padding:10px 12px}
+.livemsg{text-align:center;padding:26px 6px 10px}
+.livemsg .bigemo{font-size:64px;line-height:1}
+.livemsg h3{font-family:var(--font-display);font-weight:400;font-size:26px;margin:10px 0 6px;text-wrap:balance}
+.livemsg p{color:var(--muted);line-height:1.45;margin:0 auto 6px;max-width:34ch}
+.livemsg .acts{display:grid;gap:10px;margin-top:16px}
+.liveround{margin-top:16px;text-align:center;background:var(--surface);border-radius:22px;padding:18px 14px;animation:cardIn .5s cubic-bezier(.2,1.4,.4,1)}
+.liveround h3{font-family:var(--font-display);font-weight:400;font-size:28px;margin:6px 0;color:var(--gold)}
+.rscore{display:flex;justify-content:center;align-items:center;gap:14px;font-family:var(--font-display);font-size:52px}
+.rscore small{font-size:30px;color:var(--muted)}
+.wheel{display:flex;justify-content:center;gap:16px;margin-top:22px;font-size:46px}
+.wheel span{animation:wheel 1.2s infinite}
+.wheel span:nth-child(2){animation-delay:.2s}.wheel span:nth-child(3){animation-delay:.4s}
+@keyframes wheel{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.15)}}
+.livedock{margin-top:16px;background:var(--surface);border-radius:20px;padding:10px}
+.livelog{max-height:110px;overflow-y:auto;font-size:13.5px;line-height:1.4;padding:2px 4px 8px;display:grid;gap:3px}
+.livelog .ll{overflow-wrap:anywhere}.livelog .ll b{color:var(--sky)}.livelog .ll.me b{color:var(--gold)}
+.livedock .crow{margin-top:6px}
+.livedock .inp{min-height:46px;padding:10px 13px}
+.livedock .sendb{width:46px;height:46px}
+.fighter{overflow:visible}
+.sbub{position:absolute;top:-8px;left:50%;transform:translateX(-50%);z-index:5;max-width:150px;background:#F5F0E6;color:#14223A;font-weight:800;font-size:13px;line-height:1.3;padding:7px 10px;border-radius:14px;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:bubIn .35s cubic-bezier(.2,1.5,.4,1);overflow-wrap:anywhere;text-align:center;pointer-events:none}
+.sbub::after{content:"";position:absolute;bottom:-6px;left:50%;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:#F5F0E6}
+.sbub.e{background:none;box-shadow:none;font-size:40px;padding:0;top:-20px}.sbub.e::after{display:none}
+@keyframes bubIn{from{transform:translateX(-50%) scale(.4);opacity:0}}
+.liveinv{width:104px;height:104px;margin:0 auto 12px;border-radius:50%;overflow:hidden;border:4px solid #fff;animation:wiggle 1.2s infinite}
+.rbtns{display:flex;gap:6px;flex:none}
+.rbtns .btn.small{min-height:38px;padding:6px 10px}
 /* Handy-Feinschliff */
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -1785,7 +1822,7 @@ const mathLevelForDiff=d=>d===1?pick([1,2]):d===2?pick([2,3]):pick([3,4]);
 const S={db:null,user:null,room:null,uid:null,myId:'local',online:false,readOnly:false,
  me:null,profiles:{},duels:{},duelsLoaded:false,botDuels:{},botChat:{},lobby:[],onlineIds:new Set(),
  view:{name:'loading'},tab:'home',sound:true,seenMsg:new Set(),lastSend:0,hpSeen:{},endShown:new Set(),
- duelChat:null,toastSeen:{},chain:Promise.resolve()};
+ duelChat:null,toastSeen:{},liveSeen:new Set(),chain:Promise.resolve()};
 let G=null;
 function serial(fn){const p=S.chain.then(fn);S.chain=p.catch(()=>{});return p}
 function newProfile(name,avatar){return{name,avatar,banner:0,points:0,wins:0,losses:0,draws:0,correct:0,answered:0,games:0,bestTower:0,bestTowerScore:0,bestMath:0,bestSolo:0,mathStage:1,ptsBy:{},countedDuels:[],createdAt:Date.now(),lastSeen:Date.now()}}
@@ -1840,7 +1877,6 @@ function duelCalc(d){
   if(A.c>B.c)db=4+7*(A.c-B.c)+r;
   else if(B.c>A.c)da=4+7*(B.c-A.c)+r;
   else if(A.c===0){da=db=5}
-  else if(A.t<B.t)db=4;else if(B.t<A.t)da=4;else{da=db=3}
   hp[a]=Math.max(0,hp[a]-da);hp[b]=Math.max(0,hp[b]-db);log.push({[a]:da,[b]:db});
   if(hp[a]<=0||hp[b]<=0){r++;break}
  }
@@ -1919,9 +1955,10 @@ function pingRoom(data){try{S.room&&S.room.emit('ping',data).catch(()=>{})}catch
 /* ============================================================
    NAVIGATION & RENDER
    ============================================================ */
-const GAME_VIEWS=['loading','onboard','quiz','pick','result'];
+const GAME_VIEWS=['loading','onboard','quiz','pick','result','live'];
 function go(v){
  if(S.view.name==='duel'&&(v.name!=='duel'||v.id!==S.view.id))stopDuelChat();
+ if(S.view.name==='live'&&(v.name!=='live'||v.id!==S.view.id))closeLive();
  S.view=v;if(['home','board','chat','profile'].includes(v.name))S.tab=v.name;
  render(true);
  if(v.name==='duel')startDuelChat(v.id);
@@ -1982,6 +2019,7 @@ function noticeHTML(){
  return '';
 }
 const VIEWS={
+live(){return liveHTML()},
 loading(){return `<div class="loading"><div class="spinq">🧠</div><div class="hero-logo" style="font-size:40px">BRAIN<span>CLASH</span></div><div class="marquee">${bulbs(9)}</div><p class="muted">Scheinwerfer werden eingeschaltet …</p></div>`},
 
 onboard(v){return `<div class="hero-logo">BRAIN<span>CLASH</span></div><div class="marquee">${bulbs(9)}</div>
@@ -1999,13 +2037,13 @@ home(){
  const ds=myDuels();const turn=ds.filter(d=>duelCalc(d).turn===S.myId).length;
  return `${bannerHTML(S.me,true)}${noticeHTML()}
  <div class="modes">
-  <button class="mode m-duel" data-a="go" data-v="newduel"><div class="mode-row"><span class="big">⚔️</span>${turn?`<span class="pill hot">${turn}× du bist dran</span>`:''}</div><div><h3>Duell</h3><p>10 Runden, jede verlorene Runde kostet Lebenspunkte</p></div></button>
+  <button class="mode m-duel" data-a="go" data-v="newduel"><div class="mode-row"><span class="big">⚔️</span>${turn?`<span class="pill hot">${turn}× du bist dran</span>`:''}</div><div><h3>Duell</h3><p>LIVE gegen Freunde oder Zug um Zug. 10 Runden, wer verliert, verliert Leben.</p></div></button>
   <button class="mode m-solo" data-a="startSolo"><div class="mode-row"><span class="big">🏅</span><span class="pill">Bestwert: ${fmt(S.me.bestSolo)}</span></div><div><h3>Einzelspieler-Rangspiel</h3><p>10 Fragen aus allen Themen, passend zu deinem Level. Sammle Rangpunkte für die Rangliste.</p></div></button>
   <button class="mode m-topic" data-a="go" data-v="topics"><span class="big">🎯</span><div><h3>Themen-Quiz</h3><p>${CATS.length} Themen, leicht bis schwer</p></div></button>
   <button class="mode m-math" data-a="go" data-v="math"><span class="big">✖️</span><div><h3>1×1-Trainer</h3><p>5 Stufen + Endlos</p></div></button>
   <button class="mode m-tower" data-a="startTower"><div class="mode-row"><span class="big">🗼</span><span class="pill">Rekord: Etage ${S.me.bestTower||0}</span></div><div><h3>Aufstieg</h3><p>Endlos und immer schwerer. 3 Leben, jede Etage wird härter.</p></div></button>
  </div>
- ${S.online&&!S.readOnly?`<button class="btn coral block" style="margin-top:16px" data-a="invite">🔗 Freunde per Link einladen</button>`:''}
+ ${S.online&&!S.readOnly?`<button class="btn coral block" style="margin-top:16px" data-a="liveRoom">⚡ Freund per Link zum LIVE-Duell einladen</button>`:''}
  <p class="muted center" style="font-size:12.5px;margin:12px 0 0">Jeder Modus bringt Rangpunkte ⭐ – alle zählen zusammen für dein Level und die Rangliste.</p>
  <div>
  </div>
@@ -2029,13 +2067,13 @@ newduel(){
  const canFriends=S.online&&!S.readOnly;
  return `<div class="qtop"><button class="xbtn" data-a="tab" data-v="home" aria-label="Zurück">←</button><div class="qlabel">Gegner wählen</div><span style="width:42px"></span></div>
  <div class="list" style="margin-top:14px">
-  ${canFriends?`<button class="btn block" data-a="invite">🔗 Freund per Link einladen</button>`:''}
+  ${canFriends?`<button class="btn block" data-a="liveRoom">⚡ Live-Einladungslink erstellen</button>`:''}
   ${canFriends&&ids.length?`<button class="btn coral block" data-a="randomDuel">🎲 Zufälliger Gegner</button>`:''}
   <button class="row" data-a="duelWith" data-v="bot"><div class="av">${avatarSVG(BOT.avatar)}</div><div class="mid"><div class="t1">${BOT.name}</div><div class="t2">Übungsgegner, spielt sofort</div></div><span class="tag">Üben</span></button>
  </div>
  <h2 class="sec">Freunde <small>${ids.length} Spieler</small></h2>
  ${!canFriends?`<div class="empty">${S.online?'Dir fehlen Schreibrechte für Duelle mit Freunden.':'Duelle mit Freunden gehen nur angemeldet bei claude.ai.'}</div>`:
- ids.length?`<div class="list">${ids.map(id=>{const p=ps[id];const L=levelFor(p.points);return `<button class="row" data-a="duelWith" data-v="${esc(id)}"><div class="avwrap"><div class="av" style="width:46px;height:46px;border-radius:50%;overflow:hidden">${avatarSVG(p.avatar)}</div>${isOnline(id)?'<span class="ondot"></span>':''}</div><div class="mid"><div class="t1">${esc(p.name)}</div><div class="t2">Level ${L} · ${isOnline(id)?'<span style="color:var(--mint)">online</span>':'zuletzt '+timeAgo(p.lastSeen||0)}</div></div><span class="tag go">Fordern</span></button>`}).join('')}</div>`
+ ids.length?`<div class="list">${ids.map(id=>{const p=ps[id];const Lv=levelFor(p.points);const on=isOnline(id);return `<div class="row"><div class="avwrap"><div class="av" style="width:46px;height:46px;border-radius:50%;overflow:hidden">${avatarSVG(p.avatar)}</div>${on?'<span class="ondot"></span>':''}</div><div class="mid"><div class="t1">${esc(p.name)}</div><div class="t2">Level ${Lv} · ${on?'<span style="color:var(--mint)">online</span>':'zuletzt '+timeAgo(p.lastSeen||0)}</div></div><div class="rbtns">${on?`<button class="btn small coral" data-a="liveWith" data-v="${esc(id)}">⚡ Live</button>`:''}<button class="btn small ghost" data-a="duelWith" data-v="${esc(id)}" title="Zug um Zug">📨</button></div></div>`}).join('')}</div><p class="muted" style="font-size:12.5px;margin:10px 2px 0">⚡ Live = gleichzeitig spielen (nur wenn online). 📨 = Zug um Zug, jeder spielt, wann er Zeit hat.</p>`
  :`<div class="empty"><b>Noch niemand da.</b><br>Teile das Spiel mit deinen Freunden. Sobald sie ihren Namen eingegeben haben, tauchen sie hier auf.</div>`}`;
 },
 
@@ -2128,10 +2166,10 @@ chat(){
  <div class="lobbybox">
   <div class="list">
    <div class="row me"><div class="av">${avatarSVG(S.me.avatar)}</div><div class="mid"><div class="t1">${esc(S.me.name)} <span class="muted" style="font-size:12px">(du)</span></div><div class="t2">Lvl ${levelFor(S.me.points)} · ⭐ ${fmt(S.me.points)}</div></div></div>
-   ${on.map(id=>{const p=ps[id];return `<div class="row"><div class="avwrap" data-a="showProfile" data-v="${esc(id)}"><div class="av">${avatarSVG(p.avatar)}</div><span class="ondot"></span></div><div class="mid" data-a="showProfile" data-v="${esc(id)}"><div class="t1">${esc(p.name)}</div><div class="t2">Lvl ${levelFor(p.points)} · ⭐ ${fmt(p.points)}</div></div>${S.readOnly?'':`<button class="btn small coral" data-a="duelWith" data-v="${esc(id)}">⚔️ Duell</button>`}</div>`}).join('')}
+   ${on.map(id=>{const p=ps[id];return `<div class="row"><div class="avwrap" data-a="showProfile" data-v="${esc(id)}"><div class="av">${avatarSVG(p.avatar)}</div><span class="ondot"></span></div><div class="mid" data-a="showProfile" data-v="${esc(id)}"><div class="t1">${esc(p.name)}</div><div class="t2">Lvl ${levelFor(p.points)} · ⭐ ${fmt(p.points)}</div></div>${S.readOnly?'':`<button class="btn small coral" data-a="liveWith" data-v="${esc(id)}">⚡ Live</button>`}</div>`}).join('')}
   </div>
   ${on.length?'':`<p class="muted center" style="font-size:13.5px;margin:12px 0 4px">Gerade ist sonst niemand online.</p>`}
-  ${S.readOnly?'':`<button class="btn block" style="margin-top:12px" data-a="invite">🔗 Freunde per Link einladen</button>`}
+  ${S.readOnly?'':`<button class="btn block" style="margin-top:12px" data-a="liveRoom">⚡ Freund per Link zum LIVE-Duell einladen</button>`}
  </div>
  <h2 class="sec">Chat</h2>
  ${msgs.length?`<div class="msgs">${msgs.map(msgHTML).join('')}</div>`:`<div class="empty"><b>Noch still hier.</b><br>Schick das erste Emoji in die Runde 👇</div>`}
@@ -2216,8 +2254,8 @@ function makeNextQ(){
  const g=G;
  switch(g.mode){
   case'topic':{if(g.idx>=9)return null;const d=[1,1,1,2,2,2,3,3,3][g.idx];g.T=15;return g.cat==='mathe'?mathQ([1,1,2,2,3,3,4,4,5][g.idx]):bankQ(g.cat,d,g.used)}
-  case'mathStage':{if(g.idx>=12)return null;g.T=g.stage<=3?10:15;let q,k=0;do{q=mathQ(g.stage);k++}while(g.used.has(q.q)&&k<15);g.used.add(q.q);return q}
-  case'mathEndless':{const lv=Math.min(5,1+Math.floor(g.idx/5));g.T=Math.max(5,12-Math.floor(g.idx/5));g.level=lv;return mathQ(lv)}
+  case'mathStage':{if(g.idx>=12)return null;g.T=15;let q,k=0;do{q=mathQ(g.stage);k++}while(g.used.has(q.q)&&k<15);g.used.add(q.q);return q}
+  case'mathEndless':{const lv=Math.min(5,1+Math.floor(g.idx/5));g.T=Math.max(6,15-Math.floor(g.idx/5));g.level=lv;return mathQ(lv)}
   case'tower':{const f=1+Math.floor(g.idx/5);g.floor=f;const d=f===1?1:f===2?pick([1,2]):f===3?2:f===4?pick([2,3]):3;g.T=f<5?15:f<7?12:10;return bankQ(pick(BANK_CATS).id,d,g.used)}
   case'solo':{if(g.idx>=10)return null;const L=levelFor(S.me.points);const base=L<3?1:L<7?2:3;
    const d=Math.max(1,Math.min(3,base+(g.idx>=7?1:0)-(g.idx<3?1:0)));g.T=15;
@@ -2301,7 +2339,7 @@ function showRoundSummary(d,round){
  const oppDone=ansCount(R,opp)>=3;const A=corr(R,me),B=corr(R,opp);
  let head,sub;
  if(st.finished){S.endShown.add(d.id);const w=st.winner;head=w===me?'🏆 Sieg!':w==='draw'?'🤝 Unentschieden':'💀 Niederlage';sub=w===me?`Du hast ${P.name} besiegt. +100 Punkte`:w==='draw'?'Gleichstand. +40 Punkte':`${P.name} gewinnt. +20 Punkte fürs Mitmachen`;if(w===me){confetti(120);beep('win')}}
- else if(oppDone){const lg=st.log[round]||{};const dm=lg[me]||0,do_=lg[opp]||0;head=do_>dm?'Runde gewonnen! 💥':dm>do_?'Runde verloren 😵':'Unentschieden';sub=`${A.c} : ${B.c} richtige Antworten`+(A.c===B.c&&dm!==do_?' · der Schnellere gewinnt':'')}
+ else if(oppDone){const lg=st.log[round]||{};const dm=lg[me]||0,do_=lg[opp]||0;head=do_>dm?'Runde gewonnen! 💥':dm>do_?'Runde verloren 😵':'Unentschieden';sub=`${A.c} : ${B.c} richtige Antworten`+(A.c===B.c&&A.c>0?' · keiner verliert Leben':'')}
  else{head=`${A.c} von 3 richtig`;sub=`Jetzt muss ${P.name} dieselben Fragen beantworten`}
  const rows=R.qs.map((q,i)=>{const ma=R.ans[me]&&R.ans[me][i];const oa=R.ans[opp]&&R.ans[opp][i];
   return `<div class="rsq"><div class="q">${esc(q.q)}</div><div class="a"><span class="${ma&&ma.ok?'ok-t':'bad-t'}">${ma&&ma.ok?'✓':'✗'} Du</span><span class="muted">${esc(q.a[q.c])}</span><span class="${oa?(oa.ok?'ok-t':'bad-t'):'muted'}">${oa?(oa.ok?'✓':'✗'):'…'} ${esc(P.name)}</span></div></div>`}).join('');
@@ -2325,6 +2363,258 @@ function levelUpFX(L){
  const nb=BANNERS.filter(b=>b.lv===L).map(b=>b.n);
  openOverlay(`<div class="lvlup"><p style="margin:0;font-weight:900;letter-spacing:.12em">LEVEL UP!</p><div class="n">${L}</div><h3>${esc(titleFor(L))}</h3>${nb.length?`<p>Neues Banner freigeschaltet: ${esc(nb.join(', '))}</p>`:'<p>Weiter so!</p>'}<div class="acts"><button class="btn block" data-a="closeOvl">Yeah!</button></div></div>`);
 }
+
+/* ============================================================
+   LIVE-DUELL (Echtzeit, beide spielen gleichzeitig)
+   ============================================================ */
+const LIVE_ROUNDS=10,LIVE_Q=3,LIVE_T=15,PICK_T=12;
+const L={id:null,st:null,ans:{},unsub:[],timers:[],phaseKey:null,phaseLocal:0,busy:false,myPick:null,used:new Set(),answered:{},pts:0,correct:0,answeredN:0,lastEmo:0,lastMsg:0,shownHp:null,msgs:[],qTimer:null};
+const liveDoc=id=>S.db.doc('live/'+id);
+const liveAnsDoc=(id,u)=>S.db.doc('live/'+id+'/ans/'+u);
+const liveOpp=()=>L.st&&L.st.players?L.st.players.find(p=>p!==S.myId)||null:null;
+const lkey=(r,q)=>r+'-'+q;
+const newLiveId=()=>'L'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function canLive(){if(!S.online||S.readOnly){toast('Live-Duelle gehen nur online.');return false}return true}
+function liveRoomURL(id){const base=STANDALONE?(location.origin+location.pathname):ARTIFACT_URL;return `${base}#live-${id}`}
+
+async function liveChallenge(opp){
+ if(!canLive())return;closeOverlay();
+ const id=newLiveId(),now=Date.now();
+ try{await serial(()=>liveDoc(id).set({players:[S.myId,opp],host:S.myId,status:'invite',createdAt:now,updatedAt:now,phase:'wait',round:0,q:0,hp:{[S.myId]:100,[opp]:100},log:[]}))}
+ catch(e){writeFailed(e);toast('Live-Duell konnte nicht gestartet werden.');return}
+ openLive(id);
+}
+async function liveCreateRoom(){
+ if(!canLive())return;closeOverlay();
+ const id=newLiveId(),now=Date.now();
+ try{await serial(()=>liveDoc(id).set({players:[S.myId],host:S.myId,status:'waiting',createdAt:now,updatedAt:now,phase:'wait',round:0,q:0,hp:{[S.myId]:100},log:[]}))}
+ catch(e){writeFailed(e);toast('Raum konnte nicht angelegt werden.');return}
+ await openLive(id);setTimeout(()=>shareLiveRoom(id),300);
+}
+function shareLiveRoom(id){
+ const url=liveRoomURL(id);const txt=`${S.me.name} wartet bei ${APP_NAME} auf dich – LIVE-Quizduell! ⚡🧠`;
+ const canShare=STANDALONE&&!!navigator.share;
+ openOverlay(`<h3>⚡ Live-Einladung</h3><p>Schick den Link an einen Freund. Sobald er ihn öffnet, startet das Duell sofort – bleib so lange auf dieser Seite.</p>
+ <input id="invUrl" class="inp" readonly value="${esc(url)}" style="font-size:14px">
+ <div class="acts">${canShare?`<button class="btn coral block" data-a="shareLive" data-v="${id}">📲 Teilen …</button>`:''}
+ <button class="btn block" data-a="copyInvite">📋 Link kopieren</button>
+ <a class="btn mint block" style="text-decoration:none" href="https://wa.me/?text=${encodeURIComponent(txt+' '+url)}" target="_blank" rel="noopener">💬 Per WhatsApp senden</a>
+ <button class="btn ghost block" data-a="closeOvl">Schließen</button></div>`);
+}
+async function liveJoin(id){
+ try{
+  const s=await liveDoc(id).get();
+  if(!s.exists){toast('Dieses Live-Duell gibt es nicht mehr.');return}
+  const d=clone(s.data());
+  if(d.players.includes(S.myId)){openLive(id);return}
+  const host=d.players[0];
+  if(d.status!=='waiting'||d.players.length>=2||Date.now()-d.createdAt>30*60e3){
+   const P=getProfile(host);
+   openOverlay(`<h3>Der Live-Raum ist geschlossen</h3><p>${esc(P.name||'Dein Freund')} ist gerade nicht mehr im Raum. Du kannst ihn live herausfordern, wenn er online ist, oder ein Duell Zug um Zug starten.</p><div class="acts"><button class="btn coral block" data-a="liveWith" data-v="${esc(host)}">⚡ Live herausfordern</button><button class="btn block" data-a="duelWith" data-v="${esc(host)}">📨 Zug-um-Zug-Duell</button><button class="btn ghost block" data-a="closeOvl">Schließen</button></div>`);return}
+  await serial(()=>liveDoc(id).update({players:[host,S.myId],status:'accepted',hp:{[host]:100,[S.myId]:100},updatedAt:Date.now()}));
+  openLive(id);
+ }catch(e){writeFailed(e);toast('Beitreten hat nicht geklappt.')}
+}
+async function liveAccept(id){closeOverlay();if(G){clearTimers();G=null}try{await serial(()=>liveDoc(id).update({status:'accepted',updatedAt:Date.now()}));openLive(id)}catch(e){writeFailed(e);toast('Annehmen hat nicht geklappt.')}}
+async function liveDecline(id){closeOverlay();try{await serial(()=>liveDoc(id).update({status:'declined',updatedAt:Date.now()}))}catch(e){}}
+function showLiveInvite(id,host){
+ const P=getProfile(host);beep('lvl');vib([90,60,90]);
+ if(S.view.name==='live'||G){toast(`⚡ ${P.name} will LIVE gegen dich spielen!`,{av:P.avatar,btn:'Annehmen',act:'liveAccept',v:id,ms:30000});return}
+ openOverlay(`<div class="center"><div class="av liveinv">${avatarSVG(P.avatar)}</div></div><h3>⚡ ${esc(P.name)} will LIVE gegen dich spielen!</h3><p>Ihr spielt gleichzeitig: dieselbe Frage, dieselbe Uhr. 10 Runden.</p><div class="acts"><button class="btn coral block" data-a="liveAccept" data-v="${id}">⚡ Annehmen</button><button class="btn ghost block" data-a="liveDecline" data-v="${id}">Ablehnen</button></div>`);
+}
+
+async function openLive(id){
+ closeLive();
+ Object.assign(L,{id,st:null,ans:{},phaseKey:null,busy:false,myPick:null,answered:{},pts:0,correct:0,answeredN:0,lastEmo:Date.now(),lastMsg:Date.now(),shownHp:null,msgs:[]});
+ S.view={name:'live',id};render(true);
+ try{const r=liveAnsDoc(id,S.myId);const s=await r.get();
+  if(!s.exists)await serial(()=>r.set({uid:S.myId,seen:Date.now(),a:{},pick:{},msgs:[]}));
+  else{const d=clone(s.data());L.msgs=d.msgs||[];Object.keys(d.a||{}).forEach(k=>L.answered[k]=true);await serial(()=>r.update({seen:Date.now()}))}
+ }catch(e){}
+ if(L.id!==id)return;
+ L.unsub.push(liveDoc(id).onSnapshot(s=>{if(L.id!==id)return;if(!s.exists){L.st=null;liveRender();return}L.st=clone(s.data());onLiveState()},()=>{}));
+ L.unsub.push(S.db.collection('live/'+id+'/ans').onSnapshot(s=>{if(L.id!==id)return;const m={};s.docs.forEach(d=>{m[d.id]=clone(d.data())});L.ans=m;onLiveAns()},()=>{}));
+ L.timers.push(setInterval(()=>{if(L.id===id)serial(()=>liveAnsDoc(id,S.myId).update({seen:Date.now()})).catch(()=>{})},5000));
+ L.timers.push(setInterval(liveTick,400));
+}
+function closeLive(){L.unsub.forEach(u=>{try{u()}catch(e){}});L.unsub=[];L.timers.forEach(t=>clearInterval(t));L.timers=[];clearTimeout(L.qTimer);L.id=null;L.st=null}
+
+function onLiveState(){
+ const st=L.st;const k=[st.status,st.phase,st.round,st.q].join('|');
+ if(k!==L.phaseKey){L.phaseKey=k;L.phaseLocal=Date.now();L.myPick=null;liveRender();liveEnter()}
+ else liveBits();
+}
+function onLiveAns(){liveBits();liveTick()}
+
+function liveTick(){
+ const st=L.st;if(!st||!L.id)return;const now=Date.now(),me=S.myId,opp=liveOpp(),el=now-L.phaseLocal;
+ if(st.status==='playing'&&opp){const oa=L.ans[opp];const gone=!oa||now-(oa.seen||0)>30000;if(gone&&el>30000){liveEnd(me,'abandon');return}}
+ if(st.host!==me||L.busy)return;
+ const W=p=>{L.busy=true;serial(()=>liveDoc(L.id).update({...p,updatedAt:Date.now()})).catch(e=>writeFailed(e)).finally(()=>{L.busy=false})};
+ if(st.status==='invite'){if(now-st.createdAt>60000)W({status:'expired'});return}
+ if(st.status==='waiting'){if(now-st.createdAt>30*60e3)W({status:'expired'});return}
+ if(st.status==='accepted'){const [a,b]=st.players;if(!b)return;W({status:'playing',phase:'pick',round:0,q:0,picker:a,offer:offerCats(),log:[],hp:{[a]:100,[b]:100}});return}
+ if(st.status!=='playing')return;
+ switch(st.phase){
+  case'pick':{const pk=st.picker;const ch=pk===me?L.myPick:(L.ans[pk]&&L.ans[pk].pick&&L.ans[pk].pick[st.round]);const valid=ch&&(st.offer||[]).includes(ch);
+   if(valid||el>(PICK_T+1)*1000){const cat=valid?ch:pick(st.offer||offerCats());const d=roundDiff(st.round);W({phase:'q',cat,d,qs:makeLiveQs(cat,d),q:0,rev:null})}break}
+  case'q':{const key=lkey(st.round,st.q);const a=L.ans[me]&&L.ans[me].a&&L.ans[me].a[key],b=L.ans[opp]&&L.ans[opp].a&&L.ans[opp].a[key];
+   if((a&&b)||el>(LIVE_T+4)*1000){const TO={i:-1,ok:false,t:LIVE_T*1000};const rv={[me]:a||TO,[opp]:b||TO};W({phase:'rev',rev:rv,res:{[key]:rv}})}break}
+  case'rev':if(el>2800){if(st.q<LIVE_Q-1)W({phase:'q',q:st.q+1,rev:null});else{const dm=liveDamage(st,st.round);const hp={...st.hp};st.players.forEach(p=>hp[p]=Math.max(0,(hp[p]??100)-(dm[p]||0)));W({phase:'round',hp,log:[...(st.log||[]),dm],rev:null})}}break;
+  case'round':if(el>4000){const over=st.round>=LIVE_ROUNDS-1||st.players.some(p=>(st.hp[p]??100)<=0);
+   if(over){const [a,b]=st.players;const w=st.hp[a]>st.hp[b]?a:st.hp[b]>st.hp[a]?b:'draw';W({phase:'done',status:'done',winner:w,reason:'end'})}
+   else W({phase:'pick',round:st.round+1,q:0,picker:st.players[(st.round+1)%2],offer:offerCats()})}break;
+ }
+}
+function makeLiveQs(cat,d){const qs=[];for(let i=0;i<LIVE_Q;i++){const q=bankQ(cat,d,L.used);qs.push({q:q.q,a:q.a,c:q.c})}return qs}
+function liveDamage(st,r){
+ const [a,b]=st.players;const A={c:0,t:0},B={c:0,t:0};
+ for(let q=0;q<LIVE_Q;q++){const x=st.res&&st.res[lkey(r,q)];if(!x)continue;if(x[a]&&x[a].ok){A.c++;A.t+=x[a].t||0}if(x[b]&&x[b].ok){B.c++;B.t+=x[b].t||0}}
+ let da=0,db=0;
+ if(A.c>B.c)db=4+7*(A.c-B.c)+r;else if(B.c>A.c)da=4+7*(B.c-A.c)+r;else if(A.c===0){da=db=5}
+ return{[a]:da,[b]:db,_c:{[a]:A.c,[b]:B.c}};
+}
+function liveEnd(w,reason){if(!L.id||!L.st||L.st.status==='done')return;serial(()=>liveDoc(L.id).update({status:'done',phase:'done',winner:w,reason,updatedAt:Date.now()})).catch(()=>{})}
+
+function liveAnswer(i){
+ const st=L.st;if(!st||st.status!=='playing'||st.phase!=='q')return;const key=lkey(st.round,st.q);if(L.answered[key])return;
+ L.answered[key]=true;clearTimeout(L.qTimer);
+ const q=st.qs[st.q];const t=Math.min(LIVE_T*1000,Math.round(Date.now()-L.qStartAbs));const ok=i===q.c;
+ if(ok){L.pts+=10*(st.d||1)+Math.ceil(Math.max(0,LIVE_T-t/1000));L.correct++}L.answeredN++;
+ $$('.ans').forEach((b,bi)=>{b.disabled=true;if(bi===i)b.classList.add('picked');else b.classList.add('dim')});
+ const tm=$('#timer');tm&&tm.classList.add('stop');const w=$('#liveWait');if(w)w.hidden=false;
+ if(i>=0)beep('pick');
+ serial(()=>liveAnsDoc(L.id,S.myId).update({a:{[key]:{i,ok,t}},seen:Date.now()})).catch(e=>writeFailed(e));
+}
+function livePick(cat){
+ const st=L.st;if(!st||st.phase!=='pick'||st.picker!==S.myId||L.myPick)return;L.myPick=cat;beep('pick');
+ $$('.pickc').forEach(b=>{b.disabled=true;if(b.dataset.v!==cat)b.style.opacity='.35'});
+ if(st.host!==S.myId)serial(()=>liveAnsDoc(L.id,S.myId).update({pick:{[st.round]:cat}})).catch(()=>{});
+ else liveTick();
+}
+function liveSendEmo(e){if(!L.id)return;if(Date.now()-(L.lastEmoSend||0)<300)return;L.lastEmoSend=Date.now();floatEmoji(e,3);liveBubble('me',e,true);serial(()=>liveAnsDoc(L.id,S.myId).update({emo:{e,ts:Date.now()}})).catch(()=>{})}
+function liveSendMsg(t){
+ if(!L.id||!t)return;if(Date.now()-(L.lastMsgSend||0)<400)return;L.lastMsgSend=Date.now();
+ const m={t:t.slice(0,120),ts:Date.now()};L.msgs=[...(L.msgs||[]),m].slice(-15);
+ liveBubble('me',m.t,false);liveLog();
+ serial(()=>liveAnsDoc(L.id,S.myId).update({msgs:L.msgs})).catch(()=>{});
+}
+function liveBubble(who,text,isEmo){
+ const f=$(who==='me'?'#lf-me':'#lf-opp');if(!f)return;
+ const old=f.querySelector('.sbub');if(old)old.remove();
+ const b=document.createElement('div');b.className='sbub'+(isEmo?' e':'');b.textContent=text;f.appendChild(b);
+ setTimeout(()=>b.remove(),isEmo?2500:4500);
+}
+function liveAllMsgs(){
+ const opp=liveOpp();const out=[];(L.msgs||[]).forEach(m=>out.push({...m,by:S.myId}));
+ const om=opp&&L.ans[opp]&&L.ans[opp].msgs||[];om.forEach(m=>out.push({...m,by:opp}));
+ return out.sort((a,b)=>a.ts-b.ts).slice(-6);
+}
+function liveLog(){const box=$('#liveLog');if(!box)return;const ms=liveAllMsgs();box.innerHTML=ms.map(m=>`<div class="ll ${m.by===S.myId?'me':''}"><b>${esc(m.by===S.myId?'Du':getProfile(m.by).name)}:</b> ${esc(m.t)}</div>`).join('');box.hidden=!ms.length;box.scrollTop=box.scrollHeight}
+
+function liveBits(){
+ const st=L.st;if(!st)return;const opp=liveOpp();const oa=opp&&L.ans[opp];const now=Date.now();
+ const os=$('#oppStat');
+ if(os&&opp){let t='';
+  if(oa&&now-(oa.seen||0)>15000)t='📶 Verbindung wackelt …';
+  else if(st.status==='playing'&&st.phase==='q'){const key=lkey(st.round,st.q);t=oa&&oa.a&&oa.a[key]?'✅ hat geantwortet':'🤔 denkt nach …'}
+  else if(st.status==='playing'&&st.phase==='pick'&&st.picker===opp)t='🎯 wählt Thema …';
+  else if(st.status==='playing')t='🟢 online';
+  os.textContent=t;os.classList.toggle('done',t.startsWith('✅'))}
+ if(oa&&oa.emo&&oa.emo.ts>L.lastEmo){L.lastEmo=oa.emo.ts;if(EMOJIS.includes(oa.emo.e)){floatEmoji(oa.emo.e,3);liveBubble('opp',oa.emo.e,true)}}
+ const om=oa&&oa.msgs||[];const nm=om.filter(m=>m.ts>L.lastMsg);
+ if(nm.length){L.lastMsg=Math.max(...nm.map(m=>m.ts));const last=nm[nm.length-1];liveBubble('opp',String(last.t||'').slice(0,120),false);beep('pop');liveLog()}
+}
+function liveEnter(){
+ const st=L.st;if(!st)return;const me=S.myId,opp=liveOpp();
+ if(st.status==='playing'&&st.phase==='q'){const key=lkey(st.round,st.q);
+  const left=Math.max(0,LIVE_T*1000-(Date.now()-L.phaseLocal));L.qStartAbs=Date.now()-(LIVE_T*1000-left);
+  if(!L.answered[key])L.qTimer=setTimeout(()=>liveAnswer(-1),left);}
+ if(st.status==='playing'&&st.phase==='rev'){const r=st.rev&&st.rev[me];if(r&&r.ok)beep('ok');else beep('bad');
+  if(r&&r.ok){const b=$('.ans.ok');b&&floatPts(b,'✓')}}
+ if(st.status==='playing'&&st.phase==='round'){animLiveHp()}
+ if(st.status==='playing'&&st.phase==='pick'&&st.round>0)animLiveHp();
+ if(st.status==='done')liveFinish();
+ if(st.status==='accepted'||st.status==='playing'&&st.phase==='pick'&&st.round===0)beep('lvl');
+}
+function animLiveHp(){
+ const st=L.st;const me=S.myId,opp=liveOpp();if(!opp)return;const prev=L.shownHp||{[me]:100,[opp]:100};const now=st.hp||{};
+ [[me,'#lf-me'],[opp,'#lf-opp']].forEach(([u,sel])=>{const f=$(sel);if(!f)return;const bar=f.querySelector('.hp');const i=f.querySelector('.hp i');const n=f.querySelector('.hpn');const v=now[u]??100,p=prev[u]??100;
+  if(i){i.style.width=p+'%';requestAnimationFrame(()=>setTimeout(()=>{i.style.width=v+'%'},250))}
+  if(bar){bar.classList.toggle('low',v<=30);bar.classList.toggle('mid',v>30&&v<=60)}if(n)n.textContent='❤️ '+v;
+  if(v<p){f.classList.add('hit');const dm=document.createElement('div');dm.className='dmgf';dm.textContent='−'+(p-v);f.appendChild(dm);setTimeout(()=>{dm.remove();f.classList.remove('hit')},1400);vib(60)}});
+ L.shownHp={...now};
+}
+function liveFinish(){
+ const st=L.st;if(!S.me||S.me.countedDuels.includes(L.id))return;const me=S.myId;
+ S.me.countedDuels=[...S.me.countedDuels,L.id].slice(-300);
+ const before=levelFor(S.me.points);
+ addPoints('duel',L.pts);S.me.correct+=L.correct;S.me.answered+=L.answeredN;
+ if(st.winner===me){S.me.wins++;addPoints('duel',100);confetti(140);beep('win')}else if(st.winner==='draw'){S.me.draws++;addPoints('duel',40)}else{S.me.losses++;addPoints('duel',20)}
+ saveProfile();const after=levelFor(S.me.points);if(after>before)setTimeout(()=>levelUpFX(after),1800);
+}
+
+function liveHeader(st){
+ const me=S.myId,opp=liveOpp();const P=opp?getProfile(opp):null;
+ const hp=L.shownHp||(st&&st.hp)||{};if(!L.shownHp&&st&&st.hp&&opp)L.shownHp={...st.hp};
+ const hc=h=>h<=30?'low':h<=60?'mid':'';const H=u=>hp[u]??100;
+ return `<div class="qtop"><button class="xbtn" data-a="liveQuitAsk" aria-label="Verlassen">✕</button><div class="qlabel">${st&&st.status==='playing'?`Runde ${st.round+1}/${LIVE_ROUNDS}`:'Live-Duell'}</div><span class="livebadge">● LIVE</span></div>
+ <div class="vs" style="margin-top:6px">
+  <div class="fighter" id="lf-me"><div class="av">${avatarSVG(S.me.avatar)}</div><div class="fname">${esc(S.me.name)}</div><div class="hp ${hc(H(me))}"><i style="width:${H(me)}%"></i></div><div class="hpn">❤️ ${H(me)}</div></div>
+  <div class="vsb">VS</div>
+  <div class="fighter" id="lf-opp">${P?`<div class="av">${avatarSVG(P.avatar)}</div><div class="fname">${esc(P.name)}</div><div class="hp ${hc(H(opp))}"><i style="width:${H(opp)}%"></i></div><div class="hpn">❤️ ${H(opp)}</div><div class="oppstat" id="oppStat"></div>`:`<div class="av waitav">❔</div><div class="fname">Wartet …</div>`}</div>
+ </div>`;
+}
+function liveDock(){
+ return `<div class="livedock"><div class="livelog" id="liveLog" hidden></div><div class="emobar">${EMOJIS.map(e=>`<button type="button" class="emo" data-a="liveEmo" data-v="${e}">${e}</button>`).join('')}</div>
+ <form class="crow" data-f="live"><input id="liveIn" class="inp" maxlength="120" placeholder="Spruch drücken …" autocomplete="off" aria-label="Nachricht"><button class="sendb" aria-label="Senden">➤</button></form></div>`;
+}
+function liveBody(st){
+ const me=S.myId,opp=liveOpp();const P=opp?getProfile(opp):{name:'Gegner'};const host=st.host===me;
+ const msg=(emo,title,sub,btns)=>`<div class="livemsg"><div class="bigemo">${emo}</div><h3>${title}</h3>${sub?`<p>${sub}</p>`:''}${btns?`<div class="acts">${btns}</div>`:''}</div>`;
+ switch(st.status){
+  case'invite':return host?msg('<span class="hg">⏳</span>',`Warte auf ${esc(P.name)} …`,'Die Einladung läuft 60 Sekunden.',`<button class="btn ghost block" data-a="liveQuit">Abbrechen</button>`)
+   :msg('⚡',`${esc(getProfile(st.host).name)} fordert dich heraus!`,'',`<button class="btn coral block" data-a="liveAccept" data-v="${L.id}">Annehmen</button><button class="btn ghost block" data-a="liveDecline" data-v="${L.id}">Ablehnen</button>`);
+  case'waiting':return msg('<span class="hg">⏳</span>','Warte auf deinen Mitspieler …','Schick den Einladungslink und bleib auf dieser Seite. Sobald dein Freund ihn öffnet, geht es los.',`<button class="btn coral block" data-a="shareLive" data-v="${L.id}">🔗 Link teilen</button><button class="btn ghost block" data-a="liveQuit">Abbrechen</button>`);
+  case'accepted':return msg('🔥','Gleich geht’s los!','Macht euch bereit …');
+  case'declined':return msg('🙅',`${esc(P.name)} hat abgelehnt`,'Vielleicht später – oder fordere jemand anderen heraus.',`<button class="btn block" data-a="tab" data-v="home">Zur Startseite</button>`);
+  case'expired':case'cancelled':return msg('⌛','Das Live-Duell ist abgelaufen','Niemand hat rechtzeitig angenommen.',`<button class="btn block" data-a="tab" data-v="home">Zur Startseite</button>`);
+  case'done':{const w=st.winner;const win=w===me,draw=w==='draw';
+   const why=st.reason==='quit'?(win?`${esc(P.name)} hat aufgegeben.`:'Du hast aufgegeben.'):st.reason==='abandon'?(win?`${esc(P.name)} hat die Verbindung verloren.`:'Die Verbindung ist abgebrochen.'):`❤️ ${st.hp[me]??0} : ${st.hp[opp]??0}`;
+   return msg(win?'🏆':draw?'🤝':'💀',win?'Du hast gewonnen!':draw?'Unentschieden!':`${esc(P.name)} gewinnt`,`${why}<br>+${fmt(L.pts+(win?100:draw?40:20))} Rangpunkte`,`<button class="btn coral block" data-a="liveRematch">⚡ Revanche</button><button class="btn ghost block" data-a="tab" data-v="home">Zur Startseite</button>`)}
+ }
+ const c=CAT[st.cat]||CAT.allg;
+ switch(st.phase){
+  case'pick':{const mine=st.picker===me;const offer=st.offer||[];
+   const timer=`<div class="timer" style="margin-top:12px"><i class="tbar" id="tbar" style="animation-duration:${Math.max(1,PICK_T*1000-(Date.now()-L.phaseLocal))}ms"></i></div>`;
+   if(mine)return `<p class="center muted" style="margin:14px 0 0;font-weight:900">Runde ${st.round+1}: Du wählst das Thema <span style="color:var(--gold)">${'★'.repeat(roundDiff(st.round))}</span></p>${timer}<div class="pickwrap">${offer.map(id=>{const k=CAT[id];return `<button class="pickc" style="--c:${k.c}" data-a="livePick" data-v="${id}"><span class="ce">${k.e}</span><span><span class="cn">${esc(k.name)}</span></span></button>`}).join('')}</div>`;
+   return `<p class="center muted" style="margin:14px 0 0;font-weight:900">Runde ${st.round+1}: ${esc(P.name)} wählt das Thema …</p>${timer}<div class="wheel">${offer.map(id=>`<span>${CAT[id].e}</span>`).join('')}</div>`}
+  case'q':case'rev':{const q=st.qs[st.q];const rev=st.phase==='rev';const key=lkey(st.round,st.q);
+   const myA=(L.ans[me]&&L.ans[me].a&&L.ans[me].a[key])||null;const already=!!(myA||L.answered[key]);
+   const rv=rev?st.rev||{}:{};const mi=rev?(rv[me]?rv[me].i:-1):(myA?myA.i:-2),oi=rev&&rv[opp]?rv[opp].i:-2;
+   const left=Math.max(0,LIVE_T*1000-(Date.now()-L.phaseLocal));
+   const btns=q.a.map((t,i)=>{let cls='';if(rev){cls=i===q.c?'ok':(i===mi?'bad':'dim')}else if(already){cls=i===mi?'picked':'dim'}
+    const badges=rev?`${i===mi?`<span class="opp me">${avatarSVG(S.me.avatar)}</span>`:''}${i===oi&&opp?`<span class="opp">${avatarSVG(P.avatar)}</span>`:''}`:'';
+    return `<button class="ans ${cls}" data-a="liveAns" data-v="${i}" ${rev||already?'disabled':''}><span class="L">${'ABCD'[i]}</span><span class="tx">${esc(t)}</span>${badges}</button>`}).join('');
+   let status='';if(rev){const r=rv[me],o=rv[opp];status=`<div class="revline"><span class="${r&&r.ok?'ok-t':'bad-t'}">${r&&r.ok?'✓ Du richtig':r&&r.i===-1?'⏰ Du zu langsam':'✗ Du falsch'}</span><span class="${o&&o.ok?'ok-t':'bad-t'}">${o&&o.ok?'✓':o&&o.i===-1?'⏰':'✗'} ${esc(P.name)}</span></div>`}
+   return `<div class="qmeta"><span class="pips">${[0,1,2].map(i=>`<span class="pip ${i<st.q?'y':i===st.q?'c':''}"></span>`).join('')}</span><span class="stars">${'★'.repeat(st.d||1)}<i>${'★'.repeat(3-(st.d||1))}</i></span></div>
+   <div class="qcard" id="qcard"><div class="qhead"><span class="qcat" style="--c:${c.c}">${c.e} ${esc(c.name)}</span></div><div class="qtext">${esc(q.q)}</div>
+   ${rev?'':`<div class="timer ${already?'stop':''}" id="timer"><i class="tbar" id="tbar" style="animation-duration:${left}ms"></i></div>`}</div>
+   <div class="answers">${btns}</div>
+   ${rev?status:`<div class="livewait" id="liveWait" ${already?'':'hidden'}>⏳ Warte auf ${esc(P.name)} …</div>`}`}
+  case'round':{const lg=(st.log||[])[st.round]||{};const cc=lg._c||{};const dm=lg[me]||0,do_=lg[opp]||0;
+   const t=do_>dm?'Runde gewonnen! 💥':dm>do_?'Runde verloren 😵':'Unentschieden 🤝';
+   return `<div class="liveround"><div class="muted" style="font-weight:900">Runde ${st.round+1} von ${LIVE_ROUNDS}</div><h3>${t}</h3><div class="rscore"><span>${cc[me]??0}</span><small>:</small><span>${cc[opp]??0}</span></div><p class="muted">${dm?`Du verlierst ${dm} ❤️`:''}${dm&&do_?' · ':''}${do_?`${esc(P.name)} verliert ${do_} ❤️`:''}</p><p class="muted" style="font-size:13px">${st.round<LIVE_ROUNDS-1?'Nächste Runde startet gleich …':'Gleich kommt das Ergebnis …'}</p></div>`}
+ }
+ return '';
+}
+function liveHTML(){
+ const st=L.st;
+ if(!st)return `${liveHeader(null)}<div class="livemsg"><div class="bigemo"><span class="hg">⏳</span></div><h3>Verbinde …</h3></div>`;
+ const playing=st.status==='playing';
+ return `${liveHeader(st)}<div class="livebody">${liveBody(st)}</div>${playing||st.status==='done'?liveDock():''}`;
+}
+function liveRender(){if(S.view.name!=='live')return;const keep=$('#liveIn')?$('#liveIn').value:'';const foc=document.activeElement&&document.activeElement.id==='liveIn';render(false);const i=$('#liveIn');if(i){i.value=keep;if(foc)i.focus()}liveBits();liveLog()}
 
 /* ============================================================
    CHAT
@@ -2427,7 +2717,19 @@ const A={
  async giveUp(ds){closeOverlay();const d=getDuel(ds.v);if(!d)return;const opp=oppOf(d);
   try{await duelUpdate(d,{status:'done',winner:opp,gaveUp:S.myId,updatedAt:Date.now()})}catch(e){writeFailed(e)}
   processDuels();render(false)},
- invite(){openInvite()},
+ invite(){liveCreateRoom()},
+ liveRoom(){liveCreateRoom()},
+ liveWith(ds){liveChallenge(ds.v)},
+ liveAccept(ds){liveAccept(ds.v)},
+ liveDecline(ds){liveDecline(ds.v)},
+ livePick(ds){livePick(ds.v)},
+ liveAns(ds){liveAnswer(+ds.v)},
+ liveEmo(ds){liveSendEmo(ds.v)},
+ shareLive(ds){if(STANDALONE&&navigator.share&&ds.v&&$('#invUrl')){try{navigator.share({title:APP_NAME,text:`${S.me.name} wartet bei ${APP_NAME} auf dich – LIVE-Quizduell! ⚡🧠`,url:liveRoomURL(ds.v)}).catch(()=>{})}catch(e){}}else shareLiveRoom(ds.v||L.id)},
+ liveQuitAsk(){const st=L.st;if(!st||st.status==='done'||st.status==='declined'||st.status==='expired'||st.status==='cancelled'){closeLive();go({name:'home'});return}
+  openOverlay(`<h3>Live-Duell verlassen?</h3><p>${st.status==='playing'?'Wenn du jetzt gehst, gilt das als Aufgabe und dein Gegner gewinnt.':'Die Einladung wird abgebrochen.'}</p><div class="acts"><button class="btn coral block" data-a="liveQuit">Verlassen</button><button class="btn ghost block" data-a="closeOvl">Weiterspielen</button></div>`)},
+ liveQuit(){closeOverlay();const st=L.st;if(st){if(st.status==='playing'){const opp=liveOpp();liveEnd(opp,'quit')}else if(st.status==='invite'||st.status==='waiting'){serial(()=>liveDoc(L.id).update({status:'cancelled',updatedAt:Date.now()})).catch(()=>{})}}closeLive();go({name:'home'})},
+ liveRematch(){const opp=liveOpp();if(!opp)return;closeLive();if(isOnline(opp))liveChallenge(opp);else{toast('Dein Gegner ist gerade nicht online – ich starte ein Zug-um-Zug-Duell.');createDuel(opp)}},
  copyInvite(){const i=$('#invUrl');const url=i?i.value:inviteURL();try{navigator.clipboard.writeText(url).then(()=>toast('Link kopiert! Schick ihn deinen Freunden.'),()=>{if(i){i.focus();i.select()}toast('Bitte den markierten Link selbst kopieren.')})}catch(e){if(i){i.focus();i.select()}toast('Bitte den markierten Link selbst kopieren.')}},
  shareNative(){try{navigator.share({title:APP_NAME,text:`${S.me.name} fordert dich bei ${APP_NAME} heraus! ⚔️🧠`,url:inviteURL()}).catch(()=>{})}catch(e){}},
  sendEmoji(ds){if(!S.online&&!ds.ctx.startsWith('duel:'))return;sendMsg(ds.ctx,{e:ds.v})}
@@ -2436,6 +2738,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t
 document.addEventListener('submit',e=>{
  e.preventDefault();const f=e.target;
  if(f.dataset.f==='lobby'){const i=$('#lobbyIn');const t=(i.value||'').trim();if(!t)return;i.value='';sendMsg('lobby',{t:t.slice(0,300)})}
+ if(f.dataset.f==='live'){const i=$('#liveIn');const t=(i.value||'').trim();if(!t)return;i.value='';liveSendMsg(t)}
  if(f.dataset.f==='duel'){const i=$('#duelIn');const t=(i.value||'').trim();if(!t)return;i.value='';sendMsg('duel:'+f.dataset.v,{t:t.slice(0,200)})}
 });
 
@@ -2477,8 +2780,9 @@ async function initFirebase(){
 
 /* ---------- Einladungslinks ---------- */
 function inviteURL(){const base=STANDALONE?(location.origin+location.pathname):ARTIFACT_URL;return `${base}#vs-${S.myId}`}
-function readInvite(){try{const h=(location.hash||'').replace(/^#/,'');if(h.startsWith('vs-')){const id=h.slice(3);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingInvite=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}}catch(e){}}
+function readInvite(){try{const h=(location.hash||'').replace(/^#/,'');if(h.startsWith('live-')){const id=h.slice(5);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingLive=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}if(h.startsWith('vs-')){const id=h.slice(3);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingInvite=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}}catch(e){}}
 function handleInvite(){
+ if(S.pendingLive&&S.me&&S.me.name){const lid=S.pendingLive;S.pendingLive=null;if(!S.online||S.readOnly){toast('Live-Duelle gehen nur online.');return}liveJoin(lid);return}
  const id=S.pendingInvite;if(!id||!S.me||!S.me.name)return;
  if(!S.online||S.readOnly){S.pendingInvite=null;toast('Einladungen funktionieren nur, wenn du online angemeldet bist.');return}
  S.pendingInvite=null;if(id===S.myId){toast('Das ist dein eigener Einladungslink. Schick ihn an Freunde!');return}
@@ -2540,6 +2844,9 @@ function subscribe(){
  try{db.collection('duels').where('players','array-contains',S.uid).onSnapshot(snap=>{
   const prev=S.duels;const m={};snap.docs.forEach(d=>{m[d.id]={...clone(d.data()),id:d.id}});
   const wasLoaded=S.duelsLoaded;S.duels=m;S.duelsLoaded=true;onDuelsChanged(wasLoaded?prev:null);
+ },()=>{})}catch(e){}
+ try{db.collection('live').where('players','array-contains',S.uid).onSnapshot(snap=>{
+  snap.docs.forEach(d=>{const x=d.data();if(x&&x.status==='invite'&&x.host!==S.uid&&Math.abs(Date.now()-(x.createdAt||0))<70000&&!S.liveSeen.has(d.id)){S.liveSeen.add(d.id);showLiveInvite(d.id,x.host)}});
  },()=>{})}catch(e){}
  let first=true;
  try{db.collection('lobby').orderBy('ts','desc').limit(60).onSnapshot(snap=>{
