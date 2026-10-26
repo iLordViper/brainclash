@@ -19,6 +19,6 @@ Quiz-Duelle mit Freunden im Browser: 10-Runden-Duelle, Einzelspieler-Rangspiel, 
 
 ## Hinweise
 
-- Die Firebase-Konfiguration (apiKey usw.) ist für Web-Apps öffentlich gedacht. Geschützt werden die Daten durch `firestore.rules`.
+- Die Firebase-Daten sind bereits eingetragen (Projekt brainclash-7f1b0). Die Konfiguration (apiKey usw.) ist für Web-Apps öffentlich gedacht. Geschützt werden die Daten durch `firestore.rules`.
 - Jeder Spieler wird anonym über sein Gerät/seinen Browser erkannt. Wer Browserdaten löscht oder das Gerät wechselt, startet mit einem neuen Profil.
 - Kostenloser Firebase-Tarif (Spark): 50.000 Lesezugriffe und 20.000 Schreibzugriffe pro Tag – für eine Freundesgruppe mehr als genug.

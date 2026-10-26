@@ -1985,7 +1985,7 @@ const VIEWS={
 loading(){return `<div class="loading"><div class="spinq">🧠</div><div class="hero-logo" style="font-size:40px">BRAIN<span>CLASH</span></div><div class="marquee">${bulbs(9)}</div><p class="muted">Scheinwerfer werden eingeschaltet …</p></div>`},
 
 onboard(v){return `<div class="hero-logo">BRAIN<span>CLASH</span></div><div class="marquee">${bulbs(9)}</div>
- <p class="lead">Quiz-Duelle gegen deine Freunde, 17 Themen und ein Turm, der immer schwerer wird. Erst mal: Wer bist du?</p>
+ <p class="lead">Quiz-Duelle gegen deine Freunde, ${BANK_CATS.length} Themen und über 1.000 Fragen. Erst mal: Wer bist du?</p>
  <label class="lbl" for="nm">Dein Spielername</label>
  <input id="nm" class="inp" maxlength="16" placeholder="z. B. Quizkönig" autocomplete="off" value="${esc(v.nm||'')}">
  <label class="lbl">Dein Charakter</label>${editorBlock(v)}
