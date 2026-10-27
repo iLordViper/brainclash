@@ -417,6 +417,115 @@ h2.sec small{font-family:var(--font-body);font-size:13px;color:var(--muted);font
 .liveinv{width:104px;height:104px;margin:0 auto 12px;border-radius:50%;overflow:hidden;border:4px solid #fff;animation:wiggle 1.2s infinite}
 .rbtns{display:flex;gap:6px;flex:none}
 .rbtns .btn.small{min-height:38px;padding:6px 10px}
+/* Chat-Leiste unten (Live + Party) */
+body.withbar #view{padding-bottom:calc(108px + env(safe-area-inset-bottom,0px))}
+.gbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(11,21,36,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+.gbar-in{max-width:560px;margin:0 auto;display:flex;align-items:center;gap:10px;padding-block:10px}
+.gbar-emo{flex:1;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gbar-emo::-webkit-scrollbar{display:none}
+.gbar-emo .emo{width:46px;height:46px;font-size:25px;flex:none}
+.gbar-chat{flex:none;position:relative;display:flex;align-items:center;gap:6px;height:50px;padding:0 16px;border-radius:16px;background:var(--gold);color:#2A1700;font-weight:900;font-size:22px;box-shadow:0 4px 0 var(--gold-deep)}
+.gbar-chat:active{transform:translateY(3px);box-shadow:0 1px 0 var(--gold-deep)}
+.gbar-chat span{font-size:16px}
+.gbar-chat .badge{position:absolute;top:-7px;right:-7px;left:auto;font-style:normal}
+.gticker{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(82px + env(safe-area-inset-bottom,0px));z-index:31;width:min(calc(100% - 24px),536px);display:flex;align-items:center;gap:10px;background:#F5F0E6;color:#14223A;border-radius:16px;padding:10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.45);font-size:15.5px;font-weight:800;line-height:1.35}
+.gticker.show{animation:tickIn .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes tickIn{from{transform:translate(-50%,16px);opacity:0}}
+.gticker .av{flex:none;width:34px;height:34px;border-radius:50%;overflow:hidden}
+.gticker .tk{min-width:0;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.gticker b{color:#2753C9;margin-right:4px}
+body:has(#view input:focus) .gbar,body:has(#view input:focus) .gticker{display:none}
+/* Chat-Fenster */
+.csheet{position:fixed;inset:0;z-index:50}
+.csh-bg{position:absolute;inset:0;background:rgba(5,10,20,.6);animation:fade .2s}
+.csh-panel{position:absolute;left:0;right:0;bottom:0;margin:0 auto;max-width:560px;height:min(78vh,620px);max-height:88vh;display:flex;flex-direction:column;gap:8px;background:var(--surface);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));box-shadow:0 -10px 30px rgba(0,0,0,.45);animation:sheetUp .3s cubic-bezier(.2,1.2,.4,1)}
+@keyframes sheetUp{from{transform:translateY(35%);opacity:.4}}
+.csh-head{display:flex;align-items:center;justify-content:space-between;font-family:var(--font-display);font-size:22px}
+.csh-head b{font-weight:400}
+.csh-msgs{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:10px 6px;background:var(--bg2);border-radius:16px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.csh-msgs .msg{max-width:90%}
+.csh-msgs .bubble{font-size:16px;line-height:1.4}
+.csh-msgs .mname{font-size:12.5px}
+.csh-emo{flex:none}
+.csh-panel .crow .inp{font-size:16px;min-height:50px}
+/* Schätzfragen */
+.qcard.est{border-color:var(--gold)}
+.estbonus{font-size:12px;font-weight:900;color:#2A1700;background:var(--gold);padding:4px 9px;border-radius:99px;flex:none}
+.estform{margin-top:14px;display:grid;gap:10px}
+.estlbl{font-size:14px;font-weight:800;color:var(--muted);line-height:1.35}
+.estlbl b{color:var(--gold)}
+.estrow{display:flex;align-items:stretch;gap:8px}
+.estinp{flex:1;min-width:0;font-family:var(--font-display);font-size:30px;font-weight:400;text-align:center;letter-spacing:.5px;min-height:64px;font-variant-numeric:tabular-nums}
+.estunit{flex:none;display:flex;align-items:center;justify-content:center;max-width:46%;padding:0 12px;border-radius:16px;background:var(--surface-2);font-weight:900;font-size:15px;line-height:1.15;text-align:center;overflow-wrap:anywhere}
+.estdone{margin-top:14px;text-align:center;background:var(--surface);border-radius:16px;padding:14px;font-size:17px}
+.estdone b{font-family:var(--font-display);font-weight:400;font-size:26px;color:var(--gold)}
+.estsol{margin-top:12px;text-align:center;background:var(--bg2);border-radius:16px;padding:12px}
+.estsol small{display:block;font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.estsol b{font-family:var(--font-display);font-weight:400;font-size:40px;color:var(--gold);margin-right:6px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.estsol span{font-weight:900}
+.estlist{display:grid;gap:8px;margin-top:12px}
+.estitem{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:16px;padding:9px 12px;border:2px solid transparent;animation:ansIn .4s backwards}
+.estitem.win{border-color:var(--mint);background:color-mix(in srgb,var(--mint) 14%,var(--surface))}
+.estitem.me .t1{color:var(--gold)}
+.estitem .av{flex:none;width:40px;height:40px;border-radius:50%;overflow:hidden}
+.estitem .mid{flex:1;min-width:0}
+.estitem .t1{font-weight:900}
+.estitem .t2{font-size:13px;color:var(--muted);font-weight:800;overflow-wrap:anywhere}
+.ptsb{flex:none;font-family:var(--font-display);font-size:17px;color:var(--mint)}
+/* Party */
+.pbadge{flex:none;font-size:13px;font-weight:900;background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:99px;white-space:nowrap}
+.plobby h3{font-family:var(--font-display);font-weight:400;font-size:26px;margin:14px 0 0}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pslot{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;animation:pop .4s}
+.pslot .av{width:100%;max-width:68px;aspect-ratio:1;border-radius:50%;overflow:hidden;border:3px solid var(--surface-2);display:grid;place-items:center}
+.pslot.empty .av{border-style:dashed;color:var(--muted);font-size:24px;background:var(--bg2)}
+.pslot .nm{font-size:12px;font-weight:800;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pslot.empty .nm{color:var(--muted)}
+.crown{position:absolute;top:-10px;right:2px;font-size:18px}
+.pstrip{display:flex;gap:8px;overflow-x:auto;padding:8px 2px 4px;scrollbar-width:none}
+.pstrip::-webkit-scrollbar{display:none}
+.pchip2{flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;width:56px;position:relative}
+.pchip2 .av{width:44px;height:44px;border-radius:50%;overflow:hidden;border:3px solid var(--surface-2);transition:border-color .2s,opacity .2s}
+.pchip2.done .av{border-color:var(--mint)}
+.pchip2.done::after{content:"✓";position:absolute;top:-2px;right:2px;width:18px;height:18px;border-radius:50%;background:var(--mint);color:#06281A;font-size:11px;font-weight:900;display:grid;place-items:center}
+.pchip2.gone{opacity:.4}
+.pchip2 .nm{font-size:11px;font-weight:800;max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pchip2 .sc{font-size:11px;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
+.ans .avs{display:flex;align-items:center;flex:none;padding-left:8px}
+.ans .avs .opp{width:28px;height:28px;margin-left:-8px;border-width:2px;animation:none}
+.ans .avs b{font-size:12px;margin-left:4px}
+.pboard{display:grid;gap:8px;margin-top:12px}
+.prow{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:16px;padding:8px 12px;animation:ansIn .45s backwards;border:2px solid transparent}
+.prow.me{border-color:rgba(255,197,61,.6)}
+.prow .av{flex:none;width:40px;height:40px;border-radius:50%;overflow:hidden}
+.prow .mid{flex:1;min-width:0}
+.prow .t1{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .end{font-family:var(--font-display);font-size:18px;font-variant-numeric:tabular-nums}
+.up{color:var(--mint);font-size:12px}.down{color:var(--red);font-size:12px}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:8px;margin-top:18px}
+.pod{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;animation:cardIn .6s cubic-bezier(.2,1.4,.4,1) backwards}
+.pod.p1{animation-delay:.3s}.pod.p3{animation-delay:.15s}
+.pod .av{width:62px;height:62px;border-radius:50%;overflow:hidden;border:4px solid #fff}
+.pod.p1 .av{width:78px;height:78px;border-color:var(--gold)}
+.pod .nm{font-weight:900;font-size:13px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pod .sc{font-family:var(--font-display);font-size:17px;color:var(--gold)}
+.pod .blk{width:100%;display:grid;place-items:center;font-size:30px;border-radius:14px 14px 0 0}
+.pod.p1 .blk{height:110px;background:linear-gradient(var(--gold),#C78A00)}
+.pod.p2 .blk{height:80px;background:linear-gradient(#C9D3E0,#8E9CB0)}
+.pod.p3 .blk{height:60px;background:linear-gradient(#E0A36B,#A8693A)}
+.m-party{background:linear-gradient(150deg,#FF7AC0,#9B3BD1);--sh:#5A1A7A;grid-column:1/-1}
+/* Erfolge + Bilanz */
+.achs{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:9px}
+.ach{display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;background:var(--surface);border-radius:16px;padding:10px 6px;opacity:.45;filter:grayscale(1);min-width:0;border:2px solid transparent}
+.ach.on{opacity:1;filter:none;border-color:rgba(255,197,61,.55)}
+.ach .ae{font-size:28px;line-height:1}
+.ach .an{font-weight:900;font-size:12.5px;line-height:1.2}
+.ach .ad{font-size:10.5px;color:var(--muted);font-weight:800;line-height:1.25}
+.bil{flex:none;font-family:var(--font-display);font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bil b{font-weight:400}.bil .w,.vsline .w{color:var(--mint)}.bil .l,.vsline .l{color:var(--red)}
+.vsline{margin-top:10px;text-align:center;background:var(--bg2);border-radius:14px;padding:9px 12px;font-weight:900;font-size:14px}
+.vsline b{font-family:var(--font-display);font-weight:400;font-size:18px}
+.row .t2 .tag{margin-left:4px}
 /* Handy-Feinschliff */
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -1624,6 +1733,665 @@ Q.space.push(
 [3,"Wie lange dauert ein Jahr auf dem Mars ungefähr?","687 Erdtage","365 Erdtage","225 Erdtage","4.333 Erdtage"]
 );
 
+/* Erweiterung Oktober 2026 */
+const Q3={"allg":[[1,"Wie viele Tage hat eine Woche?","7","5","6","8"],
+[1,"Welche Farbe entsteht aus Rot und Gelb?","Orange","Grün","Lila","Braun"],
+[1,"Wie viele Monate hat ein Jahr?","12","10","11","13"],
+[1,"Wie heißt der erste Monat des Jahres?","Januar","Februar","März","Dezember"],
+[1,"Wie viele Ecken hat ein Dreieck?","3","4","5","6"],
+[1,"Welche Jahreszeit folgt auf den Sommer?","Herbst","Winter","Frühling","Sommer"],
+[1,"Womit bezahlt man an einer Parkuhr oft?","Mit Münzen","Mit Briefmarken","Mit Gutscheinen","Mit Fahrkarten"],
+[1,"Wie viele Finger hat ein Mensch an beiden Händen zusammen?","10","8","12","5"],
+[1,"Welche Farbe hat Schnee?","Weiß","Grau","Blau","Gelb"],
+[1,"Was benutzt man, um bei Regen trocken zu bleiben?","Einen Regenschirm","Eine Sonnenbrille","Einen Fächer","Einen Schal"],
+[2,"Wie viele Tage hat der Februar in einem Schaltjahr?","29","28","30","31"],
+[2,"Wie heißt der längste Tag des Jahres auf der Nordhalbkugel ungefähr?","Sommersonnenwende","Tagundnachtgleiche","Wintersonnenwende","Johannistag"],
+[2,"Wie viele Seiten hat ein Sechseck?","6","5","7","8"],
+[2,"Wie viele Zentimeter hat ein Zoll ungefähr?","2,54","3,14","1,5","5"],
+[2,"Was gibt die Abkürzung „PS“ bei einem Brief an?","Nachschrift","Persönlich","Postsendung","Privatsache"],
+[2,"Welcher Wochentag ist nach dem römischen Gott Saturn benannt (englisch)?","Saturday","Sunday","Monday","Thursday"],
+[2,"Wie viele Kontinente gibt es nach üblicher Zählung?","7","5","6","8"],
+[2,"Was bedeutet die Abkürzung „usw.“?","und so weiter","unter sonstigen Wegen","und sonstige Waren","unbedingt sofort wählen"],
+[2,"Was ist ein Rubel?","Eine Währung","Ein Edelstein","Ein Musikinstrument","Ein Gebäck"],
+[2,"Wie viele Spielfiguren hat jeder Spieler bei „Mensch ärgere Dich nicht“?","4","3","5","6"],
+[2,"Wie viele Stunden hat eine Woche?","168","144","196","120"],
+[3,"Welches Jubiläum feiert man nach 50 Ehejahren?","Goldene Hochzeit","Silberne Hochzeit","Rubinhochzeit","Diamantene Hochzeit"],
+[3,"Wie viele Sekunden hat ein Tag?","86.400","36.000","64.800","100.000"],
+[3,"Welche Zahl ist eine Primzahl?","13","15","21","27"],
+[3,"Wie nennt man eine Zahl mit 100 Nullen?","Googol","Gigant","Zillion","Myriade"],
+[3,"Wofür steht die Abkürzung „a. D.“ hinter einem Titel?","außer Dienst","auf Dauer","am Donnerstag","alter Dienstgrad"],
+[3,"Wie viele Felder hat ein Sudoku-Gitter?","81","64","100","72"],
+[3,"Was misst man in Karat bei Gold?","Den Goldanteil (Reinheit)","Das Gewicht","Die Farbe","Die Härte"],
+[3,"Welche römische Zahl steht für 500?","D","L","C","M"]],"geo":[[1,"Was ist die Hauptstadt von Portugal?","Lissabon","Porto","Madrid","Faro"],
+[1,"Was ist die Hauptstadt von Griechenland?","Athen","Thessaloniki","Sparta","Korfu"],
+[1,"Was ist die Hauptstadt von Polen?","Warschau","Krakau","Danzig","Breslau"],
+[1,"Auf welchem Kontinent liegt China?","Asien","Europa","Afrika","Ozeanien"],
+[1,"Welches Land ist bekannt für Tulpen und Windmühlen?","Niederlande","Dänemark","Belgien","Schweden"],
+[1,"Was ist die Hauptstadt von Dänemark?","Kopenhagen","Aarhus","Oslo","Stockholm"],
+[1,"Welcher Ozean liegt zwischen Europa und Amerika?","Atlantik","Pazifik","Indischer Ozean","Arktischer Ozean"],
+[1,"Was ist die Hauptstadt von Schweden?","Stockholm","Göteborg","Oslo","Helsinki"],
+[1,"Was ist die Hauptstadt von Irland?","Dublin","Cork","Belfast","Galway"],
+[1,"In welchem Land liegt die Stadt Mailand?","Italien","Spanien","Frankreich","Schweiz"],
+[2,"Was ist die Hauptstadt von Finnland?","Helsinki","Tampere","Turku","Tallinn"],
+[2,"Was ist die Hauptstadt von Ungarn?","Budapest","Debrecen","Prag","Bukarest"],
+[2,"Was ist die Hauptstadt von Argentinien?","Buenos Aires","Córdoba","Montevideo","Santiago"],
+[2,"Was ist die Hauptstadt von Südkorea?","Seoul","Busan","Pjöngjang","Incheon"],
+[2,"Was ist die Hauptstadt von Ägypten?","Kairo","Alexandria","Luxor","Gizeh"],
+[2,"Was ist die Hauptstadt von Kroatien?","Zagreb","Split","Dubrovnik","Ljubljana"],
+[2,"Welcher Fluss fließt durch London?","Themse","Severn","Seine","Shannon"],
+[2,"Welcher Fluss fließt durch Paris?","Seine","Loire","Rhône","Garonne"],
+[2,"Auf welcher Insel liegt die Stadt Palma?","Mallorca","Ibiza","Teneriffa","Sardinien"],
+[2,"Zu welchem Land gehört die Insel Kreta?","Griechenland","Italien","Zypern","Türkei"],
+[2,"Was ist die Hauptstadt von Mexiko?","Mexiko-Stadt","Cancún","Guadalajara","Monterrey"],
+[2,"Was ist die Hauptstadt von Thailand?","Bangkok","Phuket","Chiang Mai","Hanoi"],
+[3,"Was ist die Hauptstadt von Kolumbien?","Bogotá","Medellín","Cali","Caracas"],
+[3,"Was ist die Hauptstadt von Kenia?","Nairobi","Mombasa","Daressalam","Kampala"],
+[3,"Was ist die Hauptstadt von Vietnam?","Hanoi","Ho-Chi-Minh-Stadt","Da Nang","Phnom Penh"],
+[3,"Welches ist der größte See Afrikas?","Victoriasee","Tanganjikasee","Malawisee","Tschadsee"],
+[3,"Was ist die Hauptstadt von Island?","Reykjavík","Akureyri","Nuuk","Tórshavn"],
+[3,"Was ist die Hauptstadt von Marokko?","Rabat","Casablanca","Marrakesch","Fès"],
+[3,"Welches Land hat die Hauptstadt Lima?","Peru","Ecuador","Bolivien","Chile"],
+[3,"Welcher Fluss ist der wasserreichste der Erde?","Amazonas","Nil","Kongo","Jangtse"],
+[3,"Was ist die Hauptstadt von Nigeria?","Abuja","Lagos","Kano","Accra"],
+[3,"Welche Meerenge trennt Europa und Asien in Istanbul?","Bosporus","Dardanellen","Straße von Hormus","Straße von Messina"]],"hist":[[1,"Wie hießen die alten Krieger aus Japan mit Schwertern?","Samurai","Wikinger","Ritter","Gladiatoren"],
+[1,"Welches Tier ritten Ritter meistens?","Pferd","Kamel","Esel","Elefant"],
+[1,"Wie heißt die Zeit, in der Menschen vor allem Werkzeuge aus Stein nutzten?","Steinzeit","Eisenzeit","Bronzezeit","Neuzeit"],
+[1,"Wer war Martin Luther King?","Ein US-Bürgerrechtler","Ein deutscher Reformator","Ein britischer König","Ein Astronaut"],
+[1,"Welche Stadt war Hauptstadt des Römischen Reiches?","Rom","Athen","Karthago","Alexandria"],
+[1,"Welche Mauer teilte Berlin?","Die Berliner Mauer","Der Limes","Der Hadrianswall","Die Klagemauer"],
+[2,"Wer war Mahatma Gandhi?","Ein Anführer der indischen Unabhängigkeitsbewegung","Ein indischer König","Ein Filmstar","Ein Forscher am Nordpol"],
+[2,"Wer war Nelson Mandela?","Südafrikas erster schwarzer Präsident","Ein US-Präsident","Ein Pharao","Ein Entdecker"],
+[2,"In welchem Jahr wurde die DDR gegründet?","1949","1945","1961","1953"],
+[2,"Welche Königin regierte Großbritannien ab 1952 rund 70 Jahre lang?","Elisabeth II.","Victoria","Elisabeth I.","Anne"],
+[2,"Wie hieß das Schiff, mit dem die Pilgerväter 1620 nach Amerika segelten?","Mayflower","Santa María","Bounty","Victoria"],
+[2,"Unter welchem Kaiser begann der Bau des Kolosseums in Rom?","Vespasian","Nero","Caligula","Augustus"],
+[2,"Wer war die erste Bundeskanzlerin Deutschlands?","Angela Merkel","Ursula von der Leyen","Annalena Baerbock","Hannelore Kraft"],
+[2,"Welches Land schenkte den USA die Freiheitsstatue?","Frankreich","Großbritannien","Spanien","Italien"],
+[2,"In welchem Jahrhundert lebte Karl der Große?","Im 8./9. Jahrhundert","Im 12. Jahrhundert","Im 5. Jahrhundert","Im 15. Jahrhundert"],
+[2,"Wie hieß die erste deutsche Demokratie nach dem Ersten Weltkrieg?","Weimarer Republik","Bonner Republik","Paulskirchenrepublik","Deutscher Bund"],
+[2,"Wer war Jeanne d’Arc?","Eine französische Nationalheldin","Eine englische Königin","Eine italienische Malerin","Eine spanische Entdeckerin"],
+[2,"Welche Stadt war nach dem Zweiten Weltkrieg bis 1990 in Ost und West geteilt?","Berlin","Wien","Paris","Rom"],
+[3,"In welchem Jahr endete der Zweite Weltkrieg in Europa?","1945","1944","1946","1943"],
+[3,"Wer war der erste Kaiser von China?","Qin Shihuangdi","Kublai Khan","Konfuzius","Sun Yat-sen"],
+[3,"Welche Seuche wütete Mitte des 14. Jahrhunderts in Europa?","Die Pest","Die Cholera","Die Pocken","Die Spanische Grippe"],
+[3,"Wie hieß die Handelsvereinigung norddeutscher Städte im Mittelalter?","Hanse","Zunft","Gilde","Kontor"],
+[3,"Welcher Feldherr überquerte mit Elefanten die Alpen?","Hannibal","Julius Caesar","Alexander der Große","Attila"],
+[3,"In welchem Jahr wurde der Euro als Buchgeld eingeführt?","1999","2002","1995","1992"],
+[3,"Welcher deutsche Bundeskanzler kniete 1970 in Warschau nieder?","Willy Brandt","Helmut Schmidt","Konrad Adenauer","Ludwig Erhard"],
+[3,"Wie hieß die Stadt Istanbul zur Zeit des Byzantinischen Reiches?","Konstantinopel","Antiochia","Alexandria","Nikäa"],
+[3,"Wer war der letzte Zar Russlands?","Nikolaus II.","Peter der Große","Alexander III.","Iwan der Schreckliche"],
+[3,"Welcher Vertrag beendete 1919 offiziell den Ersten Weltkrieg mit Deutschland?","Versailler Vertrag","Wiener Kongress","Westfälischer Friede","Vertrag von Rom"]],"wiss":[[1,"Was braucht eine Pflanze zum Wachsen?","Licht und Wasser","Nur Dunkelheit","Nur Sand","Nur Salz"],
+[1,"Was ist die Einheit für Länge im metrischen System?","Meter","Liter","Gramm","Sekunde"],
+[1,"Wie viele Beine hat ein Insekt?","6","4","8","10"],
+[1,"Was passiert mit Wasser unter 0 °C?","Es gefriert","Es kocht","Es verdampft","Es brennt"],
+[1,"Was erzeugt einen Regenbogen?","Sonnenlicht und Regentropfen","Wind und Wolken","Mondlicht","Blitze"],
+[1,"Welcher Planet ist unser Heimatplanet?","Die Erde","Der Mars","Die Venus","Der Jupiter"],
+[1,"Was misst ein Tachometer im Auto?","Die Geschwindigkeit","Die Temperatur","Den Tankinhalt","Die Uhrzeit"],
+[1,"Was ist ein Fossil?","Versteinerte Überreste von Lebewesen","Ein Edelstein","Eine Pflanze","Ein Vulkan"],
+[2,"Was ist der Siedepunkt von Wasser in Fahrenheit?","212 °F","100 °F","180 °F","32 °F"],
+[2,"Welches chemische Symbol hat Silber?","Ag","Si","Sr","Au"],
+[2,"Wie nennt man ein Tier, das nur Pflanzen frisst?","Pflanzenfresser","Fleischfresser","Allesfresser","Aasfresser"],
+[2,"Welches Metall rostet?","Eisen","Gold","Aluminium","Platin"],
+[2,"Wie viele Chromosomen hat ein Mensch normalerweise?","46","23","48","44"],
+[2,"Welches Teilchen hat keine elektrische Ladung?","Neutron","Proton","Elektron","Ion"],
+[2,"Welche Farbe hat Kupfersulfat-Lösung?","Blau","Rot","Gelb","Farblos"],
+[2,"Welche Linse sammelt das Licht?","Sammellinse (konvex)","Zerstreuungslinse (konkav)","Planglas","Prisma"],
+[2,"Wofür steht die Formel CO₂?","Kohlendioxid","Kohlenmonoxid","Kobalt","Chlor"],
+[2,"Was ist ein Katalysator in der Chemie?","Ein Stoff, der eine Reaktion beschleunigt","Ein Stoff, der explodiert","Ein Messgerät","Ein Abfallprodukt"],
+[3,"Wie viele Elemente hat das Periodensystem nach heutigem Stand?","118","92","108","126"],
+[3,"Welches Element hat das chemische Symbol K?","Kalium","Kalzium","Krypton","Kobalt"],
+[3,"Wie heißt die Kraft, die einen Gegenstand in einer Kreisbahn nach außen zu drücken scheint?","Fliehkraft","Reibungskraft","Schwerkraft","Auftrieb"],
+[3,"Welches Gesetz besagt „Actio = Reactio“?","Drittes newtonsches Gesetz","Ohmsches Gesetz","Hookesches Gesetz","Boyle-Mariotte-Gesetz"],
+[3,"Wie heißt die Lehre von den Erdbeben?","Seismologie","Meteorologie","Ozeanografie","Speläologie"],
+[3,"Welches Edelgas leuchtet in Leuchtreklamen typisch rot-orange?","Neon","Argon","Xenon","Radon"],
+[3,"Wie heißt der pH-Bereich unter 7?","Sauer","Basisch","Neutral","Alkalisch"],
+[3,"Wer formulierte die Evolutionstheorie durch natürliche Selektion?","Charles Darwin","Gregor Mendel","Louis Pasteur","Carl von Linné"],
+[3,"Wer gilt als Begründer der Vererbungslehre (Erbsenversuche)?","Gregor Mendel","Charles Darwin","Robert Koch","Ernst Haeckel"],
+[3,"Welches Element ist bei Raumtemperatur ein rotbraunes flüssiges Nichtmetall?","Brom","Quecksilber","Jod","Chlor"],
+[3,"Wie nennt man die Geschwindigkeit, ab der ein Objekt die Erdanziehung verlassen kann?","Fluchtgeschwindigkeit","Schallgeschwindigkeit","Endgeschwindigkeit","Lichtgeschwindigkeit"]],"tier":[[1,"Welches Tier bellt?","Hund","Katze","Kuh","Schaf"],
+[1,"Welches Tier legt Eier und gackert?","Huhn","Ente","Gans","Pute"],
+[1,"Wie nennt man ein junges Schaf?","Lamm","Kitz","Ferkel","Fohlen"],
+[1,"Welches Tier hat den längsten Hals?","Giraffe","Kamel","Strauß","Lama"],
+[1,"Welches Tier springt mit einem Beutel am Bauch?","Känguru","Hase","Frosch","Eichhörnchen"],
+[1,"Was fressen Kaninchen gerne?","Karotten und Gras","Fleisch","Fisch","Insekten"],
+[1,"Welches Tier ist der „König der Lüfte“?","Adler","Taube","Spatz","Möwe"],
+[1,"Welches Meerestier hat acht Arme?","Krake","Qualle","Seestern","Delfin"],
+[1,"Welches Tier ist schwarz-weiß und lebt in China?","Großer Panda","Zebra","Pinguin","Dachs"],
+[2,"Wie heißt ein männliches Rind, das zur Zucht dient?","Bulle (Stier)","Ochse","Kalb","Färse"],
+[2,"Wie nennt man eine Gruppe von Wölfen?","Rudel","Herde","Schwarm","Horde"],
+[2,"Welcher Vogel ist ein Symbol des Friedens?","Taube","Rabe","Adler","Storch"],
+[2,"Welches Tier bringt laut Volksmund die Babys?","Storch","Eule","Kuckuck","Kranich"],
+[2,"Welche Farbe hat ein Flamingo meistens?","Rosa","Gelb","Blau","Grün"],
+[2,"Welcher Vogel legt seine Eier in fremde Nester?","Kuckuck","Amsel","Meise","Schwalbe"],
+[2,"Welches Säugetier lebt im Meer und gilt als sehr intelligent?","Delfin","Hai","Thunfisch","Rochen"],
+[2,"Was ist ein Axolotl?","Ein Schwanzlurch aus Mexiko","Ein Vogel","Ein Fisch aus dem Nil","Ein Insekt"],
+[2,"Welches Tier kann sein Geweih jedes Jahr abwerfen?","Hirsch","Ziege","Nashorn","Büffel"],
+[2,"Welches Insekt produziert Seide?","Seidenraupe","Biene","Ameise","Marienkäfer"],
+[2,"Welcher Baum hat Eicheln?","Eiche","Buche","Birke","Ahorn"],
+[3,"Wie lange leben Eintagsfliegen als erwachsene Tiere meist?","Stunden bis wenige Tage","Ein Jahr","Einen Monat","Genau eine Woche"],
+[3,"Welches Tier hat die höchste bekannte Laufgeschwindigkeit unter den Vögeln?","Strauß","Emu","Nandu","Kasuar"],
+[3,"Wie heißt der junge Fuchs?","Welpe","Kitz","Frischling","Kalb"],
+[3,"Wie heißt das Junge eines Wildschweins?","Frischling","Ferkel","Kitz","Welpe"],
+[3,"Welches Tier gehört zu den Beuteltieren?","Wombat","Gürteltier","Faultier","Ameisenbär"],
+[3,"Welche Blume ist das Wahrzeichen der Niederlande?","Tulpe","Rose","Sonnenblume","Lilie"],
+[3,"Welches Tier kann sich durch Teilung ganzer Körperstücke regenerieren, z. B. ein Plattwurm?","Planarie","Regenwurm","Schnecke","Spinne"],
+[3,"Welcher Baum kann über 4.000 Jahre alt werden?","Langlebige Kiefer (Bristlecone)","Birke","Pappel","Apfelbaum"],
+[3,"Wie nennt man die Lehre von den Insekten?","Entomologie","Ornithologie","Mykologie","Botanik"],
+[3,"Welcher Pilz ist stark giftig und hat einen grünlichen Hut?","Grüner Knollenblätterpilz","Champignon","Pfifferling","Steinpilz"]],"sport":[[1,"Mit welchem Gerät schlägt man beim Tennis?","Schläger","Keule","Stock","Paddel"],
+[1,"Wie heißt das Spiel auf Eis mit Steinen und Besen?","Curling","Eishockey","Bobfahren","Rodeln"],
+[1,"Welche Sportart spielt man auf einem grünen Tisch mit Kugeln und Queue?","Billard","Tischtennis","Darts","Bowling"],
+[1,"Welche Farbe hat ein Tennisball meistens?","Gelb","Rot","Blau","Schwarz"],
+[1,"Wie viele Spieler stehen beim Tennis-Einzel auf dem Platz?","2","4","1","6"],
+[1,"Womit spielt man Badminton?","Mit einem Federball","Mit einem Puck","Mit einem Golfball","Mit einem Fußball"],
+[1,"Welche Sportart betreibt man im Schnee mit zwei Brettern an den Füßen?","Skifahren","Snowboarden","Rodeln","Eiskunstlauf"],
+[2,"Wie heißt die höchste deutsche Fußball-Liga?","Bundesliga","Premier League","Serie A","La Liga"],
+[2,"Wie viele Disziplinen hat ein Triathlon?","3","2","4","5"],
+[2,"Welche Disziplinen gehören zum Triathlon?","Schwimmen, Radfahren, Laufen","Laufen, Springen, Werfen","Rudern, Reiten, Schießen","Skifahren, Schießen, Laufen"],
+[2,"Wie heißt der berühmteste Radrennsport-Wettbewerb in Frankreich?","Tour de France","Giro d’Italia","Vuelta","Paris–Roubaix"],
+[2,"In welcher Sportart gibt es einen „Strike“ und einen „Spare“?","Bowling","Baseball","Golf","Cricket"],
+[3,"Wie viele Gewichtsklassen gibt es im Profi-Sumo?","Keine","3","8","12"],
+[2,"In welcher Sportart wird ein „Slalom“ gefahren?","Ski alpin","Rudern","Bahnradsport","Skispringen"],
+[2,"Welche Sportart wird auf einer Halfpipe mit einem Brett ohne Rollen im Schnee ausgeübt?","Snowboarden","Skateboarden","Surfen","Wakeboarden"],
+[2,"Wie viele Spieler hat eine Rugby-Union-Mannschaft auf dem Feld?","15","11","13","7"],
+[3,"Welches Land gewann die erste Fußball-WM 1930?","Uruguay","Brasilien","Italien","Argentinien"],
+[3,"Wer hält den Rekord für die meisten Olympia-Goldmedaillen?","Michael Phelps","Usain Bolt","Carl Lewis","Larissa Latynina"],
+[3,"Wie lang ist ein Fußballspiel ohne Nachspielzeit?","90 Minuten","80 Minuten","100 Minuten","60 Minuten"],
+[3,"Wie viele Punkte bekommt man beim Basketball für einen Wurf von jenseits der Dreierlinie?","3","2","4","1"],
+[3,"Wie viele Ringe hat eine Dartscheibe für das Doppel- und Dreifach-Feld zusammen?","2","1","3","4"],
+[3,"In welcher Stadt steht das Wimbledon-Tennisturnier?","London","Paris","New York","Melbourne"],
+[3,"Welcher deutsche Formel-1-Fahrer wurde siebenmal Weltmeister?","Michael Schumacher","Sebastian Vettel","Nico Rosberg","Ralf Schumacher"],
+[3,"Wie heißt der Wurf beim Basketball, bei dem man den Ball von oben in den Korb drückt?","Dunking","Layup","Hook Shot","Free Throw"],
+[3,"Was ist ein „Hattrick“ im Fußball?","Drei Tore eines Spielers in einem Spiel","Ein Eigentor","Ein Tor per Kopf","Drei gelbe Karten"],
+[3,"In welcher Sportart gibt es die Positionen Pitcher und Catcher?","Baseball","Cricket","American Football","Lacrosse"],
+[3,"Welches Turnier gilt als ältestes Tennisturnier der Welt?","Wimbledon","US Open","French Open","Australian Open"]],"film":[[1,"Wie heißt der Löwe in „Der König der Löwen“, der König wird?","Simba","Scar","Nala","Mufasa"],
+[1,"Welcher Superheld hat einen Hammer namens Mjölnir?","Thor","Hulk","Captain America","Black Panther"],
+[1,"Welche Farbe hat der Hulk?","Grün","Blau","Rot","Lila"],
+[1,"Wie heißen die kleinen gelben Helfer in „Ich – Einfach unverbesserlich“?","Minions","Schlümpfe","Gremlins","Ewoks"],
+[1,"In welchem Film fährt ein Auto namens Lightning McQueen?","Cars","Planes","Toy Story","Turbo"],
+[1,"Wie heißt der blaue Flaschengeist in „Aladdin“?","Dschinni","Jafar","Abu","Rajah"],
+[1,"Welche Farbe haben die Schlümpfe?","Blau","Grün","Gelb","Rot"],
+[2,"Wie heißt der Hauptdarsteller der „Matrix“-Filme?","Keanu Reeves","Tom Cruise","Will Smith","Brad Pitt"],
+[2,"Wie heißt der Geheimagent mit der Nummer 007?","James Bond","Jason Bourne","Ethan Hunt","Jack Ryan"],
+[2,"In welcher Serie leben die Simpsons?","Springfield","Shelbyville","Quahog","South Park"],
+[2,"Welche Farbe hat die Haut der Simpsons?","Gelb","Grün","Blau","Orange"],
+[2,"In welchem Film reist ein Junge mit einem DeLorean durch die Zeit?","Zurück in die Zukunft","Terminator","Interstellar","Looper"],
+[2,"Wie heißt der Erzfeind von Harry Potter?","Lord Voldemort","Draco Malfoy","Severus Snape","Grindelwald"],
+[2,"In welcher Stadt spielt „Haus des Geldes“ hauptsächlich (der erste Überfall)?","Madrid","Barcelona","Lissabon","Sevilla"],
+[2,"Welcher Marvel-Held ist eigentlich Peter Parker?","Spider-Man","Iron Man","Ant-Man","Doctor Strange"],
+[2,"Welcher Marvel-Held ist eigentlich Tony Stark?","Iron Man","Captain America","Hawkeye","Thor"],
+[2,"Wer spielte die Hauptrolle in „Titanic“ neben Leonardo DiCaprio?","Kate Winslet","Nicole Kidman","Julia Roberts","Cameron Diaz"],
+[2,"Wie heißt der Hobbit-Gärtner und Freund von Frodo?","Samweis Gamdschie","Pippin","Merry","Bilbo"],
+[2,"In welcher Serie spielt das Café „Central Perk“ eine Rolle?","Friends","How I Met Your Mother","The Big Bang Theory","Seinfeld"],
+[3,"Welcher Film gewann den ersten Oscar als bester animierter Spielfilm (2002)?","Shrek","Ice Age","Monster AG","Findet Nemo"],
+[3,"Wer führte Regie bei „Avatar“ (2009)?","James Cameron","Steven Spielberg","Peter Jackson","Ridley Scott"],
+[3,"Welche Schauspielerin spielte Hermine Granger?","Emma Watson","Emma Stone","Keira Knightley","Natalie Portman"],
+[3,"Wie heißt der Androide in „Star Trek: The Next Generation“?","Data","Spock","Worf","Q"],
+[3,"Welcher Film beginnt mit „Vor langer Zeit in einer weit, weit entfernten Galaxis …“?","Star Wars","Star Trek","Dune","Guardians of the Galaxy"],
+[3,"In welchem Land wurde „Der Herr der Ringe“ gedreht?","Neuseeland","Schottland","Island","Kanada"],
+[3,"Wie heißt die Schule in „Fack ju Göhte“?","Goethe-Gesamtschule","Schiller-Gymnasium","Lessing-Schule","Humboldt-Gymnasium"],
+[3,"Wer spielte den Joker in „The Dark Knight“ (2008)?","Heath Ledger","Joaquin Phoenix","Jared Leto","Jack Nicholson"],
+[3,"Welcher Regisseur drehte „Psycho“ (1960)?","Alfred Hitchcock","Stanley Kubrick","Orson Welles","Billy Wilder"]],"musik":[[1,"Welches Instrument hat einen großen Holzkörper und wird im Sitzen zwischen den Knien gespielt?","Cello","Geige","Gitarre","Flöte"],
+[1,"Was singt man an Weihnachten oft?","„Stille Nacht“","„Happy Birthday“","„Alle meine Entchen“","„Hänschen klein“"],
+[1,"Welches Instrument hat Pedale und viele Pfeifen in der Kirche?","Orgel","Harfe","Klavier","Tuba"],
+[1,"Wie nennt man ein Musikstück für einen Sänger mit Orchester in der Oper?","Arie","Sinfonie","Ouvertüre","Etüde"],
+[1,"Welches Instrument spielt man mit einer Zieh-Bewegung und Knöpfen?","Akkordeon","Trompete","Schlagzeug","Harfe"],
+[2,"Welche Sängerin ist für „Shake It Off“ bekannt?","Taylor Swift","Katy Perry","Adele","Rihanna"],
+[2,"Welcher Sänger ist für „Shape of You“ bekannt?","Ed Sheeran","Justin Bieber","Harry Styles","Bruno Mars"],
+[2,"Welche Sängerin sang „Rolling in the Deep“?","Adele","Beyoncé","Lady Gaga","Amy Winehouse"],
+[2,"Aus welchem Land kommt die Band U2?","Irland","England","Schottland","USA"],
+[2,"Welche Band sang „We Will Rock You“?","Queen","AC/DC","Kiss","Bon Jovi"],
+[2,"Welcher Musiker wurde „The Boss“ genannt?","Bruce Springsteen","Bob Dylan","Elvis Presley","Billy Joel"],
+[2,"Was bedeutet „piano“ in der Musik?","Leise","Laut","Schnell","Langsam"],
+[2,"Welcher deutsche Sänger ist für „Männer“ und „Bochum“ bekannt?","Herbert Grönemeyer","Peter Maffay","Udo Lindenberg","Marius Müller-Westernhagen"],
+[2,"Welche Band aus Düsseldorf ist für „Tage wie diese“ bekannt?","Die Toten Hosen","Die Ärzte","Scooter","Kraftwerk"],
+[2,"Welcher Musikstil kommt ursprünglich aus New Orleans?","Jazz","Techno","Reggae","Flamenco"],
+[2,"Wie heißt der K-Pop-Boygroup-Megastar mit sieben Mitgliedern?","BTS","EXO","BigBang","Stray Kids"],
+[2,"Welches Instrument spielte Jimi Hendrix?","E-Gitarre","Schlagzeug","Bass","Saxofon"],
+[3,"Wer komponierte „Eine kleine Nachtmusik“?","Wolfgang Amadeus Mozart","Joseph Haydn","Ludwig van Beethoven","Johann Sebastian Bach"],
+[3,"Wer komponierte die „Brandenburgischen Konzerte“?","Johann Sebastian Bach","Georg Friedrich Händel","Antonio Vivaldi","Georg Philipp Telemann"],
+[3,"Welche deutsche Band gilt als Pionier der elektronischen Musik („Die Roboter“)?","Kraftwerk","Rammstein","Scooter","Tangerine Dream"],
+[3,"Welcher Komponist schrieb die „Ode an die Freude“ in seiner 9. Sinfonie?","Ludwig van Beethoven","Franz Schubert","Johannes Brahms","Richard Wagner"],
+[3,"Welche Oper stammt von Georges Bizet?","Carmen","La Traviata","Tosca","Aida"],
+[3,"Wer komponierte „Der Ring des Nibelungen“?","Richard Wagner","Richard Strauss","Carl Maria von Weber","Gustav Mahler"],
+[3,"Wie heißt das Taktmaß eines Walzers?","3/4-Takt","4/4-Takt","2/4-Takt","6/8-Takt"],
+[3,"Welche Band veröffentlichte „Bohemian Rhapsody“?","Queen","The Beatles","Pink Floyd","Led Zeppelin"],
+[3,"Welche Sängerin ist als „Queen of Pop“ bekannt?","Madonna","Britney Spears","Cher","Whitney Houston"],
+[3,"Wie heißt das tiefste Blechblasinstrument im Orchester?","Tuba","Posaune","Horn","Trompete"],
+[3,"Wer komponierte die Musik zu „Star Wars“?","John Williams","Hans Zimmer","Ennio Morricone","Danny Elfman"],
+[3,"Welcher deutsche Komponist schrieb zahlreiche Filmmusiken wie „König der Löwen“ und „Inception“?","Hans Zimmer","Klaus Badelt","Harold Faltermeyer","Ramin Djawadi"]],"essen":[[1,"Welche Farbe hat eine reife Banane?","Gelb","Rot","Blau","Lila"],
+[1,"Woraus wird Apfelsaft gemacht?","Aus Äpfeln","Aus Birnen","Aus Orangen","Aus Trauben"],
+[1,"Was gibt eine Kuh?","Milch","Honig","Saft","Öl"],
+[1,"Welche Frucht ist rund, orange und saftig?","Orange","Kiwi","Banane","Pflaume"],
+[1,"Was isst man typischerweise mit Ketchup und Mayo?","Pommes frites","Müsli","Pudding","Salat"],
+[1,"Was ist ein Hamburger?","Ein Brötchen mit Fleischscheibe","Eine Suppe","Ein Kuchen","Ein Getränk"],
+[1,"Welches Gemüse ist grün und sieht aus wie ein kleiner Baum?","Brokkoli","Blumenkohl","Spargel","Lauch"],
+[1,"Woraus wird Brot hauptsächlich gebacken?","Aus Mehl","Aus Zucker","Aus Reis","Aus Milch"],
+[1,"Welches Getränk wird aus Teeblättern aufgebrüht?","Tee","Kaffee","Kakao","Limonade"],
+[2,"Was ist Sushi hauptsächlich?","Reis mit Fisch oder Gemüse","Nudeln mit Soße","Brot mit Käse","Suppe mit Ei"],
+[2,"Aus welchem Land kommt die Bratwurst „Nürnberger“?","Deutschland","Österreich","Schweiz","Polen"],
+[2,"Was ist ein Schnitzel nach Wiener Art traditionell?","Paniertes Fleisch","Gekochter Fisch","Gefülltes Gemüse","Eine Wurst"],
+[2,"Was ist Gnocchi?","Kleine Kartoffelklößchen","Eine Käsesorte","Ein Nudelauflauf","Ein Dessert"],
+[2,"Was ist ein Croissant?","Ein Blätterteig-Hörnchen","Ein Brot aus Roggen","Eine Torte","Eine Brezel"],
+[2,"Was ist Hummus?","Ein Kichererbsenmus","Eine Linsensuppe","Ein Fleischgericht","Ein Reispudding"],
+[2,"Was ist Döner Kebab ursprünglich?","Gegrilltes Fleisch vom Drehspieß","Gefüllte Teigtaschen","Gebratener Reis","Eine Gemüsesuppe"],
+[2,"Welche Zutat macht Mayonnaise cremig?","Eigelb und Öl","Mehl und Wasser","Butter und Zucker","Sahne und Salz"],
+[2,"Aus welchem Land stammt Ramen?","Japan","China","Thailand","Korea"],
+[3,"Welche Pasta-Sorte hat die Form kleiner Schmetterlinge?","Farfalle","Penne","Fusilli","Rigatoni"],
+[3,"Was ist Prosciutto?","Italienischer Schinken","Italienischer Käse","Eine Nudelsorte","Eine Soße"],
+[3,"Welcher Käse wird traditionell für Fondue (Moitié-Moitié) verwendet?","Gruyère und Vacherin","Feta und Mozzarella","Gouda und Edamer","Brie und Camembert"],
+[3,"Was ist Wasabi?","Eine scharfe japanische Meerrettich-Paste","Eine Algenart","Ein Reiswein","Eine Fischsoße"],
+[3,"Welche Frucht wird auch „Königin der Früchte“ genannt?","Mangostan","Erdbeere","Apfel","Ananas"],
+[3,"Was ist Bouillabaisse?","Eine Fischsuppe aus Marseille","Ein Kartoffelgratin","Eine Crêpe-Sorte","Ein Rinderbraten"],
+[3,"Aus welchem Land stammt der Käse Roquefort?","Frankreich","Italien","Schweiz","Spanien"],
+[3,"Was ist Risotto?","Ein cremiges Reisgericht","Ein Nudelgericht","Ein Brot","Ein Eintopf mit Bohnen"],
+[3,"Aus welcher Region stammt die würzige Nudelsuppe „Laksa“?","Malaysia und Singapur","Japan","Mexiko","Peru"],
+[3,"Was sind Tapas?","Spanische Häppchen","Italienische Nudeln","Mexikanische Fladen","Griechischer Salat"]],"tech":[[1,"Welches Gerät nutzt man zum Telefonieren unterwegs?","Smartphone","Toaster","Föhn","Radio"],
+[1,"Was druckt ein Drucker?","Papier mit Text oder Bildern","Fotos aus Holz","Musik","Videos"],
+[1,"Wie heißt der Klempner mit roter Mütze aus Nintendo-Spielen?","Mario","Luigi","Wario","Toad"],
+[1,"Womit gibt man Text am Computer ein?","Mit der Tastatur","Mit dem Bildschirm","Mit dem Lautsprecher","Mit dem Drucker"],
+[1,"Was ist ein Emoji?","Ein kleines Bildsymbol","Ein Computervirus","Ein Kabel","Ein Programm"],
+[1,"Welches Unternehmen stellt die Spielkonsole Switch her?","Nintendo","Sony","Microsoft","Sega"],
+[1,"Was braucht man, um ins Internet zu gehen?","Eine Internetverbindung","Einen Fernseher","Ein Radio","Eine Waschmaschine"],
+[2,"Wie heißt der Sprachassistent von Apple?","Siri","Alexa","Cortana","Bixby"],
+[2,"Wie heißt der Sprachassistent von Amazon?","Alexa","Siri","Bixby","Cortana"],
+[2,"Welches Spiel dreht sich um einen Hauptcharakter namens Kratos?","God of War","Halo","Zelda","Assassin’s Creed"],
+[2,"In welchem Spiel fängt man Monster mit Bällen?","Pokémon","Digimon","Yu-Gi-Oh!","Monster Hunter"],
+[2,"Was bedeutet „USB“?","Universal Serial Bus","United System Board","User Speed Booster","Universal Storage Box"],
+[2,"Welches Speichermedium ersetzte weitgehend die DVD für Filme in HD?","Blu-ray","CD","Diskette","Kassette"],
+[2,"Welche Firma entwickelte das Betriebssystem Windows?","Microsoft","Apple","IBM","Google"],
+[2,"Welche Plattform gehört zu Google und zeigt Videos?","YouTube","Netflix","Twitch","Vimeo"],
+[2,"Welches Spiel zeigt Autos, die Fußball spielen?","Rocket League","FIFA","Need for Speed","Mario Kart"],
+[2,"Was ist ein „Bug“ in der Software?","Ein Programmfehler","Ein neues Update","Ein Virenscanner","Ein Passwort"],
+[2,"Was ist ein Router?","Ein Gerät, das Netzwerke verbindet (z. B. WLAN zu Hause)","Ein Lautsprecher","Ein Drucker","Ein Bildschirm"],
+[3,"In welchem Jahr erschien die erste PlayStation in Japan?","1994","1990","1998","2000"],
+[3,"Wofür steht „AI“ bzw. „KI“?","Künstliche Intelligenz","Automatische Information","Aktive Integration","Analoge Instruktion"],
+[3,"Welcher Programmiersprache verdanken Webseiten ihre Interaktivität im Browser?","JavaScript","COBOL","Fortran","Pascal"],
+[3,"Wie heißt das erste kommerzielle Videospiel von Atari (1972)?","Pong","Space Invaders","Asteroids","Breakout"],
+[3,"Was ist Open Source?","Software mit offenem Quellcode","Software ohne Internet","Software nur für Firmen","Software mit Abo-Pflicht"],
+[3,"Welches Unternehmen stellt die Prozessoren der Ryzen-Reihe her?","AMD","Intel","Nvidia","Qualcomm"],
+[3,"Wie viele Bit hat eine IPv6-Adresse?","128","64","32","256"],
+[3,"Wie heißt das Mutterunternehmen von Facebook seit 2021?","Meta","Alphabet","Oculus","Instagram Inc."],
+[3,"Welches Spiel aus dem Jahr 2017 gilt als Startschuss des Battle-Royale-Booms neben Fortnite?","PUBG","Apex Legends","Warzone","H1Z1"],
+[3,"Was ist ein Pixel?","Der kleinste Bildpunkt einer Anzeige","Eine Speichereinheit","Ein Kabeltyp","Ein Programmierbefehl"]],"sprache":[[1,"Was ist das Gegenteil von „laut“?","leise","schnell","hell","nass"],
+[1,"Was heißt „Katze“ auf Englisch?","cat","dog","mouse","bird"],
+[1,"Was heißt „Wasser“ auf Englisch?","water","wine","fire","milk"],
+[1,"Wie lautet die Mehrzahl von „Kind“?","Kinder","Kinds","Kinde","Kindern"],
+[1,"Welches Wort reimt sich auf „Sonne“?","Tonne","Mond","Stern","Sand"],
+[1,"Was heißt „Auf Wiedersehen“ auf Spanisch?","Adiós","Hola","Gracias","Por favor"],
+[1,"Was ist das Gegenteil von „alt“?","jung","groß","schön","stark"],
+[1,"Welcher Artikel gehört zu „Auto“?","das","der","die","den"],
+[2,"Was bedeutet „Grazie“ auf Italienisch?","Danke","Bitte","Hallo","Tschüss"],
+[2,"Was bedeutet das englische Wort „library“?","Bibliothek","Labor","Freiheit","Lieferung"],
+[2,"Was bedeutet „Hals- und Beinbruch!“?","Viel Glück!","Pass auf!","Gute Besserung!","Beeil dich!"],
+[2,"Was bedeutet „die Katze im Sack kaufen“?","Etwas ungeprüft kaufen","Ein Haustier kaufen","Viel Geld ausgeben","Einen Streit anfangen"],
+[2,"Was bedeutet „ins Fettnäpfchen treten“?","Etwas Peinliches sagen oder tun","Ausrutschen","Zu viel essen","Kochen lernen"],
+[2,"Was bedeutet „jemandem die Daumen drücken“?","Jemandem Glück wünschen","Jemanden ärgern","Jemanden wecken","Jemanden begrüßen"],
+[2,"Was bedeutet „auf dem Holzweg sein“?","Sich irren","Wandern gehen","Im Wald arbeiten","Langsam sein"],
+[2,"Was bedeutet „Schwein haben“?","Glück haben","Hunger haben","Unordentlich sein","Einen Bauernhof haben"],
+[2,"Was ist ein Synonym?","Ein Wort mit gleicher oder ähnlicher Bedeutung","Ein Wort mit gegenteiliger Bedeutung","Ein Fremdwort","Ein Reimwort"],
+[2,"In welchem Land ist Niederländisch neben Belgien Amtssprache?","Niederlande","Dänemark","Österreich","Norwegen"],
+[2,"Welche Sprache spricht man in Argentinien?","Spanisch","Portugiesisch","Italienisch","Englisch"],
+[3,"Was bedeutet das lateinische „Veni, vidi, vici“?","Ich kam, sah und siegte","Nutze den Tag","Erkenne dich selbst","Gott sei Dank"],
+[3,"Was bedeutet „Weltschmerz“?","Traurigkeit über den Zustand der Welt","Schmerzen auf Reisen","Kopfschmerzen","Heimweh"],
+[3,"Aus welcher Sprache stammt das Wort „Ketchup“ ursprünglich?","Aus einer chinesischen Sprache (Hokkien)","Aus dem Englischen","Aus dem Französischen","Aus dem Spanischen"],
+[3,"Aus welcher Sprache kommt das Wort „Tsunami“?","Japanisch","Hawaiisch","Indonesisch","Chinesisch"],
+[3,"Aus welcher Sprache kommt das Wort „Safari“?","Swahili","Arabisch","Hindi","Afrikaans"],
+[3,"Was ist ein Pseudonym?","Ein Deckname","Ein Gegensatzwort","Ein Gedicht","Ein Familienname"],
+[3,"Wie nennt man ein Wort, das aus den Buchstaben eines anderen gebildet wird (z. B. „Lampe“ – „Palme“)?","Anagramm","Palindrom","Akronym","Synonym"],
+[3,"Was ist ein Euphemismus?","Ein beschönigender Ausdruck","Eine Übertreibung","Ein Fachbegriff","Eine Beleidigung"],
+[3,"Wie nennt man ein Satzzeichen wie „;“?","Semikolon","Doppelpunkt","Apostroph","Bindestrich"],
+[3,"Was bedeutet „Fingerspitzengefühl“?","Feingefühl im Umgang","Gefühllose Finger","Geschicktes Klavierspielen","Kalte Hände"],
+[3,"Welche Sprache hat die meisten Sprecher weltweit (Mutter- plus Zweitsprache)?","Englisch","Spanisch","Hindi","Arabisch"]],"koerper":[[1,"Mit welchem Organ hören wir?","Mit den Ohren","Mit der Nase","Mit den Augen","Mit dem Mund"],
+[1,"Mit welchem Organ riechen wir?","Mit der Nase","Mit den Ohren","Mit der Zunge","Mit der Haut"],
+[1,"Wie viele Augen hat ein Mensch?","2","1","3","4"],
+[1,"Was wächst auf dem Kopf?","Haare","Nägel","Federn","Schuppen"],
+[1,"Was passiert, wenn man sich erkältet hat, oft mit der Nase?","Sie läuft","Sie wird größer","Sie wird blau","Nichts"],
+[1,"Wie heißt das Gelenk zwischen Ober- und Unterarm?","Ellbogen","Knie","Schulter","Hüfte"],
+[1,"Was schützt unsere Augen beim Blinzeln?","Die Augenlider","Die Ohren","Die Lippen","Die Wangen"],
+[1,"Wie viele Daumen hat ein Mensch?","2","1","4","10"],
+[2,"Wie heißt der größte Knochen im Oberarm?","Oberarmknochen (Humerus)","Elle","Speiche","Schlüsselbein"],
+[2,"Welches Organ reinigt das Blut von Giftstoffen und speichert Energie?","Leber","Herz","Lunge","Milz"],
+[2,"Was ist die normale Körpertemperatur eines Menschen ungefähr?","37 °C","35 °C","39 °C","40 °C"],
+[2,"Wie oft schlägt ein erwachsenes Herz in Ruhe ungefähr pro Minute?","Etwa 60–80-mal","Etwa 20–30-mal","Etwa 120–150-mal","Etwa 200-mal"],
+[2,"Wo sitzt der Bizeps-Gegenspieler Trizeps?","Hinten am Oberarm","Vorne am Oberschenkel","Am Bauch","Am Nacken"],
+[2,"Welches Vitamin ist besonders in Zitrusfrüchten enthalten?","Vitamin C","Vitamin D","Vitamin K","Vitamin B12"],
+[2,"Wie heißen die Zähne ganz hinten, die oft spät durchbrechen?","Weisheitszähne","Eckzähne","Schneidezähne","Milchzähne"],
+[2,"Was transportiert Blut vom Herzen weg?","Arterien","Venen","Nerven","Sehnen"],
+[2,"Was verbindet Muskeln mit Knochen?","Sehnen","Bänder","Knorpel","Nerven"],
+[2,"Welcher Teil des Auges stellt sich bei Dunkelheit weit?","Pupille","Iris","Linse","Netzhaut"],
+[2,"Wie viel Prozent des Körpers bestehen bei Erwachsenen ungefähr aus Wasser?","Etwa 60 %","Etwa 20 %","Etwa 90 %","Etwa 40 %"],
+[3,"Wie heißt die Fachrichtung für Herzkrankheiten?","Kardiologie","Neurologie","Gastroenterologie","Orthopädie"],
+[3,"Wie heißt der Fachbegriff für das Schlüsselbein?","Clavicula","Scapula","Sternum","Radius"],
+[3,"Welches Organ produziert die roten Blutkörperchen hauptsächlich?","Das Knochenmark","Die Leber","Die Milz","Das Herz"],
+[3,"Welche Drüse steuert viele andere Hormondrüsen und sitzt am Gehirn?","Hirnanhangdrüse (Hypophyse)","Schilddrüse","Nebenniere","Thymus"],
+[3,"Wie heißt das Gelenk zwischen Unterschenkel und Fuß?","Sprunggelenk","Kniegelenk","Hüftgelenk","Handgelenk"],
+[3,"Welche Blutgruppe gilt als Universalempfänger?","AB positiv","0 negativ","A positiv","B negativ"],
+[3,"Wie heißt der Teil des Gehirns, der für Gleichgewicht und Bewegungskoordination wichtig ist?","Kleinhirn","Großhirn","Hippocampus","Thalamus"],
+[3,"Welches Mineral ist besonders wichtig für Knochen und Zähne?","Kalzium","Eisen","Natrium","Zink"],
+[3,"Wie heißt der Muskel, der beim Atmen die Lunge unterstützt und Brust- und Bauchraum trennt?","Zwerchfell","Bauchmuskel","Brustmuskel","Rückenstrecker"]],"space":[[1,"Wie nennt man den Weg eines Planeten um die Sonne?","Umlaufbahn","Lichtjahr","Schweif","Krater"],
+[1,"Welcher Himmelskörper leuchtet nachts und verändert seine Form scheinbar?","Der Mond","Der Mars","Die Sonne","Ein Komet"],
+[1,"Was sind die Löcher auf dem Mond?","Krater","Vulkane","Seen","Höhlen"],
+[1,"Welcher Planet ist der zweite von der Sonne aus?","Venus","Erde","Mars","Merkur"],
+[1,"Was ist die Milchstraße?","Unsere Galaxie","Ein Planet","Ein Mond","Ein Komet"],
+[1,"Wie heißt der Mensch, der ein Teleskop zum Beobachten der Sterne nutzt?","Astronom","Astronaut","Astrologe","Meteorologe"],
+[1,"Welcher Planet ist der dritte von der Sonne aus?","Erde","Mars","Venus","Jupiter"],
+[1,"Wie nennt man einen Raumfahrer aus Russland?","Kosmonaut","Astronaut","Taikonaut","Spationaut"],
+[2,"Welcher Planet ist der vierte von der Sonne aus?","Mars","Jupiter","Erde","Saturn"],
+[2,"Wie lange dauert es ungefähr, bis sich die Erde einmal um sich selbst dreht?","24 Stunden","12 Stunden","365 Tage","1 Woche"],
+[2,"Was ist ein Schwarzes Loch?","Ein Bereich, aus dem nicht einmal Licht entkommt","Ein dunkler Planet","Ein erloschener Mond","Ein Loch in der Erdatmosphäre"],
+[2,"Wie heißt das Weltraumteleskop, das 1990 gestartet wurde?","Hubble","James Webb","Kepler","Chandra"],
+[2,"Was ist ein Lichtjahr ungefähr?","Rund 9,5 Billionen Kilometer","Rund 300.000 Kilometer","Rund 150 Millionen Kilometer","Rund 1 Milliarde Kilometer"],
+[2,"Wie weit ist die Sonne ungefähr von der Erde entfernt?","Rund 150 Millionen km","Rund 15 Millionen km","Rund 1,5 Milliarden km","Rund 384.000 km"],
+[2,"Wie weit ist der Mond ungefähr von der Erde entfernt?","Rund 384.000 km","Rund 38.000 km","Rund 3,8 Millionen km","Rund 150 Millionen km"],
+[2,"Welcher Mars-Rover landete 2021 im Jezero-Krater?","Perseverance","Curiosity","Opportunity","Spirit"],
+[2,"Was entsteht, wenn sich die Erde zwischen Sonne und Mond schiebt?","Eine Mondfinsternis","Eine Sonnenfinsternis","Ein Neumond","Ein Polarlicht"],
+[2,"Was sind Polarlichter?","Leuchterscheinungen durch Sonnenwind in der Atmosphäre","Spiegelungen des Mondlichts","Blitze über dem Meer","Lichter von Satelliten"],
+[2,"Welches Raumfahrzeug der NASA flog von 1981 bis 2011?","Space Shuttle","Saturn V","Apollo","Gemini"],
+[3,"Welcher Planet dreht sich rückläufig (im Uhrzeigersinn von Norden gesehen) um die eigene Achse?","Venus","Mars","Jupiter","Merkur"],
+[3,"Woraus besteht die Atmosphäre des Jupiter hauptsächlich?","Wasserstoff und Helium","Stickstoff und Sauerstoff","Kohlendioxid und Stickstoff","Methan und Ammoniak"],
+[3,"Wie heißt der von Galileo entdeckte Jupitermond, unter dessen Eiskruste ein Ozean vermutet wird?","Europa","Io","Kallisto","Amalthea"],
+[3,"Wie heißt der Saturnmond, aus dem Wasserfontänen ins All schießen?","Enceladus","Titan","Mimas","Iapetus"],
+[3,"Wie heißt die äußere Grenze, an der der Sonnenwind auf das interstellare Medium trifft?","Heliopause","Magnetopause","Photosphäre","Chromosphäre"],
+[3,"Welche Farbe haben die heißesten Sterne?","Blau","Rot","Gelb","Orange"],
+[3,"Wie heißt die Raumsonde, die 2014 mit „Philae“ auf einem Kometen landete?","Rosetta","Giotto","Stardust","Deep Impact"],
+[3,"Wer stellte die Gesetze der Planetenbewegung auf (elliptische Bahnen)?","Johannes Kepler","Nikolaus Kopernikus","Galileo Galilei","Tycho Brahe"],
+[3,"Wer stellte das heliozentrische Weltbild (Sonne im Zentrum) wirksam vor?","Nikolaus Kopernikus","Ptolemäus","Aristoteles","Johannes Kepler"],
+[3,"Wie lange dauert ein Umlauf des Neptuns um die Sonne ungefähr?","165 Erdjahre","12 Erdjahre","84 Erdjahre","29 Erdjahre"],
+[3,"Wie heißt die chinesische Raumstation?","Tiangong","Mir","Skylab","Salyut"],
+[3,"Zu welchem Sternbild gehören die hellen Sterne Beteigeuze und Rigel?","Orion","Großer Bär","Kassiopeia","Schwan"]],"de":[[1,"Welches Wappentier hat Berlin?","Bär","Adler","Löwe","Hirsch"],
+[1,"Welche Stadt ist berühmt für ihren Dom mit zwei Türmen am Rhein?","Köln","Mainz","Bonn","Koblenz"],
+[1,"In welcher Stadt spielen die Bremer Stadtmusikanten?","Bremen","Hamburg","Hannover","Kiel"],
+[1,"Was isst man in Deutschland traditionell am Martinstag oft?","Gans","Karpfen","Lamm","Hase"],
+[1,"Wo liegt Hamburg?","An der Elbe","Am Rhein","An der Donau","Am Main"],
+[1,"Was feiert man am 24. Dezember in Deutschland?","Heiligabend","Silvester","Ostern","Pfingsten"],
+[2,"Welches Bundesland hat die Hauptstadt Stuttgart?","Baden-Württemberg","Bayern","Hessen","Rheinland-Pfalz"],
+[2,"Welches Bundesland hat die Hauptstadt Wiesbaden?","Hessen","Rheinland-Pfalz","Saarland","Baden-Württemberg"],
+[2,"Welches Bundesland hat die Hauptstadt Erfurt?","Thüringen","Sachsen","Sachsen-Anhalt","Brandenburg"],
+[2,"Welches Bundesland hat die Hauptstadt Magdeburg?","Sachsen-Anhalt","Sachsen","Thüringen","Brandenburg"],
+[2,"Welches Bundesland hat die Hauptstadt Kiel?","Schleswig-Holstein","Niedersachsen","Mecklenburg-Vorpommern","Hamburg"],
+[2,"Welches Bundesland hat die Hauptstadt Schwerin?","Mecklenburg-Vorpommern","Brandenburg","Schleswig-Holstein","Sachsen-Anhalt"],
+[2,"Welches Bundesland hat die Hauptstadt Mainz?","Rheinland-Pfalz","Hessen","Saarland","Nordrhein-Westfalen"],
+[2,"Welches Bundesland hat die Hauptstadt Saarbrücken?","Saarland","Rheinland-Pfalz","Hessen","Baden-Württemberg"],
+[2,"Welche Hauptstadt hat Brandenburg?","Potsdam","Cottbus","Frankfurt (Oder)","Brandenburg an der Havel"],
+[2,"Welcher Fluss fließt durch Dresden?","Elbe","Oder","Spree","Saale"],
+[2,"Welcher Fluss fließt durch Berlin?","Spree","Elbe","Main","Oder"],
+[2,"Welcher Fluss fließt durch Frankfurt am Main?","Main","Rhein","Neckar","Lahn"],
+[2,"In welcher Stadt steht die Frauenkirche, die 2005 wieder geweiht wurde?","Dresden","Leipzig","München","Nürnberg"],
+[3,"Wie heißt das größte zusammenhängende Wattgebiet der Welt an der deutschen Nordseeküste?","Wattenmeer","Jadebusen","Dollart","Helgoländer Bucht"],
+[3,"In welcher Stadt wurde Martin Luther geboren?","Eisleben","Wittenberg","Erfurt","Eisenach"],
+[3,"Welches Gebirge liegt zwischen Sachsen und Tschechien?","Erzgebirge","Harz","Thüringer Wald","Rhön"],
+[3,"Welcher ist der längste Kanal Deutschlands?","Mittellandkanal","Nord-Ostsee-Kanal","Dortmund-Ems-Kanal","Main-Donau-Kanal"],
+[3,"Welcher Kanal verbindet Nordsee und Ostsee?","Nord-Ostsee-Kanal","Mittellandkanal","Elbe-Lübeck-Kanal","Küstenkanal"],
+[3,"In welchem Jahr fand die erste Bundestagswahl statt?","1949","1945","1953","1950"],
+[3,"In welcher Stadt wurde Beethoven geboren?","Bonn","Wien","Köln","Leipzig"],
+[3,"Welche deutsche Stadt hat die meisten Brücken?","Hamburg","Berlin","Venedig","Köln"],
+[3,"Welcher deutsche Ort ist berühmt für Kuckucksuhren?","Der Schwarzwald","Das Allgäu","Die Eifel","Der Spreewald"]],"kunst":[[1,"Welche Farbe entsteht aus Blau und Rot?","Lila","Grün","Orange","Braun"],
+[1,"Was ist ein Porträt?","Ein Bild einer Person","Ein Bild einer Landschaft","Eine Skulptur","Ein Gedicht"],
+[1,"Welcher Maler schnitt sich angeblich ein Ohr ab?","Vincent van Gogh","Claude Monet","Pablo Picasso","Leonardo da Vinci"],
+[1,"Was ist ein Mosaik?","Ein Bild aus vielen kleinen Steinchen","Ein Ölgemälde","Ein Holzschnitt","Ein Foto"],
+[1,"Was ist eine Galerie?","Ein Ort, an dem Kunst ausgestellt wird","Ein Musikinstrument","Ein Theaterstück","Ein Pinsel"],
+[1,"Wie heißen die Geschwister, die viele deutsche Märchen sammelten?","Die Brüder Grimm","Die Brüder Mann","Die Brüder Humboldt","Die Brüder Schlegel"],
+[2,"In welcher Stadt steht die berühmte Statue „David“ von Michelangelo?","Florenz","Rom","Venedig","Mailand"],
+[2,"Wer malte „Die Seerosen“?","Claude Monet","Édouard Manet","Paul Cézanne","Auguste Renoir"],
+[2,"Wer schuf die Skulptur „Der Denker“?","Auguste Rodin","Michelangelo","Donatello","Ernst Barlach"],
+[2,"Welche Kunstrichtung wollte Träume und das Unbewusste darstellen?","Surrealismus","Realismus","Klassizismus","Impressionismus"],
+[2,"Welcher Künstler ist für Bilder aus Farbspritzern („Drip Painting“) bekannt?","Jackson Pollock","Mark Rothko","Piet Mondrian","Andy Warhol"],
+[2,"Welcher niederländische Maler ist für Bilder aus Rechtecken in Grundfarben bekannt?","Piet Mondrian","Vincent van Gogh","Rembrandt","M. C. Escher"],
+[2,"Welcher Künstler zeichnete unmögliche Treppen und Figuren, die sich verwandeln?","M. C. Escher","René Magritte","Salvador Dalí","Joan Miró"],
+[2,"In welcher Stadt steht das Museum „Prado“?","Madrid","Barcelona","Lissabon","Rom"],
+[2,"Welcher Maler malte „Guernica“?","Pablo Picasso","Salvador Dalí","Joan Miró","Francisco de Goya"],
+[2,"Welcher britische Straßenkünstler bleibt anonym?","Banksy","Shepard Fairey","Keith Haring","Basquiat"],
+[3,"Welcher deutsche Maler der Romantik malte „Der Wanderer über dem Nebelmeer“?","Caspar David Friedrich","Albrecht Dürer","Franz Marc","Max Liebermann"],
+[3,"Wer schuf den berühmten Kupferstich „Melencolia I“ und einen „Feldhasen“?","Albrecht Dürer","Lucas Cranach","Hans Holbein","Matthias Grünewald"],
+[3,"Welcher Maler ist berühmt für seine blauen Pferde?","Franz Marc","August Macke","Paul Klee","Emil Nolde"],
+[3,"Welche Künstlergruppe gründeten Kirchner und Heckel 1905 in Dresden?","Die Brücke","Der Blaue Reiter","Bauhaus","Fluxus"],
+[3,"Wer malte „Die Erschaffung Adams“?","Michelangelo","Raffael","Leonardo da Vinci","Caravaggio"],
+[3,"Welcher Künstler verhüllte 1995 den Berliner Reichstag (mit seiner Partnerin)?","Christo","Joseph Beuys","Gerhard Richter","Anselm Kiefer"],
+[3,"Welcher deutsche Künstler wurde mit Fett und Filz berühmt?","Joseph Beuys","Gerhard Richter","Sigmar Polke","Neo Rauch"],
+[3,"Wer malte die „Nachtwache“?","Rembrandt","Vermeer","Rubens","Van Dyck"],
+[3,"Welche mexikanische Malerin ist für Selbstporträts mit Blumen im Haar bekannt?","Frida Kahlo","Tamara de Lempicka","Georgia O’Keeffe","Leonora Carrington"],
+[3,"Welcher Maler malte „Der Sohn des Menschen“ mit einem Apfel vor dem Gesicht?","René Magritte","Salvador Dalí","Max Ernst","Marc Chagall"],
+[3,"Welcher Architekt entwarf die Sagrada Família?","Antoni Gaudí","Le Corbusier","Frank Gehry","Zaha Hadid"],
+[3,"Welche Epoche ist für prunkvolle, verschnörkelte Kunst im 17. Jahrhundert bekannt?","Barock","Gotik","Renaissance","Romantik"]],"kurios":[[1,"Welches Tier kann nicht springen?","Elefant","Katze","Frosch","Känguru"],
+[1,"Kann man im Weltall pfeifen hören?","Nein, im Vakuum gibt es keinen Schall","Ja, ganz laut","Nur leise","Nur mit Helm"],
+[1,"Welches Tier schläft im Stehen auf einem Bein?","Flamingo","Hund","Biber","Igel"],
+[1,"Wofür ist die Zahl 13 in vielen Ländern bekannt?","Als Unglückszahl","Als Glückszahl","Als Lieblingszahl der Könige","Als höchste Zahl"],
+[1,"Wie viele Höcker hat ein Dromedar?","1","2","3","Keinen"],
+[1,"Was ist ein Pinguin?","Ein Vogel","Ein Fisch","Ein Säugetier","Ein Reptil"],
+[2,"Welches Landtier hat das größte Gehirn?","Elefant","Gorilla","Löwe","Giraffe"],
+[2,"Wie viele Zähne hat ein Hai im Laufe seines Lebens ungefähr?","Tausende","32","100","Gar keine"],
+[2,"Woraus bestehen die Hörner eines Nashorns?","Keratin (wie Haare)","Knochen","Elfenbein","Kalk"],
+[2,"Welches Tier kann mit dem Hinterteil atmen?","Schildkröte (manche Arten)","Pferd","Taube","Igel"],
+[2,"Wie heißt die Angst vor Clowns?","Coulrophobie","Agoraphobie","Akrophobie","Klaustrophobie"],
+[2,"Welches Land hat eine quadratische Flagge?","Schweiz","Dänemark","Japan","Kanada"],
+[2,"Welches Tier ist ein Symbol für Weisheit?","Eule","Esel","Huhn","Schwein"],
+[2,"Was ist ein „Blobfisch“?","Ein Tiefseefisch, der an der Oberfläche schlaff aussieht","Ein Süßwasser-Kugelfisch","Ein Fabelwesen","Eine Qualle"],
+[3,"Wie oft schlägt das Herz eines Kolibris ungefähr pro Minute (in Aktivität)?","Über 1.000-mal","Etwa 70-mal","Etwa 200-mal","Etwa 10-mal"],
+[3,"Welcher Planet würde wegen seiner geringen Dichte theoretisch in Wasser schwimmen?","Saturn","Jupiter","Erde","Mars"],
+[3,"Wie viele Geschmacksknospen hat ein Mensch ungefähr?","Etwa 2.000–8.000","Etwa 50","Etwa 100.000","Etwa 500"],
+[3,"Welcher Vogel kann Stimmen und Geräusche perfekt nachahmen, etwa Kettensägen?","Leierschwanz","Elster","Amsel","Krähe"],
+[3,"Welches Tier gilt als nahezu unsterblich, weil es sich verjüngen kann?","Unsterbliche Qualle (Turritopsis)","Hummer","Schildkröte","Seestern"],
+[3,"Welches Tier überlebt extreme Kälte, Hitze und sogar das Weltall?","Bärtierchen","Ameise","Kakerlake","Schnecke"],
+[3,"Wie lang ist die Zunge einer Giraffe ungefähr?","Rund 45–50 cm","Rund 10 cm","Rund 1 Meter","Rund 5 cm"],
+[3,"Wie lange kann ein Faultier die Luft anhalten?","Bis zu rund 40 Minuten","Höchstens 1 Minute","5 Stunden","Gar nicht"]],"reisen":[[1,"In welchem Land findet man Kängurus in freier Wildbahn?","Australien","Kanada","Brasilien","Indien"],
+[1,"In welcher Stadt fährt man mit Gondeln durch Kanäle?","Venedig","Amsterdam","Paris","Wien"],
+[1,"In welchem Land liegt der Mount Everest teilweise?","Nepal","Indien","Japan","Peru"],
+[1,"Wo steht die Tower Bridge?","London","New York","Sydney","Prag"],
+[1,"In welchem Land ist Hollywood?","USA","Kanada","Großbritannien","Australien"],
+[2,"In welcher Stadt steht der Times Square?","New York","Los Angeles","Chicago","Las Vegas"],
+[2,"In welcher Stadt steht das Schloss Schönbrunn?","Wien","Salzburg","München","Prag"],
+[2,"In welcher Stadt steht die Karlsbrücke?","Prag","Wien","Budapest","Krakau"],
+[2,"Welche Stadt nennt man „Big Apple“?","New York","San Francisco","Boston","Miami"],
+[2,"In welchem Land liegen die Niagarafälle (zusammen mit den USA)?","Kanada","Mexiko","Kuba","Brasilien"],
+[2,"Welche Stadt ist für ihre Casinos in der Wüste von Nevada bekannt?","Las Vegas","Reno","Phoenix","Dallas"],
+[2,"In welcher Stadt steht der Louvre mit der Glaspyramide?","Paris","London","Madrid","Berlin"],
+[2,"In welcher Stadt steht der CN Tower?","Toronto","Vancouver","Montreal","Chicago"],
+[2,"In welcher Stadt steht die Blaue Moschee (Sultan-Ahmed-Moschee)?","Istanbul","Kairo","Dubai","Ankara"],
+[2,"In welchem Land liegt die Insel Bali?","Indonesien","Thailand","Philippinen","Malaysia"],
+[2,"In welchem Land stehen die Tempel von Kyoto?","Japan","China","Südkorea","Vietnam"],
+[3,"In welchem Land liegt die Halong-Bucht?","Vietnam","Thailand","China","Philippinen"],
+[3,"Welche Stadt ist für die Brücke „Rialto“ bekannt?","Venedig","Florenz","Rom","Verona"],
+[3,"In welchem Land steht die Felsenkirche Lalibela?","Äthiopien","Ägypten","Jordanien","Sudan"],
+[3,"In welcher Stadt steht das Guggenheim-Museum mit Titanfassade von Frank Gehry?","Bilbao","Madrid","Barcelona","Valencia"],
+[3,"In welchem Land liegt der Torres-del-Paine-Nationalpark?","Chile","Argentinien","Peru","Bolivien"],
+[3,"Wo steht der Marina Bay Sands mit dem Pool auf dem Dach?","Singapur","Dubai","Hongkong","Kuala Lumpur"],
+[3,"In welcher Stadt steht der Palast Potala?","Lhasa","Kathmandu","Peking","Thimphu"],
+[3,"In welchem Land liegt der Salar de Uyuni, die größte Salzpfanne der Welt?","Bolivien","Chile","Argentinien","Peru"],
+[3,"In welchem Land liegt die Wüstenstadt Timbuktu?","Mali","Niger","Mauretanien","Marokko"],
+[3,"In welcher Stadt stehen die Petronas Towers?","Kuala Lumpur","Singapur","Jakarta","Bangkok"],
+[3,"In welchem Land liegt das Naturwunder Pamukkale mit weißen Kalkterrassen?","Türkei","Griechenland","Zypern","Iran"],
+[3,"In welchem Land liegt der Banff-Nationalpark?","Kanada","USA","Neuseeland","Norwegen"]],"mythen":[[1,"Welches Fabelwesen hat einen Löwenkörper und Adlerkopf?","Greif","Drache","Pegasus","Sphinx"],
+[1,"Was ist ein Kobold?","Ein kleines Fabelwesen, das Streiche spielt","Ein Riese","Ein Seeungeheuer","Ein Engel"],
+[1,"Was trinken Vampire laut Legende?","Blut","Milch","Wasser","Tee"],
+[1,"Was hält Vampire laut Legende fern?","Knoblauch","Zucker","Salz","Pfeffer"],
+[1,"Welcher Geist erfüllt in „1001 Nacht“ drei Wünsche?","Ein Dschinn","Ein Troll","Ein Zwerg","Eine Fee"],
+[1,"Wie heißt das Ungeheuer, das in einem schottischen See leben soll?","Nessie","Yeti","Bigfoot","Kraken"],
+[1,"Wo soll der Yeti leben?","Im Himalaya","In der Sahara","Im Amazonas","In der Antarktis"],
+[1,"Was ist Rübezahl?","Ein Berggeist aus dem Riesengebirge","Ein Seeungeheuer","Ein Drache","Ein Zauberer aus Ägypten"],
+[2,"Wie heißt der Kriegsgott der Griechen?","Ares","Apollon","Hermes","Hephaistos"],
+[2,"Wer ist der Götterbote mit Flügelschuhen?","Hermes","Apollon","Dionysos","Ares"],
+[2,"Wer ist die Ehefrau des Zeus?","Hera","Athene","Artemis","Persephone"],
+[2,"Welcher Gott wird mit Wein und Feiern verbunden?","Dionysos","Apollon","Hermes","Poseidon"],
+[2,"Welche Wesen locken Seeleute mit Gesang ins Verderben?","Sirenen","Nymphen","Musen","Furien"],
+[2,"Was ist eine Hydra?","Eine vielköpfige Wasserschlange","Ein geflügeltes Pferd","Ein einäugiger Riese","Ein Löwe mit Flügeln"],
+[2,"Welche Kriegerinnen holen in der nordischen Sage gefallene Helden nach Walhall?","Walküren","Amazonen","Nornen","Musen"],
+[2,"Wie heißt der Schmiedegott der Griechen?","Hephaistos","Ares","Hermes","Apollon"],
+[2,"Was ist ein Phönix?","Ein Vogel, der aus seiner Asche wiederaufersteht","Ein Drache aus Eis","Ein Riesenadler","Ein Pferd mit Horn"],
+[2,"Was bewacht der Drache Fafnir in der nordischen Sage?","Einen Goldschatz","Eine Prinzessin","Eine Quelle","Einen Wald"],
+[3,"Wie heißt Odins achtbeiniges Pferd?","Sleipnir","Grani","Fenrir","Hugin"],
+[3,"Wie heißen Odins zwei Raben?","Hugin und Munin","Geri und Freki","Skoll und Hati","Thjazi und Thrym"],
+[3,"Wie heißt der riesige Wolf der nordischen Mythologie?","Fenrir","Sleipnir","Garm","Jörmungandr"],
+[3,"Wie heißt die Weltenschlange, die um Midgard liegt?","Jörmungandr","Nidhöggr","Fafnir","Fenrir"],
+[3,"Wie heißt der Weltuntergang in der nordischen Mythologie?","Ragnarök","Armageddon","Niflheim","Muspelheim"],
+[3,"Welche ägyptische Göttin wird mit Katzenkopf dargestellt?","Bastet","Isis","Hathor","Sachmet"],
+[3,"Wer ist der ägyptische Totengott und Herrscher der Unterwelt?","Osiris","Ra","Horus","Seth"],
+[3,"Welcher Gott hat in Ägypten den Kopf eines Falken?","Horus","Anubis","Thot","Ptah"],
+[3,"Welcher Held tötete den Minotaurus?","Theseus","Perseus","Herakles","Jason"],
+[3,"Wie heißt die Tochter des Königs Minos, die Theseus mit einem Faden half?","Ariadne","Medea","Penelope","Antigone"],
+[3,"Wie hieß die treue Ehefrau des Odysseus?","Penelope","Helena","Kirke","Kalypso"],
+[3,"Welche Gestalt stellte in Theben Rätsel und tötete, wer falsch antwortete?","Sphinx","Medusa","Chimäre","Harpyie"],
+[3,"Zu welchem Göttergeschlecht gehörte Kronos, bevor die Olympier herrschten?","Titanen","Giganten","Zyklopen","Hekatoncheiren"],
+[3,"Was ist in der keltischen Sage die Insel Avalon?","Die Insel, auf die König Artus gebracht wurde","Ein Drachenhort","Die Heimat der Wikinger","Ein versunkenes Schloss"]],"alltag":[[1,"Womit putzt man sich die Zähne?","Mit einer Zahnbürste","Mit einem Kamm","Mit einem Löffel","Mit einem Pinsel"],
+[1,"Welches Gerät wäscht Kleidung?","Waschmaschine","Spülmaschine","Staubsauger","Mikrowelle"],
+[1,"Welches Gerät macht Brotscheiben knusprig?","Toaster","Mixer","Wasserkocher","Föhn"],
+[1,"Womit trocknet man Haare?","Mit einem Föhn","Mit einem Toaster","Mit einem Bügeleisen","Mit einem Ventilator"],
+[1,"Welches Verkehrsmittel fährt auf Schienen?","Zug","Bus","Taxi","Fahrrad"],
+[1,"Was misst eine Uhr?","Die Zeit","Die Temperatur","Das Gewicht","Die Länge"],
+[1,"Welche Farbe hat bei der Ampel das Signal „Gehen“ für Fußgänger?","Grün","Rot","Gelb","Blau"],
+[1,"Womit schneidet man Papier?","Mit einer Schere","Mit einem Löffel","Mit einer Gabel","Mit einem Lineal"],
+[1,"Was benutzt man, um einen Nagel in die Wand zu schlagen?","Hammer","Schraubenzieher","Zange","Säge"],
+[1,"Was ist ein Kassenbon?","Ein Beleg über einen Einkauf","Ein Geldschein","Ein Gutschein","Eine Eintrittskarte"],
+[2,"Welches Gerät erfand Alessandro Volta um 1800?","Die erste Batterie","Die Glühbirne","Das Telefon","Den Elektromotor"],
+[2,"Wer erfand das Dynamit?","Alfred Nobel","Thomas Edison","Robert Bosch","Werner von Siemens"],
+[2,"Was erfanden die Brüder Lumière 1895?","Den Kinematografen (Kino)","Das Radio","Das Fahrrad","Das Flugzeug"],
+[2,"Wer baute 1817 das Laufrad, einen Vorläufer des Fahrrads?","Karl Drais","Carl Benz","Gottlieb Daimler","Rudolf Diesel"],
+[2,"Wofür steht die Abkürzung „ÖPNV“?","Öffentlicher Personennahverkehr","Österreichischer Postverband","Öffentliche Parkplatzverwaltung","Ökologischer Personenverkehr"],
+[2,"Was zeigt das Verkehrszeichen mit einem roten Rand und weißem Feld (rund) an?","Verbot der Durchfahrt für alle Fahrzeuge","Vorfahrt","Parkplatz","Fußgängerweg"],
+[2,"Wie viele Volt hat eine normale Haushaltssteckdose in Deutschland?","230 Volt","110 Volt","12 Volt","400 Volt"],
+[2,"Welche Erfindung von Werner von Siemens ermöglichte Elektromotoren und Generatoren in großem Maßstab?","Das dynamoelektrische Prinzip (Dynamo)","Die Glühbirne","Das Telefon","Der Kühlschrank"],
+[2,"Was ist ein QR-Code?","Ein quadratischer Strichcode zum Scannen","Eine Geheimschrift","Ein WLAN-Passwort","Eine Postleitzahl"],
+[2,"Was bedeutet die Abkürzung „MwSt.“?","Mehrwertsteuer","Mindestwert-Standard","Monatsweise Steuer","Materialwert-Summe"],
+[2,"Was erfand der Schweizer Georges de Mestral nach dem Vorbild von Kletten?","Den Klettverschluss","Den Reißverschluss","Den Druckknopf","Den Gummizug"],
+[3,"Wer erfand den Otto-Motor (Viertaktmotor, 1876)?","Nikolaus Otto","Rudolf Diesel","Carl Benz","Wilhelm Maybach"],
+[3,"Welcher Erfinder trieb die Wechselstrom-Technik voran und ist Namensgeber einer physikalischen Einheit?","Nikola Tesla","Thomas Edison","Alessandro Volta","Heinrich Hertz"],
+[3,"In welchem Jahr wurde die erste SMS verschickt?","1992","1985","1999","2003"],
+[3,"Welches Gerät erfand Percy Spencer nach einem geschmolzenen Schokoriegel?","Die Mikrowelle","Den Kühlschrank","Den Toaster","Den Backofen"],
+[3,"Wofür steht die Abkürzung „DIN“?","Deutsches Institut für Normung","Deutsche Industrie-Norm-Gesellschaft","Deutscher Ingenieur-Nachweis","Datenblatt Internationaler Normen"],
+[3,"Welches Papierformat ist ein normales Briefblatt in Deutschland?","DIN A4","DIN A3","DIN A5","DIN B4"],
+[3,"Wie groß ist ein DIN-A4-Blatt?","210 × 297 mm","200 × 300 mm","215 × 280 mm","148 × 210 mm"],
+[3,"Wer erfand den Teebeutel aus Papier (Doppelkammer) in Deutschland?","Adolf Rambold","Melitta Bentz","Robert Bosch","Gottlieb Daimler"],
+[3,"Was erfand Josephine Cochrane 1886?","Die Geschirrspülmaschine","Den Staubsauger","Die Waschmaschine","Die Nähmaschine"],
+[3,"Welches Unternehmen brachte 1979 den Walkman auf den Markt?","Sony","Panasonic","Philips","Grundig"],
+[3,"Wie lange gilt in Deutschland die Hauptuntersuchung (TÜV) für ein neues Auto zuerst?","3 Jahre","1 Jahr","2 Jahre","5 Jahre"]],"philo":[[1,"Wie nennt man jemanden, der immer das Schlechte erwartet?","Pessimist","Optimist","Idealist","Realist"],
+[1,"Was ist Gerechtigkeit?","Fairer Umgang, bei dem jeder bekommt, was ihm zusteht","Ein Musikstil","Eine Sportart","Ein Gefühl von Hunger"],
+[1,"Was ist ein Philosoph?","Jemand, der über grundlegende Fragen nachdenkt","Ein Arzt","Ein Koch","Ein Sportler"],
+[1,"Was ist ein Vorurteil?","Eine Meinung ohne genaue Kenntnis","Ein Gerichtsurteil","Ein Lob","Eine Tatsache"],
+[1,"Wie nennt man jemanden, der alles bezweifelt?","Skeptiker","Fanatiker","Optimist","Romantiker"],
+[1,"Was ist Toleranz?","Andere Meinungen und Lebensweisen gelten lassen","Strenge Regeln","Egoismus","Wettbewerb"],
+[1,"Was ist ein Gewissen?","Das innere Gefühl für richtig und falsch","Ein Gedächtnis für Zahlen","Ein Sinnesorgan","Ein Traum"],
+[2,"Wie heißt die Lehre vom Schönen und der Kunst in der Philosophie?","Ästhetik","Logik","Ethik","Metaphysik"],
+[2,"Wie heißt die Lehre vom richtigen Schlussfolgern?","Logik","Ethik","Rhetorik","Psychologie"],
+[2,"Welche Denkschule geht auf Epikur zurück?","Epikureismus (maßvoller Genuss)","Stoizismus","Kynismus","Sophistik"],
+[2,"Welcher chinesische Philosoph schrieb laut Überlieferung das „Daodejing“?","Laozi","Konfuzius","Mengzi","Sunzi"],
+[2,"Welche Religion bzw. Lehre geht auf Siddhartha Gautama zurück?","Buddhismus","Hinduismus","Taoismus","Jainismus"],
+[2,"Wer schrieb das Buch „Der Staat“ (Politeia)?","Platon","Aristoteles","Sokrates","Cicero"],
+[2,"Was bedeutet „Carpe diem“ als Lebensweisheit?","Den Moment genießen","Immer vorsichtig sein","Viel arbeiten","Geld sparen"],
+[2,"Was bezeichnet man als „Moral“?","Werte und Regeln für gutes Verhalten","Ein Rechtsgesetz","Einen Glauben an Geister","Eine Rechenart"],
+[2,"Was ist Egoismus?","Vor allem an sich selbst denken","Für andere da sein","Viel lernen","Gerne reisen"],
+[2,"Was ist Altruismus?","Selbstlos für andere handeln","Nur an sich denken","Misstrauen gegen alle","Liebe zur Natur"],
+[3,"Welcher Philosoph prägte den Begriff „Übermensch“?","Friedrich Nietzsche","Arthur Schopenhauer","Karl Marx","Martin Heidegger"],
+[3,"Wer schrieb „Sein und Zeit“?","Martin Heidegger","Edmund Husserl","Karl Jaspers","Hannah Arendt"],
+[3,"Wer schrieb „Die Welt als Wille und Vorstellung“?","Arthur Schopenhauer","Immanuel Kant","Georg W. F. Hegel","Friedrich Nietzsche"],
+[3,"Welche Philosophin schrieb über die „Banalität des Bösen“?","Hannah Arendt","Simone de Beauvoir","Rosa Luxemburg","Edith Stein"],
+[3,"Wer schrieb „Das andere Geschlecht“?","Simone de Beauvoir","Hannah Arendt","Virginia Woolf","Judith Butler"],
+[3,"Welcher Philosoph verglich das Leben mit dem Felsenrollen des Sisyphos?","Albert Camus","Jean-Paul Sartre","Søren Kierkegaard","Friedrich Nietzsche"],
+[3,"Wie heißt das Gedankenexperiment mit einer Katze, die zugleich tot und lebendig ist?","Schrödingers Katze","Pawlows Hund","Buridans Esel","Laplaces Dämon"],
+[3,"Was beschreibt das „Trolley-Problem“?","Ein moralisches Dilemma, ob man Leben gegeneinander abwägt","Ein Verkehrsproblem","Eine Rechenaufgabe","Ein Paradoxon über Zeit"],
+[3,"Was beschreibt das Paradoxon „Achilles und die Schildkröte“?","Ein scheinbar nie einholbarer Vorsprung","Die Unsterblichkeit","Die Erschaffung der Welt","Einen Wettstreit der Götter"],
+[3,"Welcher englische Philosoph prägte den Begriff „tabula rasa“ für den Geist bei der Geburt?","John Locke","Thomas Hobbes","David Hume","Francis Bacon"],
+[3,"Welcher Aufklärer forderte „Habe Mut, dich deines eigenen Verstandes zu bedienen!“?","Immanuel Kant","Voltaire","Gotthold Ephraim Lessing","Moses Mendelssohn"],
+[3,"Wie nennt man die Lehre vom Wissen und Erkennen?","Erkenntnistheorie","Ontologie","Ästhetik","Theologie"],
+[3,"Welcher französische Philosoph schrieb „Der Gesellschaftsvertrag“?","Jean-Jacques Rousseau","Voltaire","Montesquieu","Denis Diderot"],
+[3,"Welcher Philosoph begründete die Gewaltenteilung (Legislative, Exekutive, Judikative) wesentlich?","Montesquieu","Rousseau","Hobbes","Locke"],
+[3,"Welcher antike Philosoph sagte „Alles fließt“ (panta rhei)?","Heraklit","Parmenides","Demokrit","Thales"]],"gefuehle":[[1,"Welches Gefühl hat man oft vor einer Prüfung?","Nervosität","Langeweile","Müdigkeit","Hunger"],
+[1,"Wie zeigt man meistens, dass man traurig ist?","Durch Weinen","Durch Lachen","Durch Hüpfen","Durch Singen"],
+[1,"Wie nennt man das Gefühl, wenn man sich über etwas sehr ärgert?","Wut","Freude","Ruhe","Liebe"],
+[1,"Wie fühlt man sich, wenn man etwas Gutes geschafft hat?","Stolz","Beschämt","Gelangweilt","Ängstlich"],
+[1,"Was ist Eifersucht?","Angst, jemanden an einen anderen zu verlieren","Große Freude","Hunger auf Süßes","Müdigkeit"],
+[1,"Wie heißt das Gefühl, wenn man nichts zu tun hat und unzufrieden ist?","Langeweile","Neugier","Ehrfurcht","Hoffnung"],
+[1,"Wie heißt das Gefühl, wenn man etwas Neues unbedingt wissen will?","Neugier","Ekel","Scham","Trauer"],
+[1,"Wie nennt man das Gefühl, wenn eine Gefahr vorbei ist?","Erleichterung","Wut","Eifersucht","Neid"],
+[2,"Was ist Introversion?","Eher Energie aus Ruhe und Alleinsein ziehen","Sehr gesellig sein","Angst vor Menschen","Schüchternheit als Krankheit"],
+[2,"Was ist ein Kompliment?","Eine freundliche, anerkennende Bemerkung","Eine Beschwerde","Eine Entschuldigung","Ein Befehl"],
+[2,"Was ist „Resilienz“?","Psychische Widerstandskraft in Krisen","Ein Hautausschlag","Ein Gedächtnistraining","Große Müdigkeit"],
+[2,"Was beschreibt der Begriff „Gruppenzwang“?","Druck, sich der Gruppe anzupassen","Ein Mannschaftssport","Ein Familientreffen","Eine Pflicht in der Schule"],
+[2,"Welches Hormon wird oft als „Glückshormon“ bezeichnet?","Serotonin","Insulin","Adrenalin","Cortisol"],
+[2,"Welches Hormon wird bei langanhaltendem Stress ausgeschüttet?","Cortisol","Oxytocin","Melatonin","Serotonin"],
+[2,"Was ist „Gelassenheit“?","Innere Ruhe in schwierigen Lagen","Große Aufregung","Starke Wut","Ein Mittagsschlaf"],
+[2,"Was bezeichnet „FOMO“?","Angst, etwas zu verpassen","Freude am Shoppen","Angst vor Spinnen","Lust auf Essen"],
+[2,"Was beschreibt der Begriff „Bauchgefühl“?","Eine intuitive Entscheidung ohne langes Nachdenken","Bauchschmerzen","Hunger","Ein Herzleiden"],
+[2,"Wie heißt das Gefühl der Bewunderung und Demut vor etwas Großem?","Ehrfurcht","Langeweile","Neid","Schadenfreude"],
+[2,"Was ist Nostalgie?","Sehnsüchtige Erinnerung an früher","Angst vor der Zukunft","Freude über Neues","Ärger über die Gegenwart"],
+[3,"Wie heißt der Effekt, bei dem wir Menschen mögen, die uns ähnlich sind?","Ähnlichkeitsprinzip","Placebo-Effekt","Zeigarnik-Effekt","Pygmalion-Effekt"],
+[3,"Was beschreibt der Zeigarnik-Effekt?","Unerledigte Aufgaben bleiben besser im Gedächtnis","Lächeln macht glücklich","Wir vergessen Gesichter schnell","Gruppen sind kreativer"],
+[3,"Was beschreibt der Pygmalion-Effekt?","Hohe Erwartungen anderer steigern die Leistung","Man verliebt sich in Statuen","Lob macht faul","Angst blockiert das Denken"],
+[3,"Was ist das „Impostor-Syndrom“ (Hochstapler-Syndrom)?","Das Gefühl, den eigenen Erfolg nicht verdient zu haben","Krankhaftes Lügen","Übertriebenes Selbstbewusstsein","Angst vor Fremden"],
+[3,"Welcher Psychologe entwickelte die Persönlichkeitstypen „introvertiert“ und „extravertiert“?","Carl Gustav Jung","Sigmund Freud","Alfred Adler","Erik Erikson"],
+[3,"Welches berühmte Experiment testete in den 1960ern Gehorsam gegenüber Autoritäten?","Milgram-Experiment","Stanford-Prison-Experiment","Marshmallow-Test","Asch-Experiment"],
+[3,"Was untersuchte der „Marshmallow-Test“?","Die Fähigkeit von Kindern, Belohnungen aufzuschieben","Geschmacksvorlieben","Zuckerallergien","Teamarbeit"],
+[3,"Was zeigte das Asch-Experiment zu Linienlängen?","Viele passen sich der falschen Gruppenmeinung an","Menschen schätzen Längen genau","Kinder lernen schneller","Farben beeinflussen Urteile"],
+[3,"Wie heißt die Tendenz, Erfolge sich selbst und Misserfolge anderen zuzuschreiben?","Selbstwertdienliche Verzerrung","Halo-Effekt","Ankereffekt","Gruppendenken"],
+[3,"Was beschreibt der „Ankereffekt“?","Eine erste Zahl beeinflusst spätere Schätzungen","Man bleibt gern am selben Ort","Angst vor Wasser","Gewohnheiten werden fest"],
+[3,"Was ist „Empathie-Müdigkeit“ (Compassion Fatigue)?","Erschöpfung durch ständiges Mitfühlen","Fehlende Gefühle seit Geburt","Ein Schlafproblem","Ein Kopfschmerz"]],"kultur":[[1,"Was verschenkt man traditionell am Valentinstag oft?","Blumen","Ostereier","Feuerwerk","Laternen"],
+[1,"Was versteckt man an Ostern für Kinder?","Ostereier","Weihnachtsgeschenke","Kürbisse","Laternen"],
+[1,"Was schnitzt man an Halloween traditionell aus?","Kürbisse","Äpfel","Melonen","Kartoffeln"],
+[1,"Was stellt man im Advent auf und zündet jeden Sonntag eine Kerze mehr an?","Adventskranz","Maibaum","Osterstrauß","Laterne"],
+[1,"Was öffnet man im Dezember jeden Tag ein Türchen?","Adventskalender","Briefkasten","Kühlschrank","Schrank"],
+[1,"In welchem Land wird das Fest „Cinco de Mayo“ gefeiert?","Mexiko","Spanien","Brasilien","Italien"],
+[1,"Was feiert man am 31. Dezember um Mitternacht?","Den Jahreswechsel","Ostern","Geburtstag","Erntedank"],
+[1,"Welches Fest feiern viele Muslime nach dem Fastenmonat?","Zuckerfest (Eid al-Fitr)","Diwali","Chanukka","Thanksgiving"],
+[2,"Was ist ein Maibaum?","Ein geschmückter Baum zum 1. Mai","Ein Weihnachtsbaum","Ein Obstbaum","Ein Ostergeschenk"],
+[2,"In welchem Land ist der Karneval von Venedig mit Masken berühmt?","Italien","Spanien","Brasilien","Frankreich"],
+[2,"Wie heißt das chinesische Neujahrsfest auch?","Frühlingsfest","Mondfest","Drachenbootfest","Laternenfest"],
+[2,"Wie viele Tiere hat der chinesische Tierkreis?","12","10","8","24"],
+[2,"Welches Gericht isst man in Deutschland traditionell an Heiligabend oft?","Kartoffelsalat mit Würstchen","Spaghetti","Sushi","Pizza"],
+[2,"Was ist der „Polterabend“?","Feier vor einer Hochzeit, bei der Porzellan zerschlagen wird","Ein Silvesterbrauch","Ein Erntefest","Ein Kinderfest"],
+[2,"Was ist ein „Sombrero“?","Ein breitkrempiger Hut aus Mexiko","Ein Musikinstrument","Ein Tanz","Ein Getränk"],
+[2,"Was ist Fasching bzw. Karneval in Deutschland vor allem?","Eine bunte Kostüm- und Narrenzeit vor der Fastenzeit","Ein Erntefest","Ein Weihnachtsmarkt","Ein Sportturnier"],
+[2,"Wann beginnt in Deutschland traditionell die Karnevalssession?","Am 11.11. um 11:11 Uhr","Am 1. Januar","Am 6. Dezember","Am Rosenmontag"],
+[2,"Wie heißt der Tag, an dem in Deutschland Kinder ihre Schuhe für den Nikolaus rausstellen?","6. Dezember","24. Dezember","1. Dezember","31. Dezember"],
+[2,"Was ist Yoga ursprünglich?","Eine Lehre und Übungspraxis aus Indien","Ein japanischer Kampfsport","Ein chinesisches Spiel","Eine europäische Turnübung"],
+[2,"Wie heißen die Japanischen Kirschblüten-Feste?","Hanami","Obon","Tanabata","Setsubun"],
+[3,"Was ist „Fika“ in Schweden?","Eine Kaffeepause mit Gebäck","Ein Tanz","Ein Mittsommerfest","Eine Sauna"],
+[3,"Welches Fest feiert man in Schweden mit Blumenkränzen und Tanz um einen Baum im Juni?","Mittsommer","Lucia","Walpurgis","Advent"],
+[3,"Was ist Obon in Japan?","Ein Fest zum Gedenken an die Ahnen","Ein Neujahrsfest","Eine Teesorte","Ein Sumo-Turnier"],
+[3,"Was bedeutet „Feng Shui“?","Eine chinesische Lehre der harmonischen Raumgestaltung","Ein Kampfstil","Ein Nudelgericht","Eine Kalligrafie-Schrift"],
+[3,"Was ist ein Kimono?","Ein traditionelles japanisches Gewand","Ein Schwert","Ein Teehaus","Ein Hut"],
+[3,"Wie heißt die japanische Teezeremonie?","Chanoyu (Sadō)","Ikebana","Haiku","Kendo"],
+[3,"Was ist Capoeira?","Eine brasilianische Kampfkunst mit Tanz und Musik","Ein Salsa-Tanz","Ein Kartenspiel","Ein Musikinstrument"],
+[3,"In welchem Land ist Hogmanay ein großes Silvesterfest?","Schottland","Irland","Norwegen","Island"],
+[3,"Was bedeutet der Ruf „O’zapft is!“ auf dem Oktoberfest?","Der Anstich des ersten Bierfasses","Der Abschluss des Festes","Ein Trinkspiel","Ein Tanzwettbewerb"],
+[3,"Welches Fest feiert man in Indien zu Ehren des Gottes Ganesha?","Ganesh Chaturthi","Holi","Diwali","Navratri"],
+[3,"Was bedeutet „Ubuntu“ als afrikanische Lebensphilosophie?","„Ich bin, weil wir sind“ – Menschlichkeit und Gemeinschaft","Ein Kriegsruf","Ein Begrüßungstanz","Ein Erntefest"],
+[3,"Was ist „Lagom“ in Schweden?","Das richtige Maß – nicht zu viel, nicht zu wenig","Ein Gericht","Ein Weihnachtsbrauch","Ein Möbelstück"],
+[3,"Was ist ein Totempfahl?","Ein geschnitzter Pfahl mit Symbolen indigener Völker Nordamerikas","Ein Maibaum","Ein Wegweiser","Ein Grabstein aus Stein"]],"literatur":[[1,"Wie heißt die Bärenfigur von Michael Bond mit Hut, die Marmelade liebt?","Paddington","Winnie Puuh","Balu","Rupert"],
+[1,"In welchem Märchen hat ein Mädchen sehr lange Haare und lebt in einem Turm?","Rapunzel","Aschenputtel","Schneewittchen","Frau Holle"],
+[1,"Wie heißen die zwei Kinder, die im Wald ein Lebkuchenhaus finden?","Hänsel und Gretel","Max und Moritz","Emil und Pony","Tom und Huck"],
+[1,"Welches Tier ist Balu im „Dschungelbuch“?","Ein Bär","Ein Tiger","Ein Panther","Ein Affe"],
+[1,"Wie heißt der Junge im „Dschungelbuch“?","Mogli","Tarzan","Peter","Oliver"],
+[1,"Wer schrieb „Die drei ???“-Bücher ursprünglich?","Robert Arthur","Enid Blyton","Agatha Christie","Erich Kästner"],
+[2,"Wer schrieb „Momo“?","Michael Ende","Otfried Preußler","Cornelia Funke","Erich Kästner"],
+[2,"Wer schrieb „Das doppelte Lottchen“?","Erich Kästner","Astrid Lindgren","Michael Ende","Otfried Preußler"],
+[2,"Wer schrieb „Die kleine Hexe“?","Otfried Preußler","Michael Ende","Paul Maar","Kirsten Boie"],
+[2,"Wer erfand das „Sams“?","Paul Maar","Otfried Preußler","Janosch","Michael Ende"],
+[2,"Wer schrieb „Oh, wie schön ist Panama“?","Janosch","Paul Maar","Eric Carle","Wilhelm Busch"],
+[2,"Wer schrieb „Die Tribute von Panem“?","Suzanne Collins","Stephenie Meyer","Veronica Roth","J. K. Rowling"],
+[2,"Wer schrieb „Twilight – Bis(s) zum Morgengrauen“?","Stephenie Meyer","Suzanne Collins","Cassandra Clare","Rick Riordan"],
+[2,"Welche Buchreihe spielt in Narnia?","Die Chroniken von Narnia","Der Herr der Ringe","Percy Jackson","Eragon"],
+[2,"Wer schrieb „Eragon“?","Christopher Paolini","Rick Riordan","J. R. R. Tolkien","Terry Pratchett"],
+[2,"Wer schrieb „Charlie und die Schokoladenfabrik“?","Roald Dahl","Lewis Carroll","Mark Twain","Enid Blyton"],
+[2,"Wer schrieb „Der Zauberer von Oz“?","L. Frank Baum","Lewis Carroll","Roald Dahl","Mark Twain"],
+[2,"Wer schrieb „Es“ und „Shining“?","Stephen King","Dan Brown","John Grisham","Dean Koontz"],
+[2,"Wer schrieb „Sakrileg“ (The Da Vinci Code)?","Dan Brown","Stephen King","Ken Follett","John Grisham"],
+[3,"Wer schrieb „Die Säulen der Erde“?","Ken Follett","Noah Gordon","Umberto Eco","Dan Brown"],
+[3,"Wer schrieb „Der Name der Rose“?","Umberto Eco","Italo Calvino","Ken Follett","Patrick Süskind"],
+[3,"Wer schrieb „Das Parfum“?","Patrick Süskind","Günter Grass","Daniel Kehlmann","Bernhard Schlink"],
+[3,"Wer schrieb „Der Vorleser“?","Bernhard Schlink","Patrick Süskind","Daniel Kehlmann","Juli Zeh"],
+[3,"Wer schrieb „Die Vermessung der Welt“?","Daniel Kehlmann","Uwe Tellkamp","Juli Zeh","Bernhard Schlink"],
+[3,"Wer schrieb „Schöne neue Welt“?","Aldous Huxley","George Orwell","Ray Bradbury","H. G. Wells"],
+[3,"Wer schrieb „Fahrenheit 451“?","Ray Bradbury","Aldous Huxley","Isaac Asimov","Philip K. Dick"],
+[3,"Wer schrieb „Der große Gatsby“?","F. Scott Fitzgerald","Ernest Hemingway","John Steinbeck","William Faulkner"],
+[3,"Wer schrieb „Früchte des Zorns“?","John Steinbeck","Mark Twain","F. Scott Fitzgerald","Jack London"],
+[3,"Wer schrieb „Anna Karenina“?","Leo Tolstoi","Fjodor Dostojewski","Iwan Turgenew","Nikolai Gogol"],
+[3,"Wer schrieb „Schuld und Sühne“ (Verbrechen und Strafe)?","Fjodor Dostojewski","Leo Tolstoi","Anton Tschechow","Michail Bulgakow"],
+[3,"Wer schrieb „Die Schachnovelle“?","Stefan Zweig","Thomas Mann","Arthur Schnitzler","Joseph Roth"],
+[3,"Wer schrieb „Der Hauptmann von Köpenick“?","Carl Zuckmayer","Bertolt Brecht","Gerhart Hauptmann","Max Frisch"],
+[3,"Wer schrieb „Nathan der Weise“?","Gotthold Ephraim Lessing","Friedrich Schiller","Johann Wolfgang von Goethe","Heinrich von Kleist"],
+[3,"Wer schrieb „Der Schimmelreiter“?","Theodor Storm","Theodor Fontane","Gottfried Keller","Wilhelm Raabe"],
+[3,"Wer schrieb „Effi Briest“?","Theodor Fontane","Theodor Storm","Thomas Mann","Gustav Freytag"],
+[3,"Wer schrieb „Homo Faber“?","Max Frisch","Friedrich Dürrenmatt","Heinrich Böll","Siegfried Lenz"]]};
+for(const k in Q3)if(Q[k])Q[k].push(...Q3[k]);
+
 const CATS=[
  {id:'allg',name:'Allgemeinwissen',e:'🧠',c:'#FFC53D'},
  {id:'geo',name:'Geografie',e:'🌍',c:'#5BC0FF'},
@@ -1825,17 +2593,17 @@ const S={db:null,user:null,room:null,uid:null,myId:'local',online:false,readOnly
  duelChat:null,toastSeen:{},liveSeen:new Set(),chain:Promise.resolve()};
 let G=null;
 function serial(fn){const p=S.chain.then(fn);S.chain=p.catch(()=>{});return p}
-function newProfile(name,avatar){return{name,avatar,banner:0,points:0,wins:0,losses:0,draws:0,correct:0,answered:0,games:0,bestTower:0,bestTowerScore:0,bestMath:0,bestSolo:0,mathStage:1,ptsBy:{},countedDuels:[],createdAt:Date.now(),lastSeen:Date.now()}}
+function newProfile(name,avatar){return{name,avatar,banner:0,points:0,wins:0,losses:0,draws:0,correct:0,answered:0,games:0,bestTower:0,bestTowerScore:0,bestMath:0,bestSolo:0,mathStage:1,ptsBy:{},stats:{},ach:{},vs:{},countedDuels:[],createdAt:Date.now(),lastSeen:Date.now()}}
 function getProfile(id){if(id==='bot')return BOT;if(id===S.myId)return S.me||newProfile('Du',DEFAULT_AV);return S.profiles[id]||{name:'Unbekannt',avatar:DEFAULT_AV,points:0}}
 function allProfiles(){const m=S.online?{...S.profiles}:{};if(S.me)m[S.myId]=S.me;return m}
-const SRC={solo:['🏅 Rangspiel','#9B6BFF'],duel:['⚔️ Duelle','#FF6B57'],topic:['🎯 Themen-Quiz','#3D8BFF'],math:['✖️ 1×1-Trainer','#22C98A'],tower:['🗼 Aufstieg','#FFC53D']};
+const SRC={solo:['🏅 Rangspiel','#9B6BFF'],duel:['⚔️ Duelle','#FF6B57'],topic:['🎯 Themen-Quiz','#3D8BFF'],math:['✖️ 1×1-Trainer','#22C98A'],tower:['🗼 Aufstieg','#FFC53D'],party:['🎉 Party','#FF7AC0'],ach:['🏅 Erfolge','#FFD27A']};
 const srcOf=m=>m==='mathStage'||m==='mathEndless'?'math':m;
 function addPoints(mode,n){if(!n)return;S.me.points=(S.me.points||0)+n;const k=srcOf(mode);S.me.ptsBy={...(S.me.ptsBy||{})};S.me.ptsBy[k]=(S.me.ptsBy[k]||0)+n}
 const acc=p=>p&&p.answered?Math.round(100*p.correct/p.answered):0;
 const isOnline=id=>S.onlineIds.has(id);
 
 async function saveProfile(){
- if(!S.me)return;S.me.lastSeen=Date.now();LS.set('ka_profile',S.me);
+ if(!S.me)return;S.me.lastSeen=Date.now();try{checkAch()}catch(e){}LS.set('ka_profile',S.me);
  if(S.online&&!S.readOnly){const snap=clone(S.me);try{await serial(()=>S.db.doc('profiles/'+S.uid).set(snap))}catch(e){writeFailed(e)}}
 }
 function writeFailed(e){if(e&&(e.code==='invalid_argument'||e.code==='permission-denied')){if(!S.readOnly){S.readOnly=true;toast('Du hast hier nur Leserechte. Dein Fortschritt wird nur auf diesem Gerät gespeichert.')}}else if(e&&e.code==='quota_exceeded'){toast('Der Spielspeicher ist voll. Alte Duelle werden beim nächsten Start aufgeräumt.')}}
@@ -1933,6 +2701,7 @@ function processDuels(){
    S.me.countedDuels=[...S.me.countedDuels,d.id].slice(-300);changed=true;
    const before=levelFor(S.me.points);
    if(st.winner===S.myId){S.me.wins++;addPoints('duel',100)}else if(st.winner==='draw'){S.me.draws++;addPoints('duel',40)}else{S.me.losses++;addPoints('duel',20)}
+   recordResult(oppOf(d),st.winner===S.myId?'w':st.winner==='draw'?'d':'l',false);
    if(levelFor(S.me.points)>before)setTimeout(()=>levelUpFX(levelFor(S.me.points)),2200);
   }
  }
@@ -1955,10 +2724,12 @@ function pingRoom(data){try{S.room&&S.room.emit('ping',data).catch(()=>{})}catch
 /* ============================================================
    NAVIGATION & RENDER
    ============================================================ */
-const GAME_VIEWS=['loading','onboard','quiz','pick','result','live'];
+const GAME_VIEWS=['loading','onboard','quiz','pick','result','live','party'];
 function go(v){
  if(S.view.name==='duel'&&(v.name!=='duel'||v.id!==S.view.id))stopDuelChat();
  if(S.view.name==='live'&&(v.name!=='live'||v.id!==S.view.id))closeLive();
+ if(S.view.name==='party'&&(v.name!=='party'||v.id!==S.view.id))closeParty();
+ if(v.name!=='live'&&v.name!=='party')chatClose();
  S.view=v;if(['home','board','chat','profile'].includes(v.name))S.tab=v.name;
  render(true);
  if(v.name==='duel')startDuelChat(v.id);
@@ -1967,6 +2738,7 @@ function go(v){
 function render(scrollTop){
  const v=S.view;const vw=$('#view');
  document.body.classList.toggle('game',GAME_VIEWS.includes(v.name));
+ document.body.classList.toggle('withbar',(v.name==='live'&&L.st&&(L.st.status==='playing'||L.st.status==='done'))||v.name==='party');
  document.body.classList.toggle('chatv',v.name==='chat'&&S.online);
  const keep={};$$('#view input').forEach(i=>{if(i.id)keep[i.id]=i.value});
  const act=document.activeElement&&document.activeElement.id;const st=vw.scrollTop;
@@ -2020,10 +2792,11 @@ function noticeHTML(){
 }
 const VIEWS={
 live(){return liveHTML()},
+party(){return partyHTML()},
 loading(){return `<div class="loading"><div class="spinq">🧠</div><div class="hero-logo" style="font-size:40px">BRAIN<span>CLASH</span></div><div class="marquee">${bulbs(9)}</div><p class="muted">Scheinwerfer werden eingeschaltet …</p></div>`},
 
 onboard(v){return `<div class="hero-logo">BRAIN<span>CLASH</span></div><div class="marquee">${bulbs(9)}</div>
- <p class="lead">Quiz-Duelle gegen deine Freunde, ${BANK_CATS.length} Themen und über 1.000 Fragen. Erst mal: Wer bist du?</p>
+ <p class="lead">Quiz-Duelle gegen deine Freunde, ${BANK_CATS.length} Themen und über ${fmt(Math.floor(BANK_CATS.reduce((s,c)=>s+Q[c.id].length,0)/100)*100)} Fragen. Erst mal: Wer bist du?</p>
  <label class="lbl" for="nm">Dein Spielername</label>
  <input id="nm" class="inp" maxlength="16" placeholder="z. B. Quizkönig" autocomplete="off" value="${esc(v.nm||'')}">
  <label class="lbl">Dein Charakter</label>${editorBlock(v)}
@@ -2038,6 +2811,7 @@ home(){
  return `${bannerHTML(S.me,true)}${noticeHTML()}
  <div class="modes">
   <button class="mode m-duel" data-a="go" data-v="newduel"><div class="mode-row"><span class="big">⚔️</span>${turn?`<span class="pill hot">${turn}× du bist dran</span>`:''}</div><div><h3>Duell</h3><p>LIVE gegen Freunde oder Zug um Zug. 10 Runden, wer verliert, verliert Leben.</p></div></button>
+  <button class="mode m-party" data-a="partyNew"><div class="mode-row"><span class="big">🎉</span><span class="pill">bis 8 Spieler</span></div><div><h3>Party-Modus</h3><p>Alle gleichzeitig, 12 Fragen mit Schätzfragen, Live-Rangliste und Siegerpodest.</p></div></button>
   <button class="mode m-solo" data-a="startSolo"><div class="mode-row"><span class="big">🏅</span><span class="pill">Bestwert: ${fmt(S.me.bestSolo)}</span></div><div><h3>Einzelspieler-Rangspiel</h3><p>10 Fragen aus allen Themen, passend zu deinem Level. Sammle Rangpunkte für die Rangliste.</p></div></button>
   <button class="mode m-topic" data-a="go" data-v="topics"><span class="big">🎯</span><div><h3>Themen-Quiz</h3><p>${CATS.length} Themen, leicht bis schwer</p></div></button>
   <button class="mode m-math" data-a="go" data-v="math"><span class="big">✖️</span><div><h3>1×1-Trainer</h3><p>5 Stufen + Endlos</p></div></button>
@@ -2169,7 +2943,7 @@ chat(){
    ${on.map(id=>{const p=ps[id];return `<div class="row"><div class="avwrap" data-a="showProfile" data-v="${esc(id)}"><div class="av">${avatarSVG(p.avatar)}</div><span class="ondot"></span></div><div class="mid" data-a="showProfile" data-v="${esc(id)}"><div class="t1">${esc(p.name)}</div><div class="t2">Lvl ${levelFor(p.points)} · ⭐ ${fmt(p.points)}</div></div>${S.readOnly?'':`<button class="btn small coral" data-a="liveWith" data-v="${esc(id)}">⚡ Live</button>`}</div>`}).join('')}
   </div>
   ${on.length?'':`<p class="muted center" style="font-size:13.5px;margin:12px 0 4px">Gerade ist sonst niemand online.</p>`}
-  ${S.readOnly?'':`<button class="btn block" style="margin-top:12px" data-a="liveRoom">⚡ Freund per Link zum LIVE-Duell einladen</button>`}
+  ${S.readOnly?'':`<button class="btn block" style="margin-top:12px" data-a="liveRoom">⚡ Freund per Link zum LIVE-Duell einladen</button><button class="btn coral block" style="margin-top:10px" data-a="partyNew">🎉 Party mit bis zu 8 Spielern starten</button>`}
  </div>
  <h2 class="sec">Chat</h2>
  ${msgs.length?`<div class="msgs">${msgs.map(msgHTML).join('')}</div>`:`<div class="empty"><b>Noch still hier.</b><br>Schick das erste Emoji in die Runde 👇</div>`}
@@ -2185,6 +2959,8 @@ profile(){
   <div class="stat"><b>${acc(p)}%</b><span>Trefferquote</span></div><div class="stat"><b>${p.bestTower||0}</b><span>Beste Etage</span></div><div class="stat"><b>${fmt(p.bestMath)}</b><span>Rechen-Rekord</span></div>
  </div>
  <button class="btn block" style="margin-top:16px" data-a="openEditor">✏️ Charakter & Name bearbeiten</button>
+ ${achGridHTML(p)}
+ ${S.online?bilanzHTML(p):''}
  <h2 class="sec">Rangpunkte nach Modus <small>⭐ ${fmt(p.points)} gesamt</small></h2>
  ${(()=>{const pb=p.ptsBy||{};const mx=Math.max(1,...Object.keys(SRC).map(k=>pb[k]||0));return `<div class="srcs">${Object.entries(SRC).map(([k,[n,c]])=>`<div class="src"><span>${n}</span><span class="bar"><i style="width:${Math.round(100*(pb[k]||0)/mx)}%;--c:${c}"></i></span><span class="v">${fmt(pb[k]||0)}</span></div>`).join('')}</div>`})()}
  <h2 class="sec">Banner <small>Neue Banner ab höherem Level</small></h2>
@@ -2288,7 +3064,7 @@ async function answer(i){
  if(i===-1){const c=$('#qcard');if(c){const s=document.createElement('div');s.className='timeout';s.textContent='⏰ Zeit um!';c.appendChild(s)}}
  g.answered++;g.hist[g.idx]=ok?1:0;
  if(ok){
-  g.correct++;g.streak++;g.bestStreak=Math.max(g.bestStreak,g.streak);
+  g.correct++;g.streak++;g.bestStreak=Math.max(g.bestStreak,g.streak);statCat(q.cat);
   const left=Math.max(0,g.T-t/1000);let pts=10*q.d+Math.ceil(left);if(g.streak>=3)pts+=5;if(g.mode==='tower')pts=Math.round(pts*(1+(g.floor-1)*.1));
   g.score+=pts;floatPts(btns[i],'+'+pts);beep('ok');vib(25);
   if(g.streak===5||g.streak===10)floatEmoji('🔥',3);
@@ -2309,7 +3085,8 @@ async function answer(i){
 async function endSession(quit){
  const g=G;if(!g)return;clearTimers();G=null;
  const before=levelFor(S.me.points);
- if(g.mode==='solo'&&g.idx>=10&&g.correct===10)g.score+=50;
+ if(g.mode==='solo'&&g.idx>=10&&g.correct===10){g.score+=50;statsOf().soloPerfect=1}
+ if(g.mode==='mathStage'&&g.stage===5&&g.correct>=10&&g.idx>=12)statsOf().mathAll=1;
  addPoints(g.mode,g.score);S.me.correct+=g.correct;S.me.answered+=g.answered;
  if(g.mode==='duel'){await saveProfile();return afterDuelRound(g)}
  S.me.games=(S.me.games||0)+1;
@@ -2362,6 +3139,529 @@ function levelUpFX(L){
  confetti(120);beep('lvl');
  const nb=BANNERS.filter(b=>b.lv===L).map(b=>b.n);
  openOverlay(`<div class="lvlup"><p style="margin:0;font-weight:900;letter-spacing:.12em">LEVEL UP!</p><div class="n">${L}</div><h3>${esc(titleFor(L))}</h3>${nb.length?`<p>Neues Banner freigeschaltet: ${esc(nb.join(', '))}</p>`:'<p>Weiter so!</p>'}<div class="acts"><button class="btn block" data-a="closeOvl">Yeah!</button></div></div>`);
+}
+
+/* ============================================================
+   SCHÄTZFRAGEN  [Thema, Frage, richtige Zahl, Einheit]
+   ============================================================ */
+const EST=[
+["geo","Wie hoch ist der Mount Everest?",8849,"Meter"],
+["geo","Wie hoch ist die Zugspitze?",2962,"Meter"],
+["geo","Wie lang ist der Rhein ungefähr?",1233,"Kilometer"],
+["geo","Wie viele Staaten liegen in Afrika (UN-Mitglieder)?",54,"Staaten"],
+["geo","Wie viele Mitgliedstaaten haben die Vereinten Nationen?",193,"Staaten"],
+["geo","Wie tief ist der Marianengraben an seiner tiefsten Stelle ungefähr?",10994,"Meter"],
+["geo","Wie lang ist der Nil ungefähr?",6650,"Kilometer"],
+["geo","Wie hoch ist der Mont Blanc ungefähr?",4806,"Meter"],
+["geo","Wie lang ist der Äquator ungefähr?",40075,"Kilometer"],
+["geo","Wie viele Zeitzonen hat Russland?",11,"Zeitzonen"],
+["geo","Wie hoch ist der Kilimandscharo?",5895,"Meter"],
+["geo","Wie groß ist die Fläche des Bodensees ungefähr?",536,"Quadratkilometer"],
+["geo","Wie lang ist die Elbe ungefähr?",1094,"Kilometer"],
+["geo","Wie viele Bundesländer hat Österreich?",9,"Bundesländer"],
+["geo","Wie viele Kantone hat die Schweiz?",26,"Kantone"],
+["geo","Wie groß ist der Erddurchmesser ungefähr?",12742,"Kilometer"],
+["de","Wie viele Einwohner hat Deutschland ungefähr?",83,"Millionen"],
+["de","Wie lang war die Grenzanlage rund um West-Berlin ungefähr?",155,"Kilometer"],
+["de","Wie hoch ist der Berliner Fernsehturm?",368,"Meter"],
+["de","Wie hoch ist der Kölner Dom ungefähr?",157,"Meter"],
+["de","In welchem Jahr fand das erste Münchner Oktoberfest statt?",1810,"Jahr"],
+["de","In welchem Jahr begann der Bau von Schloss Neuschwanstein?",1869,"Jahr"],
+["de","Wie hoch ist die Elbphilharmonie ungefähr?",110,"Meter"],
+["de","Wie viele Bundesländer hat Deutschland zusammen mit Österreich?",25,"Bundesländer"],
+["hist","In welchem Jahr erreichte Kolumbus Amerika?",1492,"Jahr"],
+["hist","In welchem Jahr wurde Rom der Sage nach gegründet?",753,"Jahr v. Chr."],
+["hist","Wie viele Jahre dauerte der Hundertjährige Krieg wirklich?",116,"Jahre"],
+["hist","In welchem Jahr wurde die Unabhängigkeitserklärung der USA unterzeichnet?",1776,"Jahr"],
+["hist","Wie alt wurde Queen Elizabeth II.?",96,"Jahre"],
+["hist","Wie viele Jahre regierte Queen Elizabeth II. ungefähr?",70,"Jahre"],
+["hist","Wie alt sind die großen Pyramiden von Gizeh ungefähr?",4500,"Jahre"],
+["hist","In welchem Jahr endete das Weströmische Reich?",476,"Jahr n. Chr."],
+["hist","In welchem Jahr begann der Bau der Berliner Mauer?",1961,"Jahr"],
+["hist","Wie viele Jahre dauerte der Dreißigjährige Krieg?",30,"Jahre"],
+["wiss","Bei wie viel Grad Celsius schmilzt Eisen?",1538,"°C"],
+["wiss","Wie schnell ist Schall in Luft bei 20 °C?",343,"Meter pro Sekunde"],
+["wiss","Wie viele Meter sind eine Seemeile?",1852,"Meter"],
+["wiss","Bei wie viel Grad Celsius kocht Wasser auf dem Gipfel des Mount Everest ungefähr?",70,"°C"],
+["wiss","Wie heiß ist die Oberfläche der Sonne ungefähr?",5500,"°C"],
+["wiss","Wie viel Prozent der Erdoberfläche sind mit Wasser bedeckt?",71,"Prozent"],
+["wiss","Wie viel Prozent Sauerstoff enthält die Luft ungefähr?",21,"Prozent"],
+["wiss","Wie viel Prozent Stickstoff enthält die Luft ungefähr?",78,"Prozent"],
+["wiss","Wie viele Gramm wiegt ein Liter Wasser ungefähr?",1000,"Gramm"],
+["wiss","Wie viele Elemente hat das Periodensystem heute?",118,"Elemente"],
+["space","Wie viele Erdtage dauert ein Jahr auf der Venus ungefähr?",225,"Tage"],
+["space","Wie viele Erdjahre braucht Jupiter für eine Runde um die Sonne ungefähr?",12,"Jahre"],
+["space","Wie heiß ist es auf der Oberfläche der Venus ungefähr?",465,"°C"],
+["space","Aus wie vielen hellen Sternen besteht der Große Wagen?",7,"Sterne"],
+["space","In welcher Höhe fliegt die ISS ungefähr?",400,"Kilometer"],
+["space","Wie lange braucht die ISS ungefähr für eine Erdumrundung?",92,"Minuten"],
+["space","Alle wie viele Jahre kommt der Halleysche Komet ungefähr wieder?",76,"Jahre"],
+["space","In welchem Jahr wird der Halleysche Komet voraussichtlich wieder sichtbar?",2061,"Jahr"],
+["space","Wie viel Mal schwerer als die Erde ist Jupiter ungefähr?",318,"Erdmassen"],
+["space","Wie weit ist der Mond ungefähr von der Erde entfernt?",384400,"Kilometer"],
+["space","Wie weit ist die Sonne ungefähr von der Erde entfernt?",150,"Millionen Kilometer"],
+["space","Wie viele Minuten braucht das Sonnenlicht ungefähr bis zur Erde?",8,"Minuten"],
+["sport","In welchem Jahr wurde der FC Bayern München gegründet?",1900,"Jahr"],
+["sport","Wie lang ist die Tour de France in der Regel ungefähr?",3400,"Kilometer"],
+["sport","Wie schwer ist ein offizieller Fußball ungefähr?",430,"Gramm"],
+["sport","Wie hoch ist ein Volleyballnetz bei den Männern?",2.43,"Meter"],
+["sport","Wie hoch ist ein Fußballtor?",2.44,"Meter"],
+["sport","Wie schnell war Usain Bolt in der Spitze ungefähr?",44,"km/h"],
+["sport","Wie lang ist eine Bowlingbahn von der Foullinie bis zum ersten Pin?",18.29,"Meter"],
+["sport","Wie hoch liegt der Weltrekord im Hochsprung der Männer?",2.45,"Meter"],
+["sport","Wie weit liegt der Weltrekord im Weitsprung der Männer?",8.95,"Meter"],
+["sport","Wie viele Spieler darf ein Team seit 2022 für eine Fußball-WM nominieren?",26,"Spieler"],
+["sport","Wie lang ist ein Marathon?",42.195,"Kilometer"],
+["sport","Wie lang ist ein Fußballfeld bei Länderspielen (FIFA-Empfehlung)?",105,"Meter"],
+["tier","Wie groß kann eine Giraffe ungefähr werden?",6,"Meter"],
+["tier","Wie schnell kann ein Gepard ungefähr sprinten?",110,"km/h"],
+["tier","Wie viele Zähne hat ein erwachsener Hund?",42,"Zähne"],
+["tier","Wie viele Zähne hat eine erwachsene Katze?",30,"Zähne"],
+["tier","Wie viele Monate ist eine Kuh ungefähr trächtig?",9,"Monate"],
+["tier","Wie viele Eier legt eine Legehenne ungefähr pro Jahr?",300,"Eier"],
+["tier","Wie viele Pinguinarten gibt es ungefähr?",18,"Arten"],
+["tier","Wie schwer ist ein afrikanischer Elefantenbulle ungefähr?",6,"Tonnen"],
+["tier","Wie lang kann ein Blauwal ungefähr werden?",30,"Meter"],
+["tier","Wie viele Augen haben die meisten Spinnen?",8,"Augen"],
+["tier","Wie viele Herzen hat ein Oktopus?",3,"Herzen"],
+["kurios","Wie viele Beine hat der Tausendfüßer Eumillipes persephone (Rekord)?",1306,"Beine"],
+["kurios","Wie viele Haare hat ein Mensch ungefähr auf dem Kopf?",100000,"Haare"],
+["kurios","Wie oft blinzelt ein Mensch ungefähr pro Minute?",15,"Mal"],
+["kurios","Wie viele Zeitzonen hat Frankreich mit seinen Überseegebieten?",12,"Zeitzonen"],
+["kurios","Wie viele Buchstaben hat das Wort „Donaudampfschifffahrt“?",21,"Buchstaben"],
+["kurios","Wie viele Liter Speichel bildet ein Mensch ungefähr pro Tag?",1,"Liter"],
+["allg","Wie viele Augen hat ein normaler Spielwürfel insgesamt?",21,"Augen"],
+["allg","Wie viele Ecken hat ein Würfel?",8,"Ecken"],
+["allg","Wie viele Kanten hat ein Würfel?",12,"Kanten"],
+["allg","Wie viele Minuten hat eine Woche?",10080,"Minuten"],
+["allg","Wie viele Karten hat ein Rommé-Blatt mit 6 Jokern?",110,"Karten"],
+["allg","Wie viele Felder hat ein Monopoly-Spielbrett?",40,"Felder"],
+["allg","Aus wie vielen sichtbaren Steinen besteht ein 3×3-Zauberwürfel?",26,"Steine"],
+["allg","Wie viele Sekunden hat eine Stunde?",3600,"Sekunden"],
+["allg","Wie viele Tage hat ein Schaltjahr?",366,"Tage"],
+["musik","In welchem Jahr starb Elvis Presley?",1977,"Jahr"],
+["musik","In welchem Jahr starb Michael Jackson?",2009,"Jahr"],
+["musik","Wie alt wurde Wolfgang Amadeus Mozart?",35,"Jahre"],
+["musik","In welchem Jahr wurde Ludwig van Beethoven geboren?",1770,"Jahr"],
+["musik","In welchem Jahr erschien Michael Jacksons Album „Thriller“?",1982,"Jahr"],
+["musik","In welchem Jahr trennten sich die Beatles?",1970,"Jahr"],
+["musik","Wie viele Tasten hat ein klassisches Klavier?",88,"Tasten"],
+["film","In welchem Jahr kam „Titanic“ in die Kinos?",1997,"Jahr"],
+["film","In welchem Jahr erschien der erste Harry-Potter-Film?",2001,"Jahr"],
+["film","Wie viele Bände hat die Harry-Potter-Hauptreihe?",7,"Bände"],
+["film","Wie viele Filme umfasst die Skywalker-Saga von Star Wars?",9,"Filme"],
+["film","Wie lang ist der Film „Titanic“ ungefähr?",194,"Minuten"],
+["film","In welchem Jahr kam der Zeichentrickfilm „Der König der Löwen“ ins Kino?",1994,"Jahr"],
+["film","Wie viele Staffeln hat die Serie „Friends“?",10,"Staffeln"],
+["film","Wie viele Staffeln hat „Breaking Bad“?",5,"Staffeln"],
+["tech","In welchem Jahr kam Windows 95 heraus?",1995,"Jahr"],
+["tech","In welchem Jahr wurde YouTube gegründet?",2005,"Jahr"],
+["tech","In welchem Jahr ging Facebook online?",2004,"Jahr"],
+["tech","In welchem Jahr erschien „Super Mario Bros.“ für das NES?",1985,"Jahr"],
+["tech","In welchem Jahr erschien die Vollversion von „Minecraft“?",2011,"Jahr"],
+["tech","In welchem Jahr erschien der erste Game Boy?",1989,"Jahr"],
+["tech","Wie viele Pokémon gab es in der ersten Generation?",151,"Pokémon"],
+["tech","Wie viele Megabyte hat ein Gigabyte (dezimal)?",1000,"Megabyte"],
+["essen","Wie viel Prozent Wasser enthält eine Gurke ungefähr?",96,"Prozent"],
+["essen","Wie viele Kilokalorien hat ein Gramm Fett ungefähr?",9,"kcal"],
+["essen","Wie viele Kilokalorien hat ein Gramm Zucker ungefähr?",4,"kcal"],
+["essen","Wie viele Liter Bier passen in eine Maß?",1,"Liter"],
+["essen","Wie viel Zucker steckt ungefähr in einem Liter klassischer Cola?",106,"Gramm"],
+["essen","In welchem Jahr wurde Coca-Cola erfunden?",1886,"Jahr"],
+["essen","Wie schwer ist ein Hühnerei der Größe M ungefähr?",58,"Gramm"],
+["essen","Wie heiß wird ein neapolitanischer Pizza-Holzofen ungefähr?",450,"°C"],
+["koerper","Wie viele Muskeln hat der Mensch ungefähr?",650,"Muskeln"],
+["koerper","Wie viele Liter Blut pumpt das Herz in Ruhe ungefähr pro Minute?",5,"Liter"],
+["koerper","Wie lang ist die Speiseröhre eines Erwachsenen ungefähr?",25,"Zentimeter"],
+["koerper","Wie schwer ist ein menschliches Gehirn ungefähr?",1350,"Gramm"],
+["koerper","Wie viele Knochen hat ein erwachsener Mensch ungefähr?",206,"Knochen"],
+["koerper","Wie viele Zähne hat ein vollständiges Erwachsenengebiss?",32,"Zähne"],
+["koerper","Wie viele Liter Luft atmet ein Erwachsener ungefähr am Tag?",10000,"Liter"],
+["kunst","In welchem Jahr wurde Johann Wolfgang von Goethe geboren?",1749,"Jahr"],
+["kunst","In welchem Jahr begann Leonardo da Vinci ungefähr mit der Mona Lisa?",1503,"Jahr"],
+["kunst","Wie viele Ölgemälde schuf Vincent van Gogh ungefähr?",860,"Gemälde"],
+["kunst","Wie viele Märchen enthält die letzte Ausgabe der Grimm’schen „Kinder- und Hausmärchen“ (ohne Legenden)?",200,"Märchen"],
+["literatur","In welchem Jahr erschien der erste Harry-Potter-Band im Original?",1997,"Jahr"],
+["literatur","Wie viele Theaterstücke schrieb Shakespeare ungefähr?",37,"Stücke"],
+["literatur","In welchem Jahr erschien Luthers Übersetzung des Neuen Testaments erstmals?",1522,"Jahr"],
+["literatur","In welchem Jahr wurde Friedrich Schiller geboren?",1759,"Jahr"],
+["mythen","Wie viele Götter zählten zu den „Zwölf Olympiern“?",12,"Götter"],
+["mythen","Wie viele Köpfe hatte der Höllenhund Kerberos?",3,"Köpfe"],
+["mythen","Wie viele Musen gibt es in der griechischen Mythologie?",9,"Musen"],
+["mythen","Wie viele Welten gibt es in der nordischen Mythologie?",9,"Welten"],
+["mythen","Wie viele Jahre dauerte der Trojanische Krieg laut Sage?",10,"Jahre"],
+["reisen","Wie hoch ist der Eiffelturm mit Antennen ungefähr?",330,"Meter"],
+["reisen","Wie hoch ist der Burj Khalifa?",828,"Meter"],
+["reisen","Wie hoch ist die Freiheitsstatue mit Sockel ungefähr?",93,"Meter"],
+["reisen","Wie lang ist die Golden Gate Bridge insgesamt ungefähr?",2737,"Meter"],
+["reisen","Wie lang ist die Chinesische Mauer laut chinesischer Vermessung von 2012?",21196,"Kilometer"],
+["reisen","Wie hoch ist die Christusstatue in Rio ohne Sockel?",30,"Meter"],
+["reisen","Wie hoch ist der Schiefe Turm von Pisa ungefähr?",56,"Meter"],
+["reisen","In welchem Jahr wurde der Eiffelturm fertiggestellt?",1889,"Jahr"],
+["alltag","Wie schnell darf man in Deutschland innerorts normalerweise fahren?",50,"km/h"],
+["alltag","Wie schnell darf ein Pkw auf deutschen Landstraßen normalerweise fahren?",100,"km/h"],
+["alltag","Wie hoch ist die Richtgeschwindigkeit auf deutschen Autobahnen?",130,"km/h"],
+["alltag","Wie hoch ist der reguläre Mehrwertsteuersatz in Deutschland?",19,"Prozent"],
+["alltag","Aus wie vielen Zeichen besteht eine deutsche IBAN?",22,"Zeichen"],
+["alltag","In welchem Jahr erhielt Carl Benz das Patent für sein Automobil?",1886,"Jahr"],
+["alltag","Wie viele Volt hat eine Haushaltssteckdose in Deutschland?",230,"Volt"],
+["kultur","Wie viele Kerzen hat ein klassischer Adventskranz?",4,"Kerzen"],
+["kultur","Wie viele Lichter hat ein Chanukka-Leuchter mit Dienerkerze?",9,"Lichter"],
+["kultur","Wie viele Tage dauert der Fastenmonat Ramadan ungefähr?",30,"Tage"],
+["kultur","Wie viele Tiere hat der chinesische Tierkreis?",12,"Tiere"],
+["philo","Wie alt wurde Sokrates ungefähr?",70,"Jahre"],
+["philo","In welchem Jahr wurde Immanuel Kant geboren?",1724,"Jahr"],
+["philo","In welchem Jahr wurde Karl Marx geboren?",1818,"Jahr"],
+["gefuehle","Wie viele Grundemotionen beschrieb Paul Ekman ursprünglich?",6,"Emotionen"],
+["sprache","Wie viele Buchstaben hat das deutsche Alphabet ohne Umlaute und ß?",26,"Buchstaben"],
+["sprache","Wie viele Amtssprachen hat die Europäische Union?",24,"Sprachen"]
+];
+
+/* ============================================================
+   SCHÄTZ-HILFEN
+   ============================================================ */
+const EST_T=20;
+function estPick(cat,used){let pool=EST.filter(e=>e[0]===cat&&!used.has(e[1]));if(!pool.length)pool=EST.filter(e=>!used.has(e[1]));if(!pool.length)pool=EST;const e=pick(pool);used.add(e[1]);return{est:1,q:e[1],v:e[2],u:e[3],cat:e[0]}}
+const fmtNum=v=>v==null||isNaN(v)?'–':Number(v).toLocaleString('de-DE',{maximumFractionDigits:3});
+function parseNum(s){s=String(s??'').trim().replace(/\s/g,'').replace(/[^\d.,\-]/g,'');if(!s||s==='-')return null;
+ if(s.includes(',')){s=s.replace(/\./g,'').replace(',','.')}
+ else if((s.match(/\./g)||[]).length>1){s=s.replace(/\./g,'')}
+ else if(/^-?\d{1,3}\.\d{3}$/.test(s)){s=s.replace('.','')}
+ const n=Number(s);return isFinite(n)?n:null}
+function estJudge(vals,v){
+ const out={};const arr=Object.entries(vals).filter(([,x])=>x!=null).map(([u,x])=>({u,x,d:Math.abs(x-v)}));
+ arr.sort((a,b)=>a.d-b.d);let rank=0,prev=null;
+ arr.forEach((e,i)=>{if(prev===null||e.d!==prev){rank=i+1;prev=e.d}out[e.u]={v:e.x,d:Math.round(e.d*1000)/1000,rank,ok:rank===1,exact:e.d===0}});
+ for(const u in vals)if(!out[u])out[u]={v:null,d:null,rank:null,ok:false,exact:false};
+ return out;
+}
+function estFormHTML(q,already,myV,left){
+ return `<div class="qcard est" id="qcard"><div class="qhead"><span class="qcat" style="--c:#FFC53D">📏 Schätzfrage</span><span class="estbonus">⏱ +5 s</span></div><div class="qtext">${esc(q.q)}</div>
+ <div class="timer ${already?'stop':''}" id="timer"><i class="tbar" id="tbar" style="animation-duration:${left}ms"></i></div></div>
+ ${already?`<div class="estdone">Deine Schätzung: <b>${fmtNum(myV)}</b> ${esc(q.u)}</div>`:
+ `<form class="estform" data-f="est" autocomplete="off"><label class="estlbl" for="estIn">Nur die Zahl eingeben · Einheit: <b>${esc(q.u)}</b></label>
+ <div class="estrow"><input id="estIn" class="inp estinp" inputmode="decimal" enterkeyhint="send" autocomplete="off" placeholder="Zahl" aria-label="Schätzung in ${esc(q.u)}"><span class="estunit">${esc(q.u)}</span></div>
+ <button class="btn block">Schätzung abgeben</button></form>`}`;
+}
+function estRevHTML(q,res,uids){
+ const rows=uids.map(u=>({u,P:getProfile(u),r:res[u]||{}})).sort((a,b)=>(a.r.rank??99)-(b.r.rank??99));
+ return `<div class="qcard est"><div class="qhead"><span class="qcat" style="--c:#FFC53D">📏 Schätzfrage</span></div><div class="qtext">${esc(q.q)}</div>
+ <div class="estsol"><small>Richtige Antwort</small><b>${fmtNum(q.v)}</b><span>${esc(q.u)}</span></div></div>
+ <div class="estlist">${rows.map(({u,P,r})=>`<div class="estitem ${r.ok?'win':''} ${u===S.myId?'me':''}"><div class="av">${avatarSVG(P.avatar)}</div><div class="mid"><div class="t1">${esc(u===S.myId?'Du':P.name)}${r.exact?' 🎯':''}</div><div class="t2">${r.v==null?'keine Schätzung':`${fmtNum(r.v)} ${esc(q.u)} · ${r.exact?'genau getroffen!':'daneben: '+fmtNum(r.d)}`}</div></div>${r.pts!=null?`<span class="ptsb">+${r.pts}</span>`:r.ok?'<span class="tag win">am nächsten</span>':''}</div>`).join('')}</div>`;
+}
+
+/* ============================================================
+   CHAT-LEISTE & CHAT-FENSTER (Live + Party)
+   ============================================================ */
+const QUICK_EMO=['😂','🔥','😱','👏','🤯','😎','💀','🫡'];
+const CH={open:false,ctx:null,readTs:0,lastTicker:0};
+function chatSetCtx(ctx){CH.ctx=ctx;CH.readTs=Date.now();CH.lastTicker=Date.now();if(!ctx)chatClose()}
+function chatMsgs(){return CH.ctx?CH.ctx.msgs():[]}
+function chatBarHTML(){
+ return `<div class="gticker" id="gticker" hidden></div><div class="gbar"><div class="gbar-in">
+ <div class="gbar-emo">${QUICK_EMO.map(e=>`<button type="button" class="emo" data-a="chatEmo" data-v="${e}" aria-label="${e} senden">${e}</button>`).join('')}</div>
+ <button type="button" class="gbar-chat" data-a="chatOpen" aria-label="Chat öffnen">💬<span>Chat</span><i class="badge" id="chatBadge" hidden></i></button></div></div>`;
+}
+function ensureSheet(){
+ if($('#chatSheet'))return;
+ const d=document.createElement('div');d.id='chatSheet';d.className='csheet';d.hidden=true;
+ d.innerHTML=`<div class="csh-bg" data-a="chatClose"></div><div class="csh-panel" id="cshPanel" role="dialog" aria-modal="true" aria-label="Chat">
+ <div class="csh-head"><b>💬 Chat</b><button type="button" class="xbtn" data-a="chatClose" aria-label="Chat schließen">✕</button></div>
+ <div class="csh-msgs" id="cshMsgs"></div>
+ <div class="emobar csh-emo">${EMOJIS.map(e=>`<button type="button" class="emo" data-a="chatEmo" data-v="${e}">${e}</button>`).join('')}</div>
+ <form class="crow" data-f="csh" autocomplete="off"><input id="cshIn" class="inp" maxlength="140" placeholder="Nachricht schreiben …" autocomplete="off" aria-label="Nachricht" enterkeyhint="send"><button class="sendb" aria-label="Senden">➤</button></form></div>`;
+ document.body.appendChild(d);
+ const vv=window.visualViewport;
+ if(vv){const fit=()=>{const p=$('#cshPanel');if(!p||d.hidden)return;const kb=Math.max(0,window.innerHeight-vv.height-vv.offsetTop);p.style.bottom=kb+'px';p.style.maxHeight=Math.round(vv.height*0.88)+'px'};vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit);CH.fit=fit}
+}
+function chatOpen(){ensureSheet();const s=$('#chatSheet');s.hidden=false;CH.open=true;CH.readTs=Date.now();chatRenderList();chatBadge();CH.fit&&CH.fit();setTimeout(()=>{const i=$('#cshIn');if(i&&!('ontouchstart' in window))i.focus()},50)}
+function chatClose(){const s=$('#chatSheet');if(s)s.hidden=true;CH.open=false;const i=$('#cshIn');if(i)i.blur()}
+function chatRenderList(){
+ const box=$('#cshMsgs');if(!box)return;const ms=chatMsgs();
+ box.innerHTML=ms.length?ms.map(m=>{const me=m.by===S.myId;const p=getProfile(m.by);const isE=m.e&&EMOJIS.includes(m.e);
+  return `<div class="msg ${me?'me':''}"><div class="av">${avatarSVG(p.avatar)}</div><div class="mcol">${me?'':`<span class="mname">${esc(p.name)}</span>`}<div class="bubble ${isE?'e':''}">${isE?m.e:esc(m.t)}</div></div></div>`}).join('')
+  :`<p class="muted center" style="margin:auto 0;font-size:15px">Noch keine Nachrichten.<br>Schick einen Spruch oder ein Emoji! 😈</p>`;
+ box.scrollTop=box.scrollHeight;
+}
+function chatBadge(){const b=$('#chatBadge');if(!b)return;const n=CH.open?0:chatMsgs().filter(m=>m.by!==S.myId&&m.ts>CH.readTs).length;b.hidden=!n;b.textContent=n>9?'9+':n}
+function chatTicker(m){
+ const t=$('#gticker');if(!t||CH.open)return;const p=getProfile(m.by);
+ t.innerHTML=`<span class="av">${avatarSVG(p.avatar)}</span><span class="tk"><b>${esc(p.name)}</b> ${m.e&&EMOJIS.includes(m.e)?m.e:esc(m.t)}</span>`;
+ t.hidden=false;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');
+ clearTimeout(CH.tt);CH.tt=setTimeout(()=>{t.hidden=true},4800);
+}
+function chatUpdate(){
+ const ms=chatMsgs();const fresh=ms.filter(m=>m.by!==S.myId&&m.ts>CH.lastTicker);
+ if(fresh.length){CH.lastTicker=Math.max(...fresh.map(m=>m.ts));const last=fresh[fresh.length-1];
+  if(last.e&&EMOJIS.includes(last.e))floatEmoji(last.e,3);else{beep('pop');}
+  if(CH.ctx&&CH.ctx.bubble)CH.ctx.bubble(last);chatTicker(last)}
+ if(CH.open){CH.readTs=Date.now();chatRenderList()}
+ chatBadge();
+}
+function chatSend(t){if(!CH.ctx||!t)return;if(Date.now()-(CH.lastSend||0)<400)return;CH.lastSend=Date.now();CH.ctx.send({t:t.slice(0,140)});statInc('msgs');}
+function chatEmo(e){if(!CH.ctx||!EMOJIS.includes(e))return;if(Date.now()-(CH.lastEmo||0)<300)return;CH.lastEmo=Date.now();floatEmoji(e,3);CH.ctx.send({e});statInc('msgs')}
+
+/* ============================================================
+   ERFOLGE & BILANZ
+   ============================================================ */
+const ACH=[
+ ['first_game','🎮','Erste Schritte','Erstes Spiel beendet',p=>(p.games||0)+(p.wins||0)+(p.losses||0)+(p.draws||0)>=1],
+ ['first_win','🏆','Erster Sieg','Ein Duell gewonnen',p=>(p.wins||0)>=1],
+ ['wins10','⚔️','Duellant','10 Duelle gewonnen',p=>(p.wins||0)>=10],
+ ['wins50','👑','Champion','50 Duelle gewonnen',p=>(p.wins||0)>=50],
+ ['streak3','🔥','Heiße Serie','3 Duelle in Folge gewonnen',p=>st_(p,'bestStreak')>=3],
+ ['streak5','☄️','Unaufhaltsam','5 Duelle in Folge gewonnen',p=>st_(p,'bestStreak')>=5],
+ ['live1','⚡','Blitzsieg','Ein Live-Duell gewonnen',p=>st_(p,'liveWins')>=1],
+ ['live10','🌩️','Live-Legende','10 Live-Duelle gewonnen',p=>st_(p,'liveWins')>=10],
+ ['flawless','🛡️','Unantastbar','Live-Duell ohne Lebensverlust gewonnen',p=>st_(p,'flawless')>=1],
+ ['comeback','🧟','Comeback','Live-Duell mit 20 ❤️ oder weniger gewonnen',p=>st_(p,'comeback')>=1],
+ ['party_play','🎈','Partygast','An einer Party teilgenommen',p=>st_(p,'partyGames')>=1],
+ ['party_win','🎉','Partylöwe','Eine Party gewonnen',p=>st_(p,'partyWins')>=1],
+ ['party_big','🪩','Volles Haus','Party mit 4 oder mehr Spielern gespielt',p=>st_(p,'bigParty')>=1],
+ ['bullseye','🎯','Volltreffer','Eine Schätzfrage genau getroffen',p=>st_(p,'estExact')>=1],
+ ['est10','📏','Augenmaß','10 Schätzfragen gewonnen',p=>st_(p,'estWins')>=10],
+ ['perfect','💎','Perfektionist','Rangspiel mit 10 von 10',p=>st_(p,'soloPerfect')>=1],
+ ['tower5','🗼','Bergsteiger','Etage 5 im Aufstieg erreicht',p=>(p.bestTower||0)>=5],
+ ['tower10','🏔️','Gipfelstürmer','Etage 10 im Aufstieg erreicht',p=>(p.bestTower||0)>=10],
+ ['math','🧮','Rechenkönig','Alle 1×1-Stufen geschafft',p=>st_(p,'mathAll')>=1],
+ ['allcats','🌍','Alleskönner','In jedem Thema mindestens eine Frage richtig',p=>(st_(p,'cats')||[]).length>=BANK_CATS.length],
+ ['correct500','📚','Wissensdurst','500 richtige Antworten',p=>(p.correct||0)>=500],
+ ['level5','⭐','Aufsteiger','Level 5 erreicht',p=>levelFor(p.points)>=5],
+ ['level10','🌟','Legende','Level 10 erreicht',p=>levelFor(p.points)>=10],
+ ['chatty','💬','Plaudertasche','50 Nachrichten oder Emojis gesendet',p=>st_(p,'msgs')>=50],
+ ['night','🦉','Nachteule','Zwischen 0 und 4 Uhr gespielt',p=>st_(p,'night')>=1]
+];
+function st_(p,k){return p&&p.stats?p.stats[k]:undefined}
+function statsOf(){if(!S.me.stats||typeof S.me.stats!=='object')S.me.stats={};return S.me.stats}
+function statInc(k,n=1){if(!S.me)return;const s=statsOf();s[k]=(s[k]||0)+n;saveSoon()}
+function statMax(k,v){if(!S.me)return;const s=statsOf();if(v>(s[k]||0))s[k]=v}
+function statCat(cat){if(!S.me||!CAT[cat]||cat==='mathe')return;const s=statsOf();const a=Array.isArray(s.cats)?s.cats:[];if(!a.includes(cat)){s.cats=[...a,cat];saveSoon()}}
+let _saveT=null;function saveSoon(){clearTimeout(_saveT);_saveT=setTimeout(()=>saveProfile(),2500)}
+function recordResult(opp,res,live){
+ if(!S.me||!opp)return;const s=statsOf();
+ S.me.vs={...(S.me.vs||{})};const v={w:0,l:0,d:0,...(S.me.vs[opp]||{})};v[res]++;v.last=Date.now();S.me.vs[opp]=v;
+ if(res==='w'){s.streak=(s.streak||0)+1;statMax('bestStreak',s.streak);if(live)s.liveWins=(s.liveWins||0)+1}else s.streak=0;
+}
+function checkAch(){
+ if(!S.me||!S.me.name)return;S.me.ach={...(S.me.ach||{})};const fresh=[];
+ for(const a of ACH){if(!S.me.ach[a[0]]&&a[4](S.me)){S.me.ach[a[0]]=Date.now();fresh.push(a)}}
+ if(!fresh.length)return;
+ S.me.points=(S.me.points||0)+25*fresh.length;S.me.ptsBy={...(S.me.ptsBy||{})};S.me.ptsBy.ach=(S.me.ptsBy.ach||0)+25*fresh.length;
+ fresh.slice(0,3).forEach((a,i)=>setTimeout(()=>{toast(`🏅 Erfolg freigeschaltet: ${a[1]} ${a[2]} (+25 ⭐)`,{ms:5000});beep('lvl')},600+i*1400));
+ if(fresh.length>3)setTimeout(()=>toast(`… und ${fresh.length-3} weitere Erfolge!`),600+3*1400);
+ if(fresh.length)setTimeout(()=>confetti(50),600);
+}
+function achGridHTML(p){
+ const got=p.ach||{};const n=ACH.filter(a=>got[a[0]]).length;
+ return `<h2 class="sec">Erfolge <small>${n} von ${ACH.length}</small></h2><div class="achs">${ACH.map(a=>`<div class="ach ${got[a[0]]?'on':''}"><span class="ae">${a[1]}</span><span class="an">${esc(a[2])}</span><span class="ad">${esc(a[3])}</span></div>`).join('')}</div>`;
+}
+function bilanzHTML(p){
+ const vs=p.vs||{};const ids=Object.keys(vs).filter(id=>(vs[id].w+vs[id].l+vs[id].d)>0).sort((a,b)=>(vs[b].w+vs[b].l+vs[b].d)-(vs[a].w+vs[a].l+vs[a].d));
+ if(!ids.length)return `<h2 class="sec">Bilanz gegen Freunde</h2><div class="empty">Noch keine Duelle beendet. Nach deinem ersten Duell siehst du hier, gegen wen du wie oft gewonnen hast.</div>`;
+ let fav=null,fear=null;ids.forEach(id=>{const v=vs[id];const g=v.w+v.l+v.d;if(g<3)return;const r=v.w/g;if(!fav||r>fav.r)fav={id,r};if(!fear||r<fear.r)fear={id,r}});
+ return `<h2 class="sec">Bilanz gegen Freunde <small>Siege : Niederlagen : Remis</small></h2><div class="list">${ids.slice(0,20).map(id=>{const v=vs[id];const P=getProfile(id);
+  const tag=fav&&fav.id===id&&fav.r>=.6?'<span class="tag win">Lieblingsgegner</span>':fear&&fear.id===id&&fear.r<=.4?'<span class="tag lose">Angstgegner</span>':'';
+  return `<button class="row" data-a="showProfile" data-v="${esc(id)}"><div class="av">${avatarSVG(P.avatar)}</div><div class="mid"><div class="t1">${esc(P.name)}</div><div class="t2">${v.w+v.l+v.d} Duelle ${tag}</div></div><span class="bil"><b class="w">${v.w}</b> : <b class="l">${v.l}</b> : <b>${v.d}</b></span></button>`}).join('')}</div>`;
+}
+
+/* ============================================================
+   PARTY-MODUS (bis zu 8 Spieler, alle gleichzeitig)
+   ============================================================ */
+const PARTY_MAX=8,PARTY_QN=12,PARTY_T=15;
+const PT={id:null,st:null,ans:{},unsub:[],timers:[],phaseKey:null,phaseLocal:0,busy:false,answered:{},msgs:[],qTimer:null,finished:false};
+const partyDoc=id=>S.db.doc('party/'+id);
+const partyAnsDoc=(id,u)=>S.db.doc('party/'+id+'/ans/'+u);
+const newPartyId=()=>'P'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function partyURL(id){const base=STANDALONE?(location.origin+location.pathname):ARTIFACT_URL;return `${base}#party-${id}`}
+function partyActive(u){if(u===S.myId)return true;const a=PT.ans[u];return !!a&&!a.left&&Date.now()-(a.seen||0)<20000}
+function partyPlayers(){return PT.st?PT.st.players||[]:[]}
+async function partyCreate(invite=[]){
+ if(!S.online||S.readOnly){toast('Der Party-Modus geht nur online.');return}closeOverlay();
+ const id=newPartyId(),now=Date.now();
+ try{await serial(()=>partyDoc(id).set({host:S.myId,players:[S.myId],invited:invite.filter(u=>u!==S.myId).slice(0,20),status:'lobby',phase:'lobby',qi:0,scores:{[S.myId]:0},createdAt:now,updatedAt:now}))}
+ catch(e){writeFailed(e);toast('Party konnte nicht erstellt werden.');return}
+ openParty(id);
+}
+async function partyJoin(id){
+ if(!S.online||S.readOnly){toast('Der Party-Modus geht nur online.');return}closeOverlay();
+ try{const s=await partyDoc(id).get();if(!s.exists){toast('Diese Party gibt es nicht mehr.');return}
+  const d=clone(s.data());
+  if(!d.players.includes(S.myId)){
+   if(d.status!=='lobby'){openOverlay(`<h3>Die Party läuft schon</h3><p>Diese Runde hat bereits begonnen. Frag den Host nach der nächsten Party.</p><div class="acts"><button class="btn block" data-a="closeOvl">Okay</button></div>`);return}
+   if(d.players.length>=PARTY_MAX){toast('Die Party ist voll (8 Spieler).');return}
+  }
+  openParty(id);
+ }catch(e){toast('Beitreten hat nicht geklappt.')}
+}
+async function openParty(id){
+ closeParty();if(G){clearTimers();G=null}
+ Object.assign(PT,{id,st:null,ans:{},phaseKey:null,busy:false,answered:{},msgs:[],finished:false});
+ S.view={name:'party',id};render(true);
+ try{const r=partyAnsDoc(id,S.myId);const s=await r.get();
+  if(!s.exists)await serial(()=>r.set({uid:S.myId,seen:Date.now(),joined:Date.now(),a:{},msgs:[]}));
+  else{const d=clone(s.data());PT.msgs=d.msgs||[];Object.keys(d.a||{}).forEach(k=>PT.answered[k]=true);await serial(()=>r.update({seen:Date.now(),left:false}))}
+ }catch(e){}
+ if(PT.id!==id)return;
+ chatSetCtx({msgs:partyAllMsgs,send:partySend,bubble:null});
+ PT.unsub.push(partyDoc(id).onSnapshot(s=>{if(PT.id!==id)return;if(!s.exists){PT.st=null;partyRender();return}PT.st=clone(s.data());onPartyState()},()=>{}));
+ PT.unsub.push(S.db.collection('party/'+id+'/ans').onSnapshot(s=>{if(PT.id!==id)return;const m={};s.docs.forEach(d=>{m[d.id]=clone(d.data())});PT.ans=m;partyBits();chatUpdate();partyTick()},()=>{}));
+ PT.timers.push(setInterval(()=>{if(PT.id===id)serial(()=>partyAnsDoc(id,S.myId).update({seen:Date.now()})).catch(()=>{})},5000));
+ PT.timers.push(setInterval(partyTick,400));
+}
+function closeParty(){PT.unsub.forEach(u=>{try{u()}catch(e){}});PT.unsub=[];PT.timers.forEach(t=>clearInterval(t));PT.timers=[];clearTimeout(PT.qTimer);if(PT.id)chatSetCtx(null);PT.id=null;PT.st=null}
+function partyAllMsgs(){const out=[];for(const u in PT.ans){const a=PT.ans[u];if(u===S.myId)continue;(a.msgs||[]).forEach(m=>out.push({...m,by:u}))}(PT.msgs||[]).forEach(m=>out.push({...m,by:S.myId}));return out.sort((a,b)=>a.ts-b.ts).slice(-60)}
+function partySend(m){m={...m,ts:Date.now()};PT.msgs=[...(PT.msgs||[]),m].slice(-20);chatUpdate();serial(()=>partyAnsDoc(PT.id,S.myId).update({msgs:PT.msgs})).catch(()=>{})}
+function onPartyState(){
+ const st=PT.st;const k=[st.status,st.phase,st.qi].join('|');
+ const rk=st.status==='lobby'?[(st.players||[]).join(','),(st.invited||[]).length,st.host].join('|'):st.host;
+ if(k!==PT.phaseKey){PT.phaseKey=k;PT.renderKey=rk;PT.phaseLocal=Date.now();if(st.status==='done')partyFinish();partyRender();partyEnter()}
+ else if(rk!==PT.renderKey){PT.renderKey=rk;partyRender()}else partyBits();
+}
+const partyQT=st=>st&&st.qs&&st.qs[st.qi]&&st.qs[st.qi].est?EST_T:PARTY_T;
+function makePartyQs(){
+ const used=new Set(),usedE=new Set();const diff=[1,1,1,0,2,2,2,0,3,3,3,0];const qs=[];
+ for(let i=0;i<PARTY_QN;i++){const cat=pick(BANK_CATS).id;
+  if(diff[i]===0){qs.push(estPick(cat,usedE))}else{const q=bankQ(cat,diff[i],used);qs.push({q:q.q,a:q.a,c:q.c,cat,d:diff[i]})}}
+ return qs;
+}
+function partyTick(){
+ const st=PT.st;if(!st||!PT.id)return;const me=S.myId,now=Date.now(),el=now-PT.phaseLocal;const pl=partyPlayers();
+ // Host-Übergabe, falls der Host weg ist
+ if(st.status!=='done'&&st.host!==me&&!partyActive(st.host)&&el>8000){const next=pl.find(u=>partyActive(u));if(next===me&&!PT.busy){PT.busy=true;serial(()=>partyDoc(PT.id).update({host:me,updatedAt:Date.now()})).catch(()=>{}).finally(()=>{PT.busy=false})}return}
+ if(st.host!==me||PT.busy)return;
+ const W=p=>{PT.busy=true;serial(()=>partyDoc(PT.id).update({...p,updatedAt:Date.now()})).catch(e=>writeFailed(e)).finally(()=>{PT.busy=false})};
+ if(st.status==='lobby'){
+  const joiners=Object.keys(PT.ans).filter(u=>!pl.includes(u)&&!PT.ans[u].left&&now-(PT.ans[u].seen||0)<20000);
+  const leavers=pl.filter(u=>u!==me&&PT.ans[u]&&PT.ans[u].left);
+  if((joiners.length&&pl.length<PARTY_MAX)||leavers.length){const np=[...pl.filter(u=>!leavers.includes(u)),...joiners].slice(0,PARTY_MAX);const sc={...(st.scores||{})};np.forEach(u=>{if(sc[u]==null)sc[u]=0});W({players:np,scores:sc});return}
+  if(now-st.createdAt>60*60e3)W({status:'expired'});return}
+ if(st.status!=='playing')return;
+ const active=pl.filter(partyActive);
+ switch(st.phase){
+  case'q':{const q=st.qs[st.qi];const T=partyQT(st);const key=String(st.qi);
+   const done=active.every(u=>PT.ans[u]&&PT.ans[u].a&&PT.ans[u].a[key]);
+   if(done||el>(T+3)*1000){
+    const rev={};const sc={...(st.scores||{})};
+    if(q.est){const vals={};pl.forEach(u=>{const a=PT.ans[u]&&PT.ans[u].a&&PT.ans[u].a[key];vals[u]=a&&a.v!=null?a.v:null});
+     const j=estJudge(vals,q.v);pl.forEach(u=>{const r=j[u];let pts=0;if(r.v!=null){pts=r.rank===1?150:r.rank===2?100:r.rank===3?70:40;if(r.exact)pts+=50}rev[u]={...r,pts};sc[u]=(sc[u]||0)+pts})}
+    else{pl.forEach(u=>{const a=PT.ans[u]&&PT.ans[u].a&&PT.ans[u].a[key];const i=a?a.i:-1;const ok=i===q.c;const t=a?a.t:T*1000;const pts=ok?100+Math.round(50*Math.max(0,T*1000-t)/(T*1000)):0;rev[u]={i,ok,pts};sc[u]=(sc[u]||0)+pts})}
+    W({phase:'rev',rev,prevScores:st.scores||{},scores:sc})}
+   break}
+  case'rev':if(el>(st.qs[st.qi].est?5000:3800))W({phase:'board'});break;
+  case'board':if(el>3800){if(st.qi>=PARTY_QN-1)W({phase:'done',status:'done'});else W({phase:'q',qi:st.qi+1,rev:null})}break;
+ }
+}
+function partyAnswer(i){
+ const st=PT.st;if(!st||st.status!=='playing'||st.phase!=='q')return;const key=String(st.qi);if(PT.answered[key])return;
+ PT.answered[key]=true;clearTimeout(PT.qTimer);const q=st.qs[st.qi];const T=PARTY_T;
+ const t=Math.min(T*1000,Math.round(Date.now()-PT.qStartAbs));
+ $$('.ans').forEach((b,bi)=>{b.disabled=true;if(bi===i)b.classList.add('picked');else b.classList.add('dim')});
+ const tm=$('#timer');tm&&tm.classList.add('stop');const w=$('#ptWait');if(w)w.hidden=false;if(i>=0)beep('pick');
+ if(i===q.c){statCat(q.cat);S.me.correct++}S.me.answered++;
+ serial(()=>partyAnsDoc(PT.id,S.myId).update({a:{[key]:{i,t}},seen:Date.now()})).catch(e=>writeFailed(e));
+}
+function partyEst(v){
+ const st=PT.st;if(!st||st.status!=='playing'||st.phase!=='q')return;const key=String(st.qi);if(PT.answered[key])return;
+ if(v==null&&!PT.timeUp){toast('Bitte eine Zahl eingeben.');return}
+ PT.answered[key]=true;clearTimeout(PT.qTimer);const t=Math.min(EST_T*1000,Math.round(Date.now()-PT.qStartAbs));
+ serial(()=>partyAnsDoc(PT.id,S.myId).update({a:{[key]:{v,t}},seen:Date.now()})).catch(e=>writeFailed(e));
+ beep('pick');partyRender();
+}
+function partyEnter(){
+ const st=PT.st;if(!st)return;
+ if(st.status==='playing'&&st.phase==='q'){const key=String(st.qi);const T=partyQT(st);const left=Math.max(0,T*1000-(Date.now()-PT.phaseLocal));PT.qStartAbs=Date.now()-(T*1000-left);PT.timeUp=false;
+  if(!PT.answered[key])PT.qTimer=setTimeout(()=>{PT.timeUp=true;if(st.qs[st.qi].est){const i=$('#estIn');partyEst(parseNum(i?i.value:''))}else partyAnswer(-1)},left)}
+ if(st.status==='playing'&&st.phase==='rev'){const r=st.rev&&st.rev[S.myId];if(r&&(r.ok||r.pts>0))beep('ok');else beep('bad');
+  const q=st.qs[st.qi];if(q.est&&r){if(r.exact)statInc('estExact');if(r.ok)statInc('estWins');if(r.ok)statCat(q.cat)}}
+ if(st.status==='lobby'&&st.phase==='lobby')beep('pop');
+ if(st.status==='done')partyFinish();
+}
+function partyRanking(st){const sc=st.scores||{};return partyPlayers().slice().sort((a,b)=>(sc[b]||0)-(sc[a]||0))}
+function partyFinish(){
+ const st=PT.st;if(PT.finished||!S.me)return;PT.finished=true;if((S.me.countedDuels||[]).includes(PT.id))return;
+ S.me.countedDuels=[...(S.me.countedDuels||[]),PT.id].slice(-300);
+ const rk=partyRanking(st);const place=rk.indexOf(S.myId)+1;const my=(st.scores||{})[S.myId]||0;
+ const bonus=place===1?60:place===2?35:place===3?20:10;const before=levelFor(S.me.points);
+ addPoints('party',Math.round(my/20)+bonus);S.me.games=(S.me.games||0)+1;
+ const s=statsOf();s.partyGames=(s.partyGames||0)+1;if(place===1&&rk.length>1)s.partyWins=(s.partyWins||0)+1;if(rk.length>=4)s.bigParty=1;
+ if(place===1){confetti(160);beep('win')}
+ saveProfile();const after=levelFor(S.me.points);if(after>before)setTimeout(()=>levelUpFX(after),2000);
+ PT.earned=Math.round(my/20)+bonus;
+}
+function partyBits(){
+ const st=PT.st;if(!st)return;
+ const strip=$('#ptStrip');if(strip&&st.status==='playing'&&st.phase==='q'){const key=String(st.qi);
+  partyPlayers().forEach(u=>{const el=strip.querySelector(`[data-u="${CSS.escape(u)}"]`);if(!el)return;const done=PT.ans[u]&&PT.ans[u].a&&PT.ans[u].a[key];el.classList.toggle('done',!!done);el.classList.toggle('gone',!partyActive(u))})}
+ if(st.status==='lobby'){const n=$('#ptCount');if(n)n.textContent=partyPlayers().length}
+}
+function partyHeader(st){
+ const n=partyPlayers().length;
+ return `<div class="qtop"><button class="xbtn" data-a="partyLeaveAsk" aria-label="Party verlassen">✕</button><div class="qlabel">🎉 ${st&&st.status==='playing'?`Frage ${st.qi+1}/${PARTY_QN}`:'Party-Modus'}</div><span class="pbadge">👥 <span id="ptCount">${n}</span></span></div>`;
+}
+function partyStripHTML(st){const sc=st.scores||{};return `<div class="pstrip" id="ptStrip">${partyRanking(st).map(u=>{const P=getProfile(u);return `<div class="pchip2" data-u="${esc(u)}"><span class="av">${avatarSVG(P.avatar)}</span><span class="nm">${esc(u===S.myId?'Du':P.name)}</span><span class="sc">${fmt(sc[u]||0)}</span></div>`}).join('')}</div>`}
+function partyBody(st){
+ const me=S.myId,host=st.host===me,pl=partyPlayers();
+ const msg=(emo,title,sub,btns)=>`<div class="livemsg"><div class="bigemo">${emo}</div><h3>${title}</h3>${sub?`<p>${sub}</p>`:''}${btns?`<div class="acts">${btns}</div>`:''}</div>`;
+ if(st.status==='expired')return msg('⌛','Diese Party ist abgelaufen','',`<button class="btn block" data-a="tab" data-v="home">Zur Startseite</button>`);
+ if(st.status==='lobby'){
+  const ps=allProfiles();const online=[...S.onlineIds].filter(id=>ps[id]&&ps[id].name&&!pl.includes(id));const inv=st.invited||[];
+  return `<div class="plobby"><h3 class="center">Warteraum</h3><p class="muted center" style="margin:4px 0 12px">Bis zu ${PARTY_MAX} Spieler · ${PARTY_QN} Fragen · alle spielen gleichzeitig</p>
+  <div class="pgrid">${pl.map(u=>{const P=getProfile(u);return `<div class="pslot"><span class="av">${avatarSVG(P.avatar)}</span><span class="nm">${esc(u===me?'Du':P.name)}</span>${u===st.host?'<span class="crown">👑</span>':''}</div>`}).join('')}${Array.from({length:Math.max(0,PARTY_MAX-pl.length)}).map(()=>`<div class="pslot empty"><span class="av">＋</span><span class="nm">frei</span></div>`).join('')}</div>
+  <div class="acts" style="margin-top:14px">${host?`<button class="btn coral block big" style="margin-top:0" data-a="partyStart" ${pl.length<2?'disabled':''}>${pl.length<2?'Warte auf Mitspieler …':`🎉 Party starten (${pl.length} Spieler)`}</button>`:`<div class="waiting"><span class="hg">⏳</span> Warte, bis ${esc(getProfile(st.host).name)} startet …</div>`}
+  <button class="btn block" data-a="partyShare">🔗 Einladungslink teilen</button></div>
+  ${online.length?`<h2 class="sec">Gerade online</h2><div class="list">${online.map(id=>`<div class="row"><div class="av">${avatarSVG(ps[id].avatar)}</div><div class="mid"><div class="t1">${esc(ps[id].name)}</div><div class="t2">Level ${levelFor(ps[id].points)}</div></div>${inv.includes(id)?'<span class="tag">eingeladen</span>':`<button class="btn small coral" data-a="partyInvite" data-v="${esc(id)}">Einladen</button>`}</div>`).join('')}</div>`:''}</div>`;
+ }
+ if(st.status==='done'){
+  const rk=partyRanking(st);const sc=st.scores||{};const place=rk.indexOf(me)+1;const top=rk.slice(0,3);const order=[top[1],top[0],top[2]].filter(Boolean);
+  return `<div class="pdone"><h3 class="center" style="font-family:var(--font-display);font-weight:400;font-size:30px;margin:6px 0 2px;color:var(--gold)">${place===1?'🏆 Du hast gewonnen!':`Platz ${place} von ${rk.length}`}</h3>
+  <div class="podium">${order.map(u=>{const P=getProfile(u);const pos=rk.indexOf(u)+1;return `<div class="pod p${pos}"><span class="av">${avatarSVG(P.avatar)}</span><span class="nm">${esc(u===me?'Du':P.name)}</span><span class="sc">${fmt(sc[u]||0)}</span><div class="blk">${['','🥇','🥈','🥉'][pos]}</div></div>`}).join('')}</div>
+  <div class="list" style="margin-top:12px">${rk.slice(3).map((u,i)=>{const P=getProfile(u);return `<div class="row ${u===me?'me':''}"><span class="rank">${i+4}</span><div class="av">${avatarSVG(P.avatar)}</div><div class="mid"><div class="t1">${esc(u===me?'Du':P.name)}</div></div><span class="end">${fmt(sc[u]||0)}</span></div>`}).join('')}</div>
+  <p class="center muted" style="font-weight:900;margin-top:12px">+${fmt(PT.earned||0)} Rangpunkte für dich</p>
+  <div class="acts">${host?`<button class="btn coral block" data-a="partyAgain">🔁 Nochmal mit allen</button>`:''}<button class="btn ghost block" data-a="tab" data-v="home">Zur Startseite</button></div></div>`;
+ }
+ const q=st.qs[st.qi];const c=CAT[q.cat]||CAT.allg;const key=String(st.qi);
+ if(st.phase==='q'){
+  const already=!!PT.answered[key];const left=Math.max(0,partyQT(st)*1000-(Date.now()-PT.phaseLocal));
+  const myA=PT.ans[me]&&PT.ans[me].a&&PT.ans[me].a[key];
+  if(q.est)return partyStripHTML(st)+estFormHTML(q,already,myA?myA.v:null,left)+`<div class="livewait" id="ptWait" ${already?'':'hidden'}>⏳ Warte auf die anderen …</div>`;
+  return `${partyStripHTML(st)}<div class="qcard" id="qcard"><div class="qhead"><span class="qcat" style="--c:${c.c}">${c.e} ${esc(c.name)}</span><span class="stars">${'★'.repeat(q.d)}<i>${'★'.repeat(3-q.d)}</i></span></div><div class="qtext">${esc(q.q)}</div>
+  <div class="timer ${already?'stop':''}" id="timer"><i class="tbar" id="tbar" style="animation-duration:${left}ms"></i></div></div>
+  <div class="answers">${q.a.map((t,i)=>`<button class="ans ${already?'dim':''}" data-a="partyAns" data-v="${i}" ${already?'disabled':''}><span class="L">${'ABCD'[i]}</span><span class="tx">${esc(t)}</span></button>`).join('')}</div>
+  <div class="livewait" id="ptWait" ${already?'':'hidden'}>⏳ Warte auf die anderen …</div>`;
+ }
+ if(st.phase==='rev'){
+  const rev=st.rev||{};
+  if(q.est)return estRevHTML(q,rev,pl);
+  const by=[[],[],[],[]];pl.forEach(u=>{const r=rev[u];if(r&&r.i>=0)by[r.i].push(u)});const mine=rev[me]||{};
+  return `<div class="qcard"><div class="qhead"><span class="qcat" style="--c:${c.c}">${c.e} ${esc(c.name)}</span></div><div class="qtext">${esc(q.q)}</div></div>
+  <div class="answers">${q.a.map((t,i)=>`<div class="ans ${i===q.c?'ok':(by[i].includes(me)?'bad':'dim')}"><span class="L">${'ABCD'[i]}</span><span class="tx">${esc(t)}</span><span class="avs">${by[i].slice(0,4).map(u=>`<span class="opp">${avatarSVG(getProfile(u).avatar)}</span>`).join('')}${by[i].length>4?`<b>+${by[i].length-4}</b>`:''}</span></div>`).join('')}</div>
+  <div class="revline"><span class="${mine.ok?'ok-t':'bad-t'}">${mine.ok?`✓ Richtig! +${mine.pts}`:mine.i===-1?'⏰ Zu langsam':'✗ Leider falsch'}</span><span class="muted">${pl.filter(u=>rev[u]&&rev[u].ok).length} von ${pl.length} richtig</span></div>`;
+ }
+ if(st.phase==='board'){
+  const rk=partyRanking(st);const sc=st.scores||{};const pv=st.prevScores||{};const prevRk=partyPlayers().slice().sort((a,b)=>(pv[b]||0)-(pv[a]||0));
+  return `<div class="pboard"><div class="muted center" style="font-weight:900">Zwischenstand nach Frage ${st.qi+1} von ${PARTY_QN}</div>${rk.map((u,i)=>{const P=getProfile(u);const d=(sc[u]||0)-(pv[u]||0);const mv=prevRk.indexOf(u)-i;
+   return `<div class="prow ${u===me?'me':''}" style="animation-delay:${i*60}ms"><span class="rank ${i<3?'m':''}">${i<3?['🥇','🥈','🥉'][i]:i+1}</span><div class="av">${avatarSVG(P.avatar)}</div><div class="mid"><div class="t1">${esc(u===me?'Du':P.name)} ${mv>0?'<span class="up">▲'+mv+'</span>':mv<0?'<span class="down">▼'+(-mv)+'</span>':''}</div></div>${d?`<span class="ptsb">+${d}</span>`:''}<span class="end">${fmt(sc[u]||0)}</span></div>`}).join('')}</div>`;
+ }
+ return '';
+}
+function partyHTML(){
+ const st=PT.st;
+ if(!st)return `${partyHeader(null)}<div class="livemsg"><div class="bigemo"><span class="hg">⏳</span></div><h3>Verbinde …</h3></div>`;
+ return `${partyHeader(st)}<div class="livebody">${partyBody(st)}</div>${chatBarHTML()}`;
+}
+function partyRender(){if(S.view.name!=='party')return;render(false);partyBits();chatBadge()}
+function sharePartyRoom(){
+ const id=PT.id;if(!id)return;const url=partyURL(id);const txt=`${S.me.name} lädt dich zur ${APP_NAME}-Quizparty ein! 🎉🧠`;const canShare=STANDALONE&&!!navigator.share;
+ openOverlay(`<h3>🎉 Zur Party einladen</h3><p>Jeder mit dem Link kann beitreten, solange die Party noch nicht gestartet ist (max. ${PARTY_MAX} Spieler).</p>
+ <input id="invUrl" class="inp" readonly value="${esc(url)}" style="font-size:14px">
+ <div class="acts">${canShare?`<button class="btn coral block" data-a="shareNativeParty">📲 Teilen …</button>`:''}<button class="btn block" data-a="copyInvite">📋 Link kopieren</button>
+ <a class="btn mint block" style="text-decoration:none" href="https://wa.me/?text=${encodeURIComponent(txt+' '+url)}" target="_blank" rel="noopener">💬 Per WhatsApp senden</a>
+ <button class="btn ghost block" data-a="closeOvl">Schließen</button></div>`);
+}
+function showPartyInvite(id,host){
+ const P=getProfile(host);beep('lvl');vib([80,50,80]);
+ if(S.view.name==='live'||S.view.name==='party'||G){toast(`🎉 ${P.name} lädt dich zur Party ein!`,{av:P.avatar,btn:'Beitreten',act:'partyJoinBtn',v:id,ms:30000});return}
+ openOverlay(`<div class="center"><div class="av liveinv">${avatarSVG(P.avatar)}</div></div><h3>🎉 ${esc(P.name)} lädt dich zur Quizparty ein!</h3><p>Bis zu 8 Spieler, alle gleichzeitig, 12 Fragen inklusive Schätzfragen.</p><div class="acts"><button class="btn coral block" data-a="partyJoinBtn" data-v="${id}">🎉 Beitreten</button><button class="btn ghost block" data-a="closeOvl">Nicht jetzt</button></div>`);
 }
 
 /* ============================================================
@@ -2436,8 +3736,9 @@ async function openLive(id){
  L.unsub.push(S.db.collection('live/'+id+'/ans').onSnapshot(s=>{if(L.id!==id)return;const m={};s.docs.forEach(d=>{m[d.id]=clone(d.data())});L.ans=m;onLiveAns()},()=>{}));
  L.timers.push(setInterval(()=>{if(L.id===id)serial(()=>liveAnsDoc(id,S.myId).update({seen:Date.now()})).catch(()=>{})},5000));
  L.timers.push(setInterval(liveTick,400));
+ chatSetCtx({msgs:liveAllMsgs,send:liveSend,bubble:m=>{if(m.e)liveBubble('opp',m.e,true)}});
 }
-function closeLive(){L.unsub.forEach(u=>{try{u()}catch(e){}});L.unsub=[];L.timers.forEach(t=>clearInterval(t));L.timers=[];clearTimeout(L.qTimer);L.id=null;L.st=null}
+function closeLive(){if(L.id)chatSetCtx(null);L.unsub.forEach(u=>{try{u()}catch(e){}});L.unsub=[];L.timers.forEach(t=>clearInterval(t));L.timers=[];clearTimeout(L.qTimer);L.id=null;L.st=null}
 
 function onLiveState(){
  const st=L.st;const k=[st.status,st.phase,st.round,st.q].join('|');
@@ -2457,16 +3758,20 @@ function liveTick(){
  if(st.status!=='playing')return;
  switch(st.phase){
   case'pick':{const pk=st.picker;const ch=pk===me?L.myPick:(L.ans[pk]&&L.ans[pk].pick&&L.ans[pk].pick[st.round]);const valid=ch&&(st.offer||[]).includes(ch);
-   if(valid||el>(PICK_T+1)*1000){const cat=valid?ch:pick(st.offer||offerCats());const d=roundDiff(st.round);W({phase:'q',cat,d,qs:makeLiveQs(cat,d),q:0,rev:null})}break}
-  case'q':{const key=lkey(st.round,st.q);const a=L.ans[me]&&L.ans[me].a&&L.ans[me].a[key],b=L.ans[opp]&&L.ans[opp].a&&L.ans[opp].a[key];
-   if((a&&b)||el>(LIVE_T+4)*1000){const TO={i:-1,ok:false,t:LIVE_T*1000};const rv={[me]:a||TO,[opp]:b||TO};W({phase:'rev',rev:rv,res:{[key]:rv}})}break}
-  case'rev':if(el>2800){if(st.q<LIVE_Q-1)W({phase:'q',q:st.q+1,rev:null});else{const dm=liveDamage(st,st.round);const hp={...st.hp};st.players.forEach(p=>hp[p]=Math.max(0,(hp[p]??100)-(dm[p]||0)));W({phase:'round',hp,log:[...(st.log||[]),dm],rev:null})}}break;
+   if(valid||el>(PICK_T+1)*1000){const cat=valid?ch:pick(st.offer||offerCats());const d=roundDiff(st.round);W({phase:'q',cat,d,qs:makeLiveQs(cat,d,st.round),q:0,rev:null})}break}
+  case'q':{const key=lkey(st.round,st.q);const a=L.ans[me]&&L.ans[me].a&&L.ans[me].a[key],b=L.ans[opp]&&L.ans[opp].a&&L.ans[opp].a[key];const QQ=st.qs[st.q];const T=liveQT(st);
+   if((a&&b)||el>(T+4)*1000){let rv;
+    if(QQ.est){const j=estJudge({[me]:a&&a.v!=null?a.v:null,[opp]:b&&b.v!=null?b.v:null},QQ.v);rv={[me]:{...j[me],t:a?a.t:T*1000,i:-3},[opp]:{...j[opp],t:b?b.t:T*1000,i:-3}}}
+    else{const TO={i:-1,ok:false,t:LIVE_T*1000};rv={[me]:a||TO,[opp]:b||TO}}
+    W({phase:'rev',rev:rv,res:{[key]:rv}})}break}
+  case'rev':if(el>(st.qs[st.q]&&st.qs[st.q].est?4800:2800)){if(st.q<LIVE_Q-1)W({phase:'q',q:st.q+1,rev:null});else{const dm=liveDamage(st,st.round);const hp={...st.hp};st.players.forEach(p=>hp[p]=Math.max(0,(hp[p]??100)-(dm[p]||0)));W({phase:'round',hp,log:[...(st.log||[]),dm],rev:null})}}break;
   case'round':if(el>4000){const over=st.round>=LIVE_ROUNDS-1||st.players.some(p=>(st.hp[p]??100)<=0);
    if(over){const [a,b]=st.players;const w=st.hp[a]>st.hp[b]?a:st.hp[b]>st.hp[a]?b:'draw';W({phase:'done',status:'done',winner:w,reason:'end'})}
    else W({phase:'pick',round:st.round+1,q:0,picker:st.players[(st.round+1)%2],offer:offerCats()})}break;
  }
 }
-function makeLiveQs(cat,d){const qs=[];for(let i=0;i<LIVE_Q;i++){const q=bankQ(cat,d,L.used);qs.push({q:q.q,a:q.a,c:q.c})}return qs}
+function makeLiveQs(cat,d,round){const qs=[];for(let i=0;i<LIVE_Q;i++){if(i===LIVE_Q-1&&round%2===1){qs.push(estPick(cat,L.usedEst||(L.usedEst=new Set())));continue}const q=bankQ(cat,d,L.used);qs.push({q:q.q,a:q.a,c:q.c})}return qs}
+const liveQT=st=>st&&st.qs&&st.qs[st.q]&&st.qs[st.q].est?EST_T:LIVE_T;
 function liveDamage(st,r){
  const [a,b]=st.players;const A={c:0,t:0},B={c:0,t:0};
  for(let q=0;q<LIVE_Q;q++){const x=st.res&&st.res[lkey(r,q)];if(!x)continue;if(x[a]&&x[a].ok){A.c++;A.t+=x[a].t||0}if(x[b]&&x[b].ok){B.c++;B.t+=x[b].t||0}}
@@ -2476,11 +3781,18 @@ function liveDamage(st,r){
 }
 function liveEnd(w,reason){if(!L.id||!L.st||L.st.status==='done')return;serial(()=>liveDoc(L.id).update({status:'done',phase:'done',winner:w,reason,updatedAt:Date.now()})).catch(()=>{})}
 
+function liveEst(v){
+ const st=L.st;if(!st||st.status!=='playing'||st.phase!=='q')return;const key=lkey(st.round,st.q);if(L.answered[key])return;
+ if(v==null&&!L.timeUp){toast('Bitte eine Zahl eingeben.');return}
+ L.answered[key]=true;clearTimeout(L.qTimer);const t=Math.min(EST_T*1000,Math.round(Date.now()-L.qStartAbs));L.answeredN++;
+ serial(()=>liveAnsDoc(L.id,S.myId).update({a:{[key]:{v,t}},seen:Date.now()})).catch(e=>writeFailed(e));beep('pick');liveRender();
+}
 function liveAnswer(i){
  const st=L.st;if(!st||st.status!=='playing'||st.phase!=='q')return;const key=lkey(st.round,st.q);if(L.answered[key])return;
+ if(st.qs[st.q]&&st.qs[st.q].est){const el=$('#estIn');liveEst(parseNum(el?el.value:''));return}
  L.answered[key]=true;clearTimeout(L.qTimer);
  const q=st.qs[st.q];const t=Math.min(LIVE_T*1000,Math.round(Date.now()-L.qStartAbs));const ok=i===q.c;
- if(ok){L.pts+=10*(st.d||1)+Math.ceil(Math.max(0,LIVE_T-t/1000));L.correct++}L.answeredN++;
+ if(ok){L.pts+=10*(st.d||1)+Math.ceil(Math.max(0,LIVE_T-t/1000));L.correct++;statCat(st.cat)}L.answeredN++;
  $$('.ans').forEach((b,bi)=>{b.disabled=true;if(bi===i)b.classList.add('picked');else b.classList.add('dim')});
  const tm=$('#timer');tm&&tm.classList.add('stop');const w=$('#liveWait');if(w)w.hidden=false;
  if(i>=0)beep('pick');
@@ -2492,8 +3804,8 @@ function livePick(cat){
  if(st.host!==S.myId)serial(()=>liveAnsDoc(L.id,S.myId).update({pick:{[st.round]:cat}})).catch(()=>{});
  else liveTick();
 }
-function liveSendEmo(e){if(!L.id)return;if(Date.now()-(L.lastEmoSend||0)<300)return;L.lastEmoSend=Date.now();floatEmoji(e,3);liveBubble('me',e,true);serial(()=>liveAnsDoc(L.id,S.myId).update({emo:{e,ts:Date.now()}})).catch(()=>{})}
-function liveSendMsg(t){
+function liveSendEmo_old(e){if(!L.id)return;if(Date.now()-(L.lastEmoSend||0)<300)return;L.lastEmoSend=Date.now();floatEmoji(e,3);liveBubble('me',e,true);serial(()=>liveAnsDoc(L.id,S.myId).update({emo:{e,ts:Date.now()}})).catch(()=>{})}
+function liveSendMsg_old(t){
  if(!L.id||!t)return;if(Date.now()-(L.lastMsgSend||0)<400)return;L.lastMsgSend=Date.now();
  const m={t:t.slice(0,120),ts:Date.now()};L.msgs=[...(L.msgs||[]),m].slice(-15);
  liveBubble('me',m.t,false);liveLog();
@@ -2508,8 +3820,9 @@ function liveBubble(who,text,isEmo){
 function liveAllMsgs(){
  const opp=liveOpp();const out=[];(L.msgs||[]).forEach(m=>out.push({...m,by:S.myId}));
  const om=opp&&L.ans[opp]&&L.ans[opp].msgs||[];om.forEach(m=>out.push({...m,by:opp}));
- return out.sort((a,b)=>a.ts-b.ts).slice(-6);
+ return out.sort((a,b)=>a.ts-b.ts).slice(-60);
 }
+function liveSend(m){if(!L.id)return;m={...m,ts:Date.now()};L.msgs=[...(L.msgs||[]),m].slice(-20);if(m.e)liveBubble('me',m.e,true);chatUpdate();serial(()=>liveAnsDoc(L.id,S.myId).update({msgs:L.msgs})).catch(()=>{})}
 function liveLog(){const box=$('#liveLog');if(!box)return;const ms=liveAllMsgs();box.innerHTML=ms.map(m=>`<div class="ll ${m.by===S.myId?'me':''}"><b>${esc(m.by===S.myId?'Du':getProfile(m.by).name)}:</b> ${esc(m.t)}</div>`).join('');box.hidden=!ms.length;box.scrollTop=box.scrollHeight}
 
 function liveBits(){
@@ -2521,16 +3834,15 @@ function liveBits(){
   else if(st.status==='playing'&&st.phase==='pick'&&st.picker===opp)t='🎯 wählt Thema …';
   else if(st.status==='playing')t='🟢 online';
   os.textContent=t;os.classList.toggle('done',t.startsWith('✅'))}
- if(oa&&oa.emo&&oa.emo.ts>L.lastEmo){L.lastEmo=oa.emo.ts;if(EMOJIS.includes(oa.emo.e)){floatEmoji(oa.emo.e,3);liveBubble('opp',oa.emo.e,true)}}
- const om=oa&&oa.msgs||[];const nm=om.filter(m=>m.ts>L.lastMsg);
- if(nm.length){L.lastMsg=Math.max(...nm.map(m=>m.ts));const last=nm[nm.length-1];liveBubble('opp',String(last.t||'').slice(0,120),false);beep('pop');liveLog()}
+ chatUpdate();
 }
 function liveEnter(){
  const st=L.st;if(!st)return;const me=S.myId,opp=liveOpp();
  if(st.status==='playing'&&st.phase==='q'){const key=lkey(st.round,st.q);
-  const left=Math.max(0,LIVE_T*1000-(Date.now()-L.phaseLocal));L.qStartAbs=Date.now()-(LIVE_T*1000-left);
-  if(!L.answered[key])L.qTimer=setTimeout(()=>liveAnswer(-1),left);}
+  const T=liveQT(st);const left=Math.max(0,T*1000-(Date.now()-L.phaseLocal));L.qStartAbs=Date.now()-(T*1000-left);L.timeUp=false;
+  if(!L.answered[key])L.qTimer=setTimeout(()=>{L.timeUp=true;liveAnswer(-1)},left);}
  if(st.status==='playing'&&st.phase==='rev'){const r=st.rev&&st.rev[me];if(r&&r.ok)beep('ok');else beep('bad');
+  const QQ=st.qs[st.q];if(QQ&&QQ.est&&r){if(r.ok){L.pts+=20;L.correct++;statInc('estWins');statCat(QQ.cat)}if(r.exact){statInc('estExact');floatEmoji('🎯',3)}}
   if(r&&r.ok){const b=$('.ans.ok');b&&floatPts(b,'✓')}}
  if(st.status==='playing'&&st.phase==='round'){animLiveHp()}
  if(st.status==='playing'&&st.phase==='pick'&&st.round>0)animLiveHp();
@@ -2551,6 +3863,8 @@ function liveFinish(){
  const before=levelFor(S.me.points);
  addPoints('duel',L.pts);S.me.correct+=L.correct;S.me.answered+=L.answeredN;
  if(st.winner===me){S.me.wins++;addPoints('duel',100);confetti(140);beep('win')}else if(st.winner==='draw'){S.me.draws++;addPoints('duel',40)}else{S.me.losses++;addPoints('duel',20)}
+ const opp=liveOpp();recordResult(opp,st.winner===me?'w':st.winner==='draw'?'d':'l',true);
+ if(st.winner===me&&st.reason==='end'){const myHp=(st.hp||{})[me]??0;if(myHp>=100)statsOf().flawless=(statsOf().flawless||0)+1;if(myHp<=20)statsOf().comeback=(statsOf().comeback||0)+1}
  saveProfile();const after=levelFor(S.me.points);if(after>before)setTimeout(()=>levelUpFX(after),1800);
 }
 
@@ -2590,6 +3904,11 @@ function liveBody(st){
    if(mine)return `<p class="center muted" style="margin:14px 0 0;font-weight:900">Runde ${st.round+1}: Du wählst das Thema <span style="color:var(--gold)">${'★'.repeat(roundDiff(st.round))}</span></p>${timer}<div class="pickwrap">${offer.map(id=>{const k=CAT[id];return `<button class="pickc" style="--c:${k.c}" data-a="livePick" data-v="${id}"><span class="ce">${k.e}</span><span><span class="cn">${esc(k.name)}</span></span></button>`}).join('')}</div>`;
    return `<p class="center muted" style="margin:14px 0 0;font-weight:900">Runde ${st.round+1}: ${esc(P.name)} wählt das Thema …</p>${timer}<div class="wheel">${offer.map(id=>`<span>${CAT[id].e}</span>`).join('')}</div>`}
   case'q':case'rev':{const q=st.qs[st.q];const rev=st.phase==='rev';const key=lkey(st.round,st.q);
+   const pipsH=`<div class="qmeta"><span class="pips">${[0,1,2].map(i=>`<span class="pip ${i<st.q?'y':i===st.q?'c':''}"></span>`).join('')}</span><span class="stars">${q.est?'📏 Schätzen':'★'.repeat(st.d||1)+'<i>'+'★'.repeat(3-(st.d||1))+'</i>'}</span></div>`;
+   if(q.est){const myA=(L.ans[me]&&L.ans[me].a&&L.ans[me].a[key])||null;const already=!!(myA||L.answered[key]);
+    if(rev)return pipsH+estRevHTML(q,st.rev||{},[me,opp]);
+    const left=Math.max(0,EST_T*1000-(Date.now()-L.phaseLocal));
+    return pipsH+estFormHTML(q,already,myA?myA.v:null,left)+`<div class="livewait" id="liveWait" ${already?'':'hidden'}>⏳ Warte auf ${esc(P.name)} …</div>`}
    const myA=(L.ans[me]&&L.ans[me].a&&L.ans[me].a[key])||null;const already=!!(myA||L.answered[key]);
    const rv=rev?st.rev||{}:{};const mi=rev?(rv[me]?rv[me].i:-1):(myA?myA.i:-2),oi=rev&&rv[opp]?rv[opp].i:-2;
    const left=Math.max(0,LIVE_T*1000-(Date.now()-L.phaseLocal));
@@ -2612,9 +3931,9 @@ function liveHTML(){
  const st=L.st;
  if(!st)return `${liveHeader(null)}<div class="livemsg"><div class="bigemo"><span class="hg">⏳</span></div><h3>Verbinde …</h3></div>`;
  const playing=st.status==='playing';
- return `${liveHeader(st)}<div class="livebody">${liveBody(st)}</div>${playing||st.status==='done'?liveDock():''}`;
+ return `${liveHeader(st)}<div class="livebody">${liveBody(st)}</div>${playing||st.status==='done'?chatBarHTML():''}`;
 }
-function liveRender(){if(S.view.name!=='live')return;const keep=$('#liveIn')?$('#liveIn').value:'';const foc=document.activeElement&&document.activeElement.id==='liveIn';render(false);const i=$('#liveIn');if(i){i.value=keep;if(foc)i.focus()}liveBits();liveLog()}
+function liveRender(){if(S.view.name!=='live')return;render(false);liveBits();chatBadge()}
 
 /* ============================================================
    CHAT
@@ -2632,7 +3951,7 @@ function startDuelChat(id){
 function stopDuelChat(){if(S.duelChat&&S.duelChat.unsub)try{S.duelChat.unsub()}catch(e){}S.duelChat=null}
 async function sendMsg(ctx,payload){
  if(Date.now()-S.lastSend<500)return;S.lastSend=Date.now();
- const msg={by:S.myId,ts:Date.now(),...payload};
+ const msg={by:S.myId,ts:Date.now(),...payload};statInc('msgs');
  if(payload.e)floatEmoji(payload.e,3);
  if(ctx.startsWith('duel:')){
   const id=ctx.slice(5);const d=getDuel(id);if(!d)return;
@@ -2651,8 +3970,8 @@ function refreshDuelChat(d){const box=$('#dmsgs');const list=d.bot?S.botChat[d.i
 function openOverlay(html){$('#ovl-root').innerHTML=`<div class="ovl" data-a="ovlBg"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`}
 function closeOverlay(){$('#ovl-root').innerHTML=''}
 function showProfile(id){
- const p=getProfile(id);const me=id===S.myId;
- openOverlay(`${bannerHTML(p,false)}<div class="stats"><div class="stat"><b>${p.wins||0}</b><span>Siege</span></div><div class="stat"><b>${p.losses||0}</b><span>Niederlagen</span></div><div class="stat"><b>${acc(p)}%</b><span>Treffer</span></div><div class="stat"><b>${p.bestTower||0}</b><span>Beste Etage</span></div><div class="stat"><b>${fmt(p.bestMath)}</b><span>Rechnen</span></div><div class="stat"><b>${fmt(p.points)}</b><span>Punkte</span></div></div>
+ const p=getProfile(id);const me=id===S.myId;const v=(S.me&&S.me.vs&&S.me.vs[id])||null;const achN=ACH.filter(a=>(p.ach||{})[a[0]]).length;
+ openOverlay(`${bannerHTML(p,false)}${!me&&v?`<div class="vsline">Eure Bilanz: <b class="w">${v.w}</b> Siege · <b class="l">${v.l}</b> Niederlagen · <b>${v.d}</b> Remis</div>`:''}${id!=='bot'?`<div class="vsline">🏅 ${achN} von ${ACH.length} Erfolgen</div>`:''}<div class="stats"><div class="stat"><b>${p.wins||0}</b><span>Siege</span></div><div class="stat"><b>${p.losses||0}</b><span>Niederlagen</span></div><div class="stat"><b>${acc(p)}%</b><span>Treffer</span></div><div class="stat"><b>${p.bestTower||0}</b><span>Beste Etage</span></div><div class="stat"><b>${fmt(p.bestMath)}</b><span>Rechnen</span></div><div class="stat"><b>${fmt(p.points)}</b><span>Punkte</span></div></div>
  <div class="acts">${!me&&(id==='bot'||(S.online&&!S.readOnly))?`<button class="btn coral block" data-a="duelWith" data-v="${esc(id)}">⚔️ Herausfordern</button>`:''}<button class="btn ghost block" data-a="closeOvl">Schließen</button></div>`);
 }
 
@@ -2718,6 +4037,23 @@ const A={
   try{await duelUpdate(d,{status:'done',winner:opp,gaveUp:S.myId,updatedAt:Date.now()})}catch(e){writeFailed(e)}
   processDuels();render(false)},
  invite(){liveCreateRoom()},
+ chatOpen(){chatOpen()},
+ chatClose(){chatClose()},
+ chatEmo(ds){chatEmo(ds.v)},
+ partyNew(){partyCreate()},
+ partyJoinBtn(ds){closeOverlay();partyJoin(ds.v)},
+ partyAns(ds){partyAnswer(+ds.v)},
+ partyShare(){sharePartyRoom()},
+ shareNativeParty(){try{navigator.share({title:APP_NAME,text:`${S.me.name} lädt dich zur ${APP_NAME}-Quizparty ein! 🎉🧠`,url:partyURL(PT.id)}).catch(()=>{})}catch(e){}},
+ partyInvite(ds){const st=PT.st;if(!st)return;const inv=[...new Set([...(st.invited||[]),ds.v])].slice(-30);serial(()=>partyDoc(PT.id).update({invited:inv,updatedAt:Date.now()})).catch(e=>writeFailed(e));toast('Einladung verschickt');},
+ partyStart(){const st=PT.st;if(!st||st.host!==S.myId)return;const pl=partyPlayers().filter(partyActive);if(pl.length<2){toast('Mindestens 2 Spieler nötig.');return}const sc={};pl.forEach(u=>sc[u]=0);
+  serial(()=>partyDoc(PT.id).update({status:'playing',phase:'q',qi:0,players:pl,qs:makePartyQs(),scores:sc,prevScores:sc,rev:null,updatedAt:Date.now()})).catch(e=>writeFailed(e))},
+ partyLeaveAsk(){const st=PT.st;if(!st||st.status==='done'||st.status==='expired'){A.partyLeave();return}
+  openOverlay(`<h3>Party verlassen?</h3><p>${st.status==='playing'?'Deine Punkte bleiben stehen, aber du spielst nicht mehr mit.':'Du verlässt den Warteraum.'}</p><div class="acts"><button class="btn coral block" data-a="partyLeave">Verlassen</button><button class="btn ghost block" data-a="closeOvl">Bleiben</button></div>`)},
+ partyLeave(){closeOverlay();const st=PT.st,id=PT.id;if(id){serial(()=>partyAnsDoc(id,S.myId).update({left:true,seen:0})).catch(()=>{});
+   if(st&&st.host===S.myId&&st.status!=='done'){const next=partyPlayers().find(u=>u!==S.myId&&partyActive(u));if(next)serial(()=>partyDoc(id).update({host:next,updatedAt:Date.now()})).catch(()=>{})}}
+  closeParty();go({name:'home'})},
+ partyAgain(){const st=PT.st;if(!st)return;const others=partyPlayers().filter(u=>u!==S.myId);closeParty();partyCreate(others)},
  liveRoom(){liveCreateRoom()},
  liveWith(ds){liveChallenge(ds.v)},
  liveAccept(ds){liveAccept(ds.v)},
@@ -2735,9 +4071,13 @@ const A={
  sendEmoji(ds){if(!S.online&&!ds.ctx.startsWith('duel:'))return;sendMsg(ds.ctx,{e:ds.v})}
 };
 document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t||t.disabled)return;const fn=A[t.dataset.a];if(fn){fn(t.dataset,t,e)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&CH.open)chatClose()});
+addEventListener('hashchange',()=>{readInvite();if(S.me&&S.me.name&&(S.pendingParty||S.pendingLive||S.pendingInvite))handleInvite()});
 document.addEventListener('submit',e=>{
  e.preventDefault();const f=e.target;
  if(f.dataset.f==='lobby'){const i=$('#lobbyIn');const t=(i.value||'').trim();if(!t)return;i.value='';sendMsg('lobby',{t:t.slice(0,300)})}
+ if(f.dataset.f==='est'){const i=$('#estIn');const v=parseNum(i?i.value:'');if(S.view.name==='live')liveEst(v);else if(S.view.name==='party')partyEst(v)}
+ if(f.dataset.f==='csh'){const i=$('#cshIn');const t=(i.value||'').trim();if(!t)return;i.value='';chatSend(t)}
  if(f.dataset.f==='live'){const i=$('#liveIn');const t=(i.value||'').trim();if(!t)return;i.value='';liveSendMsg(t)}
  if(f.dataset.f==='duel'){const i=$('#duelIn');const t=(i.value||'').trim();if(!t)return;i.value='';sendMsg('duel:'+f.dataset.v,{t:t.slice(0,200)})}
 });
@@ -2780,8 +4120,9 @@ async function initFirebase(){
 
 /* ---------- Einladungslinks ---------- */
 function inviteURL(){const base=STANDALONE?(location.origin+location.pathname):ARTIFACT_URL;return `${base}#vs-${S.myId}`}
-function readInvite(){try{const h=(location.hash||'').replace(/^#/,'');if(h.startsWith('live-')){const id=h.slice(5);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingLive=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}if(h.startsWith('vs-')){const id=h.slice(3);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingInvite=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}}catch(e){}}
+function readInvite(){try{const h=(location.hash||'').replace(/^#/,'');if(h.startsWith('party-')){const id=h.slice(6);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingParty=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}if(h.startsWith('live-')){const id=h.slice(5);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingLive=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}if(h.startsWith('vs-')){const id=h.slice(3);if(/^[A-Za-z0-9_\-]{6,64}$/.test(id))S.pendingInvite=id;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}}catch(e){}}
 function handleInvite(){
+ if(S.pendingParty&&S.me&&S.me.name){const pid=S.pendingParty;S.pendingParty=null;partyJoin(pid);return}
  if(S.pendingLive&&S.me&&S.me.name){const lid=S.pendingLive;S.pendingLive=null;if(!S.online||S.readOnly){toast('Live-Duelle gehen nur online.');return}liveJoin(lid);return}
  const id=S.pendingInvite;if(!id||!S.me||!S.me.name)return;
  if(!S.online||S.readOnly){S.pendingInvite=null;toast('Einladungen funktionieren nur, wenn du online angemeldet bist.');return}
@@ -2826,7 +4167,7 @@ async function boot(){
    if(snap.exists){S.me={...newProfile('',DEFAULT_AV),...clone(snap.data())}}
    else if(!(S.me&&S.me.name))S.me=null;
   }catch(e){}
-  if(S.me&&S.me.name)saveProfile();
+  if(S.me&&S.me.name){if(new Date().getHours()<4)statsOf().night=1;saveProfile()}
   subscribe();setupRoom();setTimeout(cleanup,8000);
  }else S.myId='local';
  Object.values(S.botDuels).forEach(d=>{if(!d.players.includes(S.myId)&&d.players[0]==='local'&&S.myId!=='local'){d.players[0]=S.myId;Object.values(d.rounds||{}).forEach(R=>{if(R.ans&&R.ans.local){R.ans[S.myId]=R.ans.local;delete R.ans.local}if(R.picker==='local')R.picker=S.myId})}});
@@ -2847,6 +4188,9 @@ function subscribe(){
  },()=>{})}catch(e){}
  try{db.collection('live').where('players','array-contains',S.uid).onSnapshot(snap=>{
   snap.docs.forEach(d=>{const x=d.data();if(x&&x.status==='invite'&&x.host!==S.uid&&Math.abs(Date.now()-(x.createdAt||0))<70000&&!S.liveSeen.has(d.id)){S.liveSeen.add(d.id);showLiveInvite(d.id,x.host)}});
+ },()=>{})}catch(e){}
+ try{db.collection('party').where('invited','array-contains',S.uid).onSnapshot(snap=>{
+  snap.docs.forEach(d=>{const x=d.data();if(x&&x.status==='lobby'&&x.host!==S.uid&&!(x.players||[]).includes(S.uid)&&Date.now()-(x.createdAt||0)<30*60e3&&!S.liveSeen.has(d.id)){S.liveSeen.add(d.id);showPartyInvite(d.id,x.host)}});
  },()=>{})}catch(e){}
  let first=true;
  try{db.collection('lobby').orderBy('ts','desc').limit(60).onSnapshot(snap=>{
